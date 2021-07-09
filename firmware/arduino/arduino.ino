@@ -1,62 +1,48 @@
-#include "ArduinoJson.h"
+const byte numChars = 32;
+char receivedChars[numChars];   // an array to store the received data
 
-const int interval = 1000;
-int currentTime = 0;
-int lastTime = 0;
-bool ledState = false;
+boolean newData = false;
 
-// the setup function runs once when you press reset 
-// or power the board
-void setup() 
-{
-    // initialize digital pin LED_BUILTIN as an output.
-    pinMode(LED_BUILTIN, OUTPUT);
+void setup() {
     Serial.begin(9600);
+
 }
 
-// the loop function runs over and over again forever
-void loop() 
-{
-    currentTime = millis();
-    if(currentTime - lastTime >= interval)
-    {
-      lastTime = currentTime;
+void loop() {
+  //This code will continuously send '<Arduino is ready>' python.
+  Serial.println("hi rasp");
+  delay(100);// must be added.
+  recvWithEndMarker();
+  showNewData();
+}
 
-      ledState = !ledState;
+void recvWithEndMarker() {
+    static byte ndx = 0;
+    char endMarker = '\n';
+    char rc;
 
-      if(ledState)
-        digitalWrite(LED_BUILTIN, HIGH);
-      else
-        digitalWrite(LED_BUILTIN, LOW);
+    while (Serial.available() > 0 && newData == false) {
+        rc = Serial.read();
+
+        if (rc != endMarker) {
+            receivedChars[ndx] = rc;
+            ndx++;
+            if (ndx >= numChars) {
+                ndx = numChars - 1;
+            }
+        }
+        else {
+            receivedChars[ndx] = '\0'; // terminate the string
+            ndx = 0;
+            newData = true;
+        }
     }
-    
-    test();
 }
 
-void test()
-{
-  // Put the JSON input in memory (shortened)
-  String input = "{\"name\":\"ArduinoJson\"}";
-  
-  // Compute the required size
-  const int capacity = JSON_ARRAY_SIZE(2)+ 2*JSON_OBJECT_SIZE(3)+ 4*JSON_OBJECT_SIZE(1);
-  
-  // Allocate the JsonDocument
-  StaticJsonDocument<capacity> doc;
-  
-  // Parse the JSON input
-  DeserializationError err = deserializeJson(doc, input);
-  
-  // Parse succeeded?
-  if (err) 
-  {
-    Serial.print(F("deserializeJson() returned "));
-    Serial.println(err.c_str());
-  }
-  else
-  {
-    Serial.println("Tudo certin");
-    String name = doc["name"];
-    Serial.println(name);
-  }
+void showNewData() {
+    if (newData == true) {
+        //Serial.println("This just in ... ");
+        Serial.println(receivedChars);
+        newData = false;
+    }
 }
