@@ -30,6 +30,9 @@ BROWN------------PURPLE------------YELLOW
 
 class Library:
     def __init__(self):
+        self.books = []
+        self.order_shelves_by = "name"
+
         self.__floor_path_edges = [
             ["Orange", "Red"],
             ["Orange", "Brown"],
@@ -54,6 +57,9 @@ class Library:
                 "Biographies": ["Purple", "Yellow"],
             },
         }
+
+    def add_book(self, book):
+        self.books.append(book)
 
     def fix_path_last_node(self, path, category):
         path.pop()
@@ -105,7 +111,7 @@ class Library:
 
     def find_path(self, start_color, goal_category_or_color):
         edges = self.__floor_path_edges
-        
+
         # if start_category in self.get_categories():
         #     edges.extend(self.generate_categories_edges(start_category))
         if goal_category_or_color in self.get_categories():
@@ -113,7 +119,7 @@ class Library:
             goal_category_is_color = False
         else:
             goal_category_is_color = True
-        
+
         graph = self.build_graph(edges)
 
         explored = []
@@ -151,7 +157,9 @@ class Library:
                         if goal_category_is_color:
                             return new_path
                         else:
-                            return self.fix_path_last_node(new_path, goal_category_or_color)
+                            return self.fix_path_last_node(
+                                new_path, goal_category_or_color
+                            )
                 explored.append(node)
 
         # Condition when the nodes

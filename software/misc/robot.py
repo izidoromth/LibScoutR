@@ -11,5 +11,6 @@
 from library import Library
 
 lib = Library()
-print(lib.find_path("Red", "Detective"))
+print("We know we are on Orange and searching for a book under the Horror category")
+print("Path is: ", lib.find_path("Orange", "Horror"))
 # print(lib.generate_categories_edges("Adventure"))
