@@ -1,14 +1,4 @@
-/* pin declarations */
-const char IRLeft         = 7;
-const char IRMiddleLeft   = 6;
-const char IRMiddle       = 5;
-const char IRMiddleRight  = 4;
-const char IRRight        = 3;
-
-/* pin declarations */
-
 int time = 0;
-
 
 const byte numChars = 32;
 char receivedChars[numChars];   // an array to store the received data
@@ -17,13 +7,6 @@ boolean newData = false;
 
 void setup() {
   Serial.begin(9600);
-
-  /*IR pins setup*/
-  pinMode(IRLeft,        INPUT);
-  pinMode(IRMiddleLeft,  INPUT);
-  pinMode(IRMiddle,      INPUT);
-  pinMode(IRMiddleRight, INPUT);
-  pinMode(IRRight,       INPUT);
 }
 
 void loop() 

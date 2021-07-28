@@ -1,6 +1,6 @@
 #include "dc_motors.h"
 
-char NormalizePWM(char pwm)
+char NormalizePWM(int pwm)
 {
     return (pwm < 0) ? 0 : (pwm > 255) ? 255 : pwm;
 }
@@ -11,13 +11,13 @@ void DcMotors::Init()
     pinMode(RightMotorA, OUTPUT);
     pinMode(RightMotorB, OUTPUT);
 }
-void DcMotors::ActivateLeftMotor(char pwm, boolean dir)
+void DcMotors::ActivateLeftMotor(int pwm, boolean dir)
 {
     digitalWrite(LeftMotorA, dir ? LOW : HIGH);
     digitalWrite(LeftMotorB, dir ? HIGH : LOW);
     analogWrite(LeftMotorPWM, NormalizePWM(pwm));
 }
-void DcMotors::ActivateRightMotor(char pwm, boolean dir)
+void DcMotors::ActivateRightMotor(int pwm, boolean dir)
 {
     digitalWrite(RightMotorA, dir ? LOW : HIGH);
     digitalWrite(RightMotorB, dir ? HIGH : LOW);
