@@ -23,7 +23,7 @@ BROWN------------PURPLE------------YELLOW
 |                   |                   |
 |                   |                   |
 |                   |                   |
-------Suspense------------Biographies----
+------Suspense------------Biography------
 
 """
 
@@ -54,9 +54,17 @@ class Library:
                 "Romance": ["Orange", "Red"],
                 "Science Fiction": ["Red", "Blue"],
                 "Suspense": ["Brown", "Purple"],
-                "Biographies": ["Purple", "Yellow"],
+                "Biography": ["Purple", "Yellow"],
             },
         }
+
+    def how_a_category_should_be(self, category):
+        books = [book for book in self.books if book.get_category() == category]
+        books = sorted(books, key=lambda x: x.get_code())
+        return [book.get_name() for book in books]
+
+    def get_books(self):
+        return self.books
 
     def add_book(self, book):
         self.books.append(book)
@@ -74,6 +82,9 @@ class Library:
 
         path.append(color_to_be_added)
         return path
+
+    def get_floor_edges(self):
+        return self.__floor_path_edges
 
     def generate_categories_edges(self, category):
         for key, value in self.__categories_positions.items():
