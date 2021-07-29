@@ -1,4 +1,6 @@
 from library import Library
+from arduino_interface import ArduinoInterface
+from book import Book
 
 
 class Robot:
@@ -14,10 +16,14 @@ class Robot:
 
         """
         )
-        self.__last_color_seen = None
+        self.__came_from_color = "Brown"
+        self.__current_color = "Orange"
         self.__current_category = None
+        self.__in_scout_mode = False
+        self.__scout_path = ["Orange", "Red", "Blue", "Yellow", "Purple", "Brown"]
         self.__library = Library()
         self.__library.setup()
+        self.__arduino = ArduinoInterface()
 
     def __LIS(self, book_list):
         # https://stackoverflow.com/questions/27324717/obtaining-the-longest-increasing-subsequence-in-python
@@ -71,13 +77,85 @@ class Robot:
         print("Oraganization plan:")
         return {"Wrong Shelve": wrong_shelf_books, "Out of Order": incorrect_books}
 
-    def goto(self):
-        print("Path is:")
-        path = self.__library.find_path("Horror", "Biography")
-        return path
+    # def goto(self, start, goal):
+    #     print("Path is:")
+    #     path = self.__library.find_path(start, goal)
+
+    #     self.__arduino.goto()
+    #     return path
+
+    def get_next_color_path(self, path, color):
+        return path[(path.index(color) + 1) % len(path)]
+
+    def scout(self):
+        next_color = self.get_next_color_path(self.__scout_path, self.__current_color)
+        print(
+            "In color: {0}. Came from {1}. Going to {2}".format(
+                self.__current_color, self.__came_from_color, next_color
+            )
+        )
+        if self.__library.edge_has_books([self.__current_color, next_color]):
+            self.__arduino.goto(
+                self.__came_from_color, self.__current_color, next_color, scan=True
+            )
+        else:
+            self.__arduino.goto(
+                self.__came_from_color, self.__current_color, next_color, scan=False
+            )
+        self.__came_from_color = self.__current_color
+        self.__current_color = next_color
+        print()
+
+    def guide_user(self, desired_book):
+        path = self.__library.find_path(
+            self.__came_from_color, desired_book.get_category()
+        )
+        path_size = len(path)
+        print(path)
+        next_color = path[0]
+        print(
+            "In color: {0}. Came from {1}. Going to {2}".format(
+                self.__current_color, self.__came_from_color, next_color
+            )
+        )
+
+        for i in range(path_size):
+            if i != (path_size - 1):
+                self.__arduino.goto(
+                    self.__came_from_color, self.__current_color, path[0], scan=False
+                )
+                self.__came_from_color = self.__current_color
+                self.__current_color = next_color
+                path.pop(0)
+                next_color = path[0]
+                print(
+                    "In color: {0}. Came from {1}. Going to {2}".format(
+                        self.__current_color, self.__came_from_color, next_color
+                    )
+                )
+            else:
+                self.__arduino.goto(
+                    self.__came_from_color, self.__current_color, path[0], scan=True
+                )
+                self.__came_from_color = self.__current_color
+                self.__current_color = next_color
+                print(
+                    "In color: {0}. Came from {1}".format(
+                        self.__current_color, self.__came_from_color
+                    )
+                )
+
+    def main(self):
+        while True:
+            if self.__in_scout_mode:
+                self.scout()
+            else:
+                sherlock = Book("Sherlock Holmes", "7543.bb", "Detective")
+                self.guide_user(sherlock)
+                return
 
 
 robot = Robot()
 
-print(robot.organize_shelve("Biography"))
-print(robot.goto())
+# print(robot.organize_shelve("Biography"))
+print(robot.main())
