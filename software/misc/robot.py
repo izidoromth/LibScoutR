@@ -77,18 +77,15 @@ class Robot:
         print("Oraganization plan:")
         return {"Wrong Shelve": wrong_shelf_books, "Out of Order": incorrect_books}
 
-    # def goto(self, start, goal):
-    #     print("Path is:")
-    #     path = self.__library.find_path(start, goal)
-
-    #     self.__arduino.goto()
-    #     return path
-
     def get_next_color_path(self, path, color):
         return path[(path.index(color) + 1) % len(path)]
 
     def scout(self):
         next_color = self.get_next_color_path(self.__scout_path, self.__current_color)
+        if next_color == self.__came_from_color:
+            self.__scout_path.reverse()
+            next_color = self.get_next_color_path(self.__scout_path, self.__current_color)
+           
         print(
             "In color: {0}. Came from {1}. Going to {2}".format(
                 self.__current_color, self.__came_from_color, next_color
@@ -104,7 +101,6 @@ class Robot:
             )
         self.__came_from_color = self.__current_color
         self.__current_color = next_color
-        print()
 
     def guide_user(self, desired_book):
         path = self.__library.find_path(
@@ -151,8 +147,9 @@ class Robot:
                 self.scout()
             else:
                 sherlock = Book("Sherlock Holmes", "7543.bb", "Detective")
+                print("Searching for {0} book".format(sherlock.get_name()))
                 self.guide_user(sherlock)
-                return
+                self.__in_scout_mode = True
 
 
 robot = Robot()
