@@ -196,6 +196,14 @@ class Library:
 
         return colors
 
+    def edge_has_books(self, edge):
+        for key, value in self.__categories_positions.items():
+            for key, value in value.items():
+                if set(value) == set(edge):
+                    return True
+
+        return False
+
     def get_categories(self):
         categories = set()
         for key, value in self.__categories_positions.items():
