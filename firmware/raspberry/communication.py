@@ -10,7 +10,7 @@ import cv2
 # while True:
 #     s = ser.readline()
 #     s = s.strip()
-    
+
 #     print(s.decode("utf-8"))
 
 #     if (s.decode("utf-8") == "hi rasp"):
@@ -26,8 +26,8 @@ while True:
     raspicam_ret, raspicam_frame = raspicam.read()
     webcam_ret, webcam_frame = webcam.read()
 
-    cv2.imshow('raspicam',raspicam_frame)
-    cv2.imshow('webcam',webcam_frame)
+    cv2.imshow("raspicam", raspicam_frame)
+    cv2.imshow("webcam", webcam_frame)
 
-    if cv2.waitKey(1) & 0xFF == ord('q'):
+    if cv2.waitKey(1) & 0xFF == ord("q"):
         break
