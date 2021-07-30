@@ -1,6 +1,6 @@
 #include "dc_motors.h"
 
-const int PWM = 200; 
+const int PWM = 100; 
 
 void setup() {
   Serial.begin(9600); // start serial port at 9600 bps:
@@ -8,20 +8,20 @@ void setup() {
 }
 void loop()
 {
-    DcMotors::ActivateLeftMotor(PWM, true);
-    DcMotors::ActivateRightMotor(PWM, true);
+  if(Serial.available() > 0)
+  {
+    char serialread = Serial.read();
+    if(serialread == 'w')
+    {
+      DcMotors::ActivateLeftMotor(PWM, true);
+      DcMotors::ActivateRightMotor(PWM, true);
 
-    delay(2000);
+      delay(2000);
 
-    DcMotors::ActivateLeftMotor(0, true);
-    DcMotors::ActivateRightMotor(0, true);
-
-    delay(5000);
-
-    DcMotors::ActivateLeftMotor(PWM, false);
-    DcMotors::ActivateRightMotor(PWM, false);
-
-    delay(2000);
+      DcMotors::ActivateLeftMotor(0, true);
+      DcMotors::ActivateRightMotor(0, true);
+    }
+  }
 }
 //void loop()
 //{
