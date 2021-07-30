@@ -49,6 +49,9 @@ class Robot:
         max_length = max(len(seq) for seq in sequences)
         return [seq for seq in sequences if len(seq) == max_length]
 
+    def __get_next_color_path(self, path, color):
+        return path[(path.index(color) + 1) % len(path)]
+
     def read_shelve(self):
         list_of_codes_read = [
             "102.1x",  # Ed Sheeran
@@ -77,15 +80,14 @@ class Robot:
         print("Oraganization plan:")
         return {"Wrong Shelve": wrong_shelf_books, "Out of Order": incorrect_books}
 
-    def get_next_color_path(self, path, color):
-        return path[(path.index(color) + 1) % len(path)]
-
     def scout(self):
-        next_color = self.get_next_color_path(self.__scout_path, self.__current_color)
+        next_color = self.__get_next_color_path(self.__scout_path, self.__current_color)
         if next_color == self.__came_from_color:
             self.__scout_path.reverse()
-            next_color = self.get_next_color_path(self.__scout_path, self.__current_color)
-           
+            next_color = self.__get_next_color_path(
+                self.__scout_path, self.__current_color
+            )
+
         print(
             "In color: {0}. Came from {1}. Going to {2}".format(
                 self.__current_color, self.__came_from_color, next_color
@@ -154,5 +156,4 @@ class Robot:
 
 robot = Robot()
 
-# print(robot.organize_shelve("Biography"))
 print(robot.main())
