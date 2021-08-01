@@ -1,3 +1,6 @@
+import time
+
+
 class ArduinoInterface:
     def __init__(self):
         self.__done = True
@@ -8,5 +11,5 @@ class ArduinoInterface:
     def goto(self, came_from_color, current_color, next_color, scan=False):
         self.__done = False
         while self.__done == False:
-            input("Moving. Scanning = {0}".format(scan))
-            return
+            time.sleep(2)
+            self.done()
