@@ -1,6 +1,6 @@
 #include "dc_motors.h"
 
-const int PWM = 100; 
+const int PWM = 200; 
 
 void setup() {
   Serial.begin(9600); // start serial port at 9600 bps:
