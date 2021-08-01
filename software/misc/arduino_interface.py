@@ -11,6 +11,5 @@ class ArduinoInterface:
     def goto(self, came_from_color, current_color, next_color, scan=False):
         self.__done = False
         while self.__done == False:
-            print("Moving. Scanning = {0}".format(scan))
-            time.sleep(1)
+            time.sleep(2)
             self.done()

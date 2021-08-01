@@ -6,6 +6,8 @@ import time
 import random
 import os
 
+USER_INPUT_SLEEP = 10
+
 
 class Robot:
     def __init__(self):
@@ -21,8 +23,9 @@ class Robot:
         print(self.__ascii_art)
         self.__came_from_color = "Purple"
         self.__current_color = "Brown"
-        self.__current_category = None
+        # self.__current_category = None
         self.__going_to_color = None
+        self.__scanning = None
         self.__books_to_search = []
         self.__scout_path = ["Orange", "Red", "Blue", "Yellow", "Purple", "Brown"]
         self.__library = Library()
@@ -59,34 +62,32 @@ class Robot:
 
     def __wait_for_user(self):
         while True:
-            random_time = random.randrange(20, 40)
+            global USER_INPUT_SLEEP
+            random_time = random.randrange(USER_INPUT_SLEEP, 2 * USER_INPUT_SLEEP)
+            USER_INPUT_SLEEP = USER_INPUT_SLEEP + 10
             time.sleep(random_time)
-
             books = self.__library.get_books()
             book_to_search = books[random.randrange(len(books))]
-            print(
-                "\n\n---------------\nRequest to search for {0} in category {1}\n---------------\n".format(
-                    book_to_search.get_name(), book_to_search.get_category()
-                )
-            )
+            # print(
+            #     "\n\n---------------\nRequest to search for {0} in category {1}\n---------------\n".format(
+            #         book_to_search.get_name(), book_to_search.get_category()
+            #     )
+            # )
             self.__books_to_search.append(book_to_search)
 
     def print_position(self):
-        os.system("cls||clear")
+        # os.system("cls||clear")
         print(self.__ascii_art)
         print(
             """
-            ORANGE-------------RED---------------BLUE
-            |                   |                   |
-            |                   |                   |
-            |                   |                   |
-            BROWN------------PURPLE------------YELLOW
+                1st row:                                    2nd row:
+            ------Adventure----------Comic Books-----       ------Romance----------Science Fiction---
+            |                   |                   |       |                   |                   |
+            |                   |                   |       |                   |                   |
+            |                   |                   |       |                   |                   |
+            ------Detective-------------Horror-------       ------Suspense------------Biography------
             """
         )
-        if len(self.__books_to_search):
-            print(
-                "Guiding user to book {0}".format(self.__books_to_search[0].get_name())
-            )
 
         print(
             f"""
@@ -97,6 +98,18 @@ class Robot:
             {"🤖" if self.__current_color == "Brown" else "-"}---------{"⬅️" if (self.__going_to_color == "Brown"  and self.__current_color == "Purple") else ("➡️" if (self.__going_to_color == "Purple"  and self.__current_color == "Brown") else "-")}---------{"🤖" if self.__current_color == "Purple" else "-"}---------{"⬅️" if (self.__going_to_color == "Purple"  and self.__current_color == "Yellow") else ("➡️" if (self.__going_to_color == "Yellow"  and self.__current_color == "Purple") else "-")}---------{"🤖" if self.__current_color == "Yellow" else "-"}
             """
         )
+
+        if len(self.__books_to_search):
+            book_to_search = self.__books_to_search[0]
+            print(
+                "Guiding user to book {0} in {1}".format(
+                    book_to_search.get_name(), book_to_search.get_category()
+                )
+            )
+            print(f"Scanning = {self.__scanning}")
+        else:
+            print("Scouting.")
+            print(f"Scanning = {self.__scanning}")
 
     def read_shelve(self):
         list_of_codes_read = [
@@ -135,77 +148,65 @@ class Robot:
             self.__going_to_color = self.__get_next_color_path(
                 self.__scout_path, self.__current_color
             )
-        self.print_position()
-        # print(
-        #     "In color: {0}. Came from {1}. Going to {2}".format(
-        #         self.__current_color, self.__came_from_color, next_color
-        #     )
-        # )
+
         if self.__library.edge_has_books([self.__current_color, self.__going_to_color]):
-            self.__arduino.goto(
-                self.__came_from_color,
-                self.__current_color,
-                self.__going_to_color,
-                scan=True,
-            )
+            self.__scanning = True
         else:
-            self.__arduino.goto(
-                self.__came_from_color,
-                self.__current_color,
-                self.__going_to_color,
-                scan=False,
-            )
+            self.__scanning = False
+
+        self.print_position()
+        self.__arduino.goto(
+            self.__came_from_color,
+            self.__current_color,
+            self.__going_to_color,
+            scan=self.__scanning,
+        )
         self.__came_from_color = self.__current_color
         self.__current_color = self.__going_to_color
+        self.__going_to_color = None
 
     def guide_user(self, desired_book):
-        # print("Guiding user to book {0}".format(desired_book.get_name()))
+        self.print_position()
+        time.sleep(3)
         path = self.__library.find_path(
             self.__current_color, desired_book.get_category()
         )
         path_size = len(path)
-        print(
-            "Path to {1} from {0} is".format(
-                self.__current_color, desired_book.get_category()
-            ),
-            *path,
-        )
-        print()
-        self.__going_to_color = path[0]
-        self.print_position()
         # print(
-        #     "In color: {0}. Came from {1}. Going to {2}".format(
-        #         self.__current_color, self.__came_from_color, next_color
-        #     )
+        #     "Path to {1} from {0} is".format(
+        #         self.__current_color, desired_book.get_category()
+        #     ),
+        #     *path,
         # )
+        self.__going_to_color = path[0]
 
         for i in range(path_size):
             if i != (path_size - 1):
+                self.__scanning = False
+                self.print_position()
+
                 self.__arduino.goto(
-                    self.__came_from_color, self.__current_color, path[0], scan=False
+                    self.__came_from_color,
+                    self.__current_color,
+                    path[0],
+                    scan=self.__scanning,
                 )
                 self.__came_from_color = self.__current_color
                 self.__current_color = self.__going_to_color
                 path.pop(0)
                 self.__going_to_color = path[0]
-                self.print_position()
-                # print(
-                #     "In color: {0}. Came from {1}. Going to {2}".format(
-                #         self.__current_color, self.__came_from_color, next_color
-                #     )
-                # )
+
             else:
+                self.__scanning = True
+                self.print_position()
                 self.__arduino.goto(
-                    self.__came_from_color, self.__current_color, path[0], scan=True
+                    self.__came_from_color,
+                    self.__current_color,
+                    path[0],
+                    scan=self.__scanning,
                 )
                 self.__came_from_color = self.__current_color
                 self.__current_color = self.__going_to_color
-                self.print_position()
-                # print(
-                #     "In color: {0}. Came from {1}".format(
-                #         self.__current_color, self.__came_from_color
-                #     )
-                # )
 
         self.__books_to_search.pop(0)
         print("Finish guiding user")
