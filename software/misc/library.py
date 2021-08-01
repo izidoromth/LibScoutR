@@ -117,40 +117,40 @@ class Library:
     def update_books_internal_code(self):
         lib_config = {
             "Biography": [
-                "Alan Turing",
-                "Ed Sheeran",
-                "Steve Jobs",
-                "Paul McCartney",
-                "Jim Carrey",
+                "2321.23",  # Alan Turing
+                "102.1x",  # Ed Sheeran
+                "43442.aa2",  # Steve Jobs
+                "5453.g",  # Paul McCartney
+                "6233.o",  # Jim Carrey
             ],
-            "Detective": ["Scooby Doo", "Sherlock Holmes", "Lupin"],
+            "Detective": [
+                "7543.69",  # Scooby Doo
+                "7543.bb",  # Sherlock Holmes
+                "7542.69",  # Lupin
+            ],
         }
 
         for book in self.__books:
             for category, ordered_books in lib_config.items():
                 if category == book.get_category():
-                    for index, book_name in enumerate(ordered_books):
-                        if book_name == book.get_name():
+                    for index, book_code in enumerate(ordered_books):
+                        if book_code == book.get_universal_code():
                             book.set_internal_code(index)
 
     def update_library_books(self):
-        ed_sheeran = Book("Ed Sheeran", "102.1x", "Biography")
-        alan_turing = Book("Alan Turing", "2321.23", "Biography")
-        steve_jobs = Book("Steve Jobs", "43442.aa2", "Biography")
-        paul_mccartney = Book("Paul McCartney", "5453.g", "Biography")
-        jim_carrey = Book("Jim Carrey", "6233.o", "Biography")
-        sherlock = Book("Sherlock Holmes", "7543.bb", "Detective")
-        lupin = Book("Lupin", "7542.69", "Detective")
-        scooby = Book("Scooby Doo", "7543.69", "Detective")
+        books = [
+            {"name": "Ed Sheeran", "ucode": "102.1x", "category": "Biography"},
+            {"name": "Alan Turing", "ucode": "2321.23", "category": "Biography"},
+            {"name": "Steve Jobs", "ucode": "43442.aa2", "category": "Biography"},
+            {"name": "Paul McCartney", "ucode": "5453.g", "category": "Biography"},
+            {"name": "Jim Carrey", "ucode": "6233.o", "category": "Biography"},
+            {"name": "Sherlock Holmes", "ucode": "7543.bb", "category": "Detective"},
+            {"name": "Lupin", "ucode": "7542.69", "category": "Detective"},
+            {"name": "Scooby Doo", "ucode": "7543.69", "category": "Detective"},
+        ]
 
-        self.add_book(ed_sheeran)
-        self.add_book(alan_turing)
-        self.add_book(steve_jobs)
-        self.add_book(paul_mccartney)
-        self.add_book(jim_carrey)
-        self.add_book(sherlock)
-        self.add_book(lupin)
-        self.add_book(scooby)
+        for book in books:
+            self.add_book(Book(book["name"], book["ucode"], book["category"]))
 
     def get_category_position(self, category):
         for key, value in self.__categories_positions.items():
