@@ -21,7 +21,6 @@ import cv2
 
 raspicam = cv2.VideoCapture(0)
 webcam = cv2.VideoCapture(1)
-
 while True:
     raspicam_ret, raspicam_frame = raspicam.read()
     webcam_ret, webcam_frame = webcam.read()
@@ -31,3 +30,7 @@ while True:
 
     if cv2.waitKey(1) & 0xFF == ord("q"):
         break
+
+raspicam.release() 
+#webcam.release()
+cv2.destroyAllWindows()
