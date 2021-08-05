@@ -1,0 +1,15 @@
+mat-card {
+    max-width: 300px;
+    margin: 10rem auto 1rem auto;
+    text-align: center;
+  }
+  
+  mat-form-field {
+    display: block;
+  }
+
+.notLib {
+    max-width: 300px;
+    margin: 0 auto 1rem auto;
+    text-align: left;
+}
