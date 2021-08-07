@@ -31,6 +31,8 @@ class Robot:
         self.__library = Library()
         self.__library.setup()
         self.__arduino = ArduinoInterface()
+        self.__orientation = "Foward"
+        self.__next_direction = None
 
     def __LIS(self, book_list):
         # https://stackoverflow.com/questions/27324717/obtaining-the-longest-increasing-subsequence-in-python
@@ -55,6 +57,7 @@ class Robot:
 
         max_length = max(len(seq) for seq in sequences)
         return [seq for seq in sequences if len(seq) == max_length]
+
 
     def __get_next_color_path(self, path, color):
         return path[(path.index(color) + 1) % len(path)]
@@ -84,9 +87,9 @@ class Robot:
 
         return movement
 
-    def __next_direction(self, came_from_color, current_color, going_to_color):
+    def __get_next_direction(self, came_from_color, current_color, going_to_color):
         if going_to_color == None:
-            return
+            return "aa"
 
         dir = [
             ["Orange", "Red", "Blue"],
@@ -103,9 +106,14 @@ class Robot:
 
         if last_movement_direction == "Left":
             if going_to_position == "Right":
-                output_direction = "Backwards"
+                if self.__orientation == "Foward":
+                    output_direction = "Backwards"
+                    self.__orientation = output_direction
+                else:
+                    output_direction = "Foward" 
+                    self.__orientation = output_direction
             elif going_to_position == "Left":
-                output_direction = "Foward"
+                    output_direction = self.__orientation
             elif going_to_position == "Up":
                 output_direction = "Right"
             elif going_to_position == "Down":
@@ -113,9 +121,14 @@ class Robot:
 
         elif last_movement_direction == "Right":
             if going_to_position == "Right":
-                output_direction = "Foward"
+                output_direction = self.__orientation
             elif going_to_position == "Left":
-                output_direction = "Backwards"
+                if self.__orientation == "Foward":
+                    output_direction = "Backwards"
+                    self.__orientation = output_direction
+                else:
+                    output_direction = "Foward" 
+                    self.__orientation = output_direction
             elif going_to_position == "Up":
                 output_direction = "Left"
             elif going_to_position == "Down":
@@ -127,9 +140,14 @@ class Robot:
             elif going_to_position == "Left":
                 output_direction = "Left"
             elif going_to_position == "Up":
-                output_direction = "Foward"
+                output_direction = self.__orientation
             elif going_to_position == "Down":
-                output_direction = "Backwards"
+                if self.__orientation == "Foward":
+                    output_direction = "Backwards"
+                    self.__orientation = output_direction
+                else:
+                    output_direction = "Foward" 
+                    self.__orientation = output_direction
 
         elif last_movement_direction == "Down":
             if going_to_position == "Right":
@@ -137,9 +155,21 @@ class Robot:
             elif going_to_position == "Left":
                 output_direction = "Right"
             elif going_to_position == "Up":
-                output_direction = "Backwards"
+                if self.__orientation == "Foward":
+                    output_direction = "Backwards"
+                    self.__orientation = output_direction
+                else:
+                    output_direction = "Foward" 
+                    self.__orientation = output_direction
             elif going_to_position == "Down":
-                output_direction = "Foward"
+                output_direction = self.__orientation
+
+        # if self.__orientation == "Backwards":
+        #     if output_direction == "Left":
+        #         output_direction = "Right"
+        #     elif output_direction == "Right":
+        #         output_direction = "Left"
+
 
         return output_direction
 
@@ -150,7 +180,6 @@ class Robot:
         return book_to_search.get_name()
 
     def print_position(self):
-        # os.system("cls||clear")
         print(self.__ascii_art)
         print(
             """
@@ -183,8 +212,11 @@ class Robot:
         else:
             print("Scouting.")
         
-        print(self.__next_direction(self.__came_from_color, self.__current_color, self.__going_to_color))
-        print(f"Scanning = {self.__scanning}")
+        if self.__going_to_color:
+            print(f'Direction: {self.__orientation}. Next Movement: {self.__next_direction}')
+            print(f"Scanning = {self.__scanning}")
+        else:
+            print('\n')
 
     def read_shelve(self):
         list_of_codes_read = [
@@ -229,6 +261,8 @@ class Robot:
         else:
             self.__scanning = False
 
+        self.__next_direction = self.__get_next_direction(self.__came_from_color, self.__current_color, self.__going_to_color)
+
         self.print_position()
         self.__arduino.goto(
             self.__came_from_color,
@@ -239,16 +273,17 @@ class Robot:
         self.__came_from_color = self.__current_color
         self.__current_color = self.__going_to_color
         self.__going_to_color = None
+        self.print_position()
+        time.sleep(2)
 
     def guide_user(self, desired_book):
-        self.print_position()
-        time.sleep(3)
         path = self.__library.find_path(
             self.__current_color, desired_book.get_category()
         )
         path_size = len(path)
         self.__going_to_color = path[0]
-
+        self.__next_direction = self.__get_next_direction(self.__came_from_color, self.__current_color, self.__going_to_color)
+        
         for i in range(path_size):
             if i != (path_size - 1):
                 self.__scanning = False
@@ -264,6 +299,7 @@ class Robot:
                 self.__current_color = self.__going_to_color
                 path.pop(0)
                 self.__going_to_color = path[0]
+                self.__next_direction = self.__get_next_direction(self.__came_from_color, self.__current_color, self.__going_to_color)
 
             else:
                 self.__scanning = True
@@ -276,6 +312,9 @@ class Robot:
                 )
                 self.__came_from_color = self.__current_color
                 self.__current_color = self.__going_to_color
+                self.__going_to_color = None
+                self.print_position()
+                time.sleep(2)
 
         self.__books_to_search.pop(0)
         print("Finish guiding user")

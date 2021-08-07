@@ -1,3 +1,5 @@
+direction = "Backwards"
+
 def get_index(matrix, value):
     return next(
         (row.index(value), index) for index, row in enumerate(matrix) if value in row
@@ -30,6 +32,7 @@ def next_direction(came_from_color, current_color, going_to_color):
         ["Orange", "Red", "Blue"],
         ["Brown", "Purple", "Yellow"],
     ]
+    global direction
 
     came_from_index = get_index(dir, came_from_color)
     current_index = get_index(dir, current_color)
@@ -41,9 +44,14 @@ def next_direction(came_from_color, current_color, going_to_color):
 
     if last_movement_direction == "Left":
         if going_to_position == "Right":
-            output_direction = "Backwards"
+            if direction == "Foward":
+                output_direction = "Backwards"
+                direction = output_direction
+            else:
+               output_direction = "Foward" 
+               direction = output_direction
         elif going_to_position == "Left":
-            output_direction = "Foward"
+                output_direction = direction
         elif going_to_position == "Up":
             output_direction = "Right"
         elif going_to_position == "Down":
@@ -51,9 +59,14 @@ def next_direction(came_from_color, current_color, going_to_color):
 
     elif last_movement_direction == "Right":
         if going_to_position == "Right":
-            output_direction = "Foward"
+            output_direction = direction
         elif going_to_position == "Left":
-            output_direction = "Backwards"
+            if direction == "Foward":
+                output_direction = "Backwards"
+                direction = output_direction
+            else:
+               output_direction = "Foward" 
+               direction = output_direction
         elif going_to_position == "Up":
             output_direction = "Left"
         elif going_to_position == "Down":
@@ -65,9 +78,14 @@ def next_direction(came_from_color, current_color, going_to_color):
         elif going_to_position == "Left":
             output_direction = "Left"
         elif going_to_position == "Up":
-            output_direction = "Foward"
+            output_direction = direction
         elif going_to_position == "Down":
-            output_direction = "Backwards"
+            if direction == "Foward":
+                output_direction = "Backwards"
+                direction = output_direction
+            else:
+               output_direction = "Foward" 
+               direction = output_direction
 
     elif last_movement_direction == "Down":
         if going_to_position == "Right":
@@ -75,9 +93,14 @@ def next_direction(came_from_color, current_color, going_to_color):
         elif going_to_position == "Left":
             output_direction = "Right"
         elif going_to_position == "Up":
-            output_direction = "Backwards"
+            if direction == "Foward":
+                output_direction = "Backwards"
+                direction = output_direction
+            else:
+               output_direction = "Foward" 
+               direction = output_direction
         elif going_to_position == "Down":
-            output_direction = "Foward"
+            output_direction = direction
 
     return output_direction
 

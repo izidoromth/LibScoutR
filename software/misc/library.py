@@ -157,13 +157,13 @@ class Library:
 
     def update_books_internal_code(self):
         lib_config = {
-            "Biography": [
-                "2321.23",  # Alan Turing
-                "102.1x",  # Ed Sheeran
-                "43442.aa2",  # Steve Jobs
-                "5453.g",  # Paul McCartney
-                "6233.o",  # Jim Carrey
-            ],
+            # "Biography": [
+            #     "2321.23",  # Alan Turing
+            #     "102.1x",  # Ed Sheeran
+            #     "43442.aa2",  # Steve Jobs
+            #     "5453.g",  # Paul McCartney
+            #     "6233.o",  # Jim Carrey
+            # ],
             "Detective": [
                 "7543.69",  # Scooby Doo
                 "7543.bb",  # Sherlock Holmes
@@ -180,11 +180,11 @@ class Library:
 
     def update_library_books(self):
         books = [
-            {"name": "Ed Sheeran", "ucode": "102.1x", "category": "Biography"},
-            {"name": "Alan Turing", "ucode": "2321.23", "category": "Biography"},
-            {"name": "Steve Jobs", "ucode": "43442.aa2", "category": "Biography"},
-            {"name": "Paul McCartney", "ucode": "5453.g", "category": "Biography"},
-            {"name": "Jim Carrey", "ucode": "6233.o", "category": "Biography"},
+            # {"name": "Ed Sheeran", "ucode": "102.1x", "category": "Biography"},
+            # {"name": "Alan Turing", "ucode": "2321.23", "category": "Biography"},
+            # {"name": "Steve Jobs", "ucode": "43442.aa2", "category": "Biography"},
+            # {"name": "Paul McCartney", "ucode": "5453.g", "category": "Biography"},
+            # {"name": "Jim Carrey", "ucode": "6233.o", "category": "Biography"},
             {"name": "Sherlock Holmes", "ucode": "7543.bb", "category": "Detective"},
             {"name": "Lupin", "ucode": "7542.69", "category": "Detective"},
             {"name": "Scooby Doo", "ucode": "7543.69", "category": "Detective"},
@@ -317,6 +317,8 @@ class Library:
                                 new_path, start_category_or_color
                             )
 
+                        # Remove first node (start node)
+                        new_path.pop(0)
                         return new_path
 
                 explored.append(node)
@@ -325,3 +327,7 @@ class Library:
         # are not connected
         print("So sorry, but a connecting path doesn't exist :(")
         return list()
+
+# lib = Library()
+# lib.setup()
+# print(lib.find_path("Orange", "Blue"))
