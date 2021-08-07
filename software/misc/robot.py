@@ -85,6 +85,9 @@ class Robot:
         return movement
 
     def __next_direction(self, came_from_color, current_color, going_to_color):
+        if going_to_color == None:
+            return
+
         dir = [
             ["Orange", "Red", "Blue"],
             ["Brown", "Purple", "Yellow"],
@@ -140,7 +143,7 @@ class Robot:
 
         return output_direction
 
-    def user_wat_book(self):
+    def user_want_book(self):
         books = self.__library.get_books()
         book_to_search = books[random.randrange(len(books))]
         self.__books_to_search.append(book_to_search)
