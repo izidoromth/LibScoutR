@@ -20,7 +20,7 @@ class ArduinoInterface:
         degress_to_turn = self.convert_command_to_degrees_turn(next_movement)
         if fix_camera:
             degress_to_turn = degress_to_turn + 180
-            if degress_to_turn > 90:
+            if degress_to_turn > 180:
                 degress_to_turn = degress_to_turn - 360
         print(f"A {degress_to_turn} degrees turn is needed")
         time.sleep(2)
