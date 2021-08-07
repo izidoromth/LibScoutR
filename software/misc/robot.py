@@ -31,7 +31,7 @@ class Robot:
         self.__library = Library()
         self.__library.setup()
         self.__arduino = ArduinoInterface()
-        self.__orientation = "Foward"
+        self.__orientation = "Forward"
         self.__next_direction = None
 
     def __LIS(self, book_list):
@@ -58,13 +58,14 @@ class Robot:
         max_length = max(len(seq) for seq in sequences)
         return [seq for seq in sequences if len(seq) == max_length]
 
-
     def __get_next_color_path(self, path, color):
         return path[(path.index(color) + 1) % len(path)]
 
     def __get_index(self, matrix, value):
         return next(
-            (row.index(value), index) for index, row in enumerate(matrix) if value in row
+            (row.index(value), index)
+            for index, row in enumerate(matrix)
+            if value in row
         )
 
     def __get_relative_direction(self, start_color, end_color):
@@ -100,20 +101,22 @@ class Robot:
         current_index = self.__get_index(dir, current_color)
         going_to_index = self.__get_index(dir, going_to_color)
 
-        last_movement_direction = self.__get_relative_direction(came_from_index, current_index)
+        last_movement_direction = self.__get_relative_direction(
+            came_from_index, current_index
+        )
         going_to_position = self.__get_relative_direction(current_index, going_to_index)
         output_direction = None
 
         if last_movement_direction == "Left":
             if going_to_position == "Right":
-                if self.__orientation == "Foward":
+                if self.__orientation == "Forward":
                     output_direction = "Backwards"
                     self.__orientation = output_direction
                 else:
-                    output_direction = "Foward" 
+                    output_direction = "Forward"
                     self.__orientation = output_direction
             elif going_to_position == "Left":
-                    output_direction = self.__orientation
+                output_direction = self.__orientation
             elif going_to_position == "Up":
                 output_direction = "Right"
             elif going_to_position == "Down":
@@ -123,11 +126,11 @@ class Robot:
             if going_to_position == "Right":
                 output_direction = self.__orientation
             elif going_to_position == "Left":
-                if self.__orientation == "Foward":
+                if self.__orientation == "Forward":
                     output_direction = "Backwards"
                     self.__orientation = output_direction
                 else:
-                    output_direction = "Foward" 
+                    output_direction = "Forward"
                     self.__orientation = output_direction
             elif going_to_position == "Up":
                 output_direction = "Left"
@@ -142,11 +145,11 @@ class Robot:
             elif going_to_position == "Up":
                 output_direction = self.__orientation
             elif going_to_position == "Down":
-                if self.__orientation == "Foward":
+                if self.__orientation == "Forward":
                     output_direction = "Backwards"
                     self.__orientation = output_direction
                 else:
-                    output_direction = "Foward" 
+                    output_direction = "Forward"
                     self.__orientation = output_direction
 
         elif last_movement_direction == "Down":
@@ -155,11 +158,11 @@ class Robot:
             elif going_to_position == "Left":
                 output_direction = "Right"
             elif going_to_position == "Up":
-                if self.__orientation == "Foward":
+                if self.__orientation == "Forward":
                     output_direction = "Backwards"
                     self.__orientation = output_direction
                 else:
-                    output_direction = "Foward" 
+                    output_direction = "Forward"
                     self.__orientation = output_direction
             elif going_to_position == "Down":
                 output_direction = self.__orientation
@@ -169,7 +172,6 @@ class Robot:
         #         output_direction = "Right"
         #     elif output_direction == "Right":
         #         output_direction = "Left"
-
 
         return output_direction
 
@@ -211,12 +213,14 @@ class Robot:
             )
         else:
             print("Scouting.")
-        
+
         if self.__going_to_color:
-            print(f'Direction: {self.__orientation}. Next Movement: {self.__next_direction}')
+            print(
+                f"Direction: {self.__orientation}. Next Movement: {self.__next_direction}"
+            )
             print(f"Scanning = {self.__scanning}")
         else:
-            print('\n')
+            print("\n")
 
     def read_shelve(self):
         list_of_codes_read = [
@@ -261,12 +265,14 @@ class Robot:
         else:
             self.__scanning = False
 
-        self.__next_direction = self.__get_next_direction(self.__came_from_color, self.__current_color, self.__going_to_color)
+        self.__next_direction = self.__get_next_direction(
+            self.__came_from_color, self.__current_color, self.__going_to_color
+        )
 
         self.print_position()
         self.__arduino.goto(
-            self.__came_from_color,
-            self.__current_color,
+            self.__orientation,
+            self.__next_direction,
             self.__going_to_color,
             scan=self.__scanning,
         )
@@ -282,32 +288,36 @@ class Robot:
         )
         path_size = len(path)
         self.__going_to_color = path[0]
-        self.__next_direction = self.__get_next_direction(self.__came_from_color, self.__current_color, self.__going_to_color)
-        
+        self.__next_direction = self.__get_next_direction(
+            self.__came_from_color, self.__current_color, self.__going_to_color
+        )
+
         for i in range(path_size):
             if i != (path_size - 1):
                 self.__scanning = False
                 self.print_position()
 
                 self.__arduino.goto(
-                    self.__came_from_color,
-                    self.__current_color,
-                    path[0],
+                    self.__orientation,
+                    self.__next_direction,
+                    self.__going_to_color,
                     scan=self.__scanning,
                 )
                 self.__came_from_color = self.__current_color
                 self.__current_color = self.__going_to_color
                 path.pop(0)
                 self.__going_to_color = path[0]
-                self.__next_direction = self.__get_next_direction(self.__came_from_color, self.__current_color, self.__going_to_color)
+                self.__next_direction = self.__get_next_direction(
+                    self.__came_from_color, self.__current_color, self.__going_to_color
+                )
 
             else:
                 self.__scanning = True
                 self.print_position()
                 self.__arduino.goto(
-                    self.__came_from_color,
-                    self.__current_color,
-                    path[0],
+                    self.__orientation,
+                    self.__next_direction,
+                    self.__going_to_color,
                     scan=self.__scanning,
                 )
                 self.__came_from_color = self.__current_color
