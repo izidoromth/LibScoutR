@@ -1,37 +1,6 @@
 from collections import defaultdict
 from book import Book
-
-
-# class Library {
-#   - list __books
-#   - list __floor_path_edges
-#   - json __categories_positions
-#   - list __scout_path
-
-#   - list __fix_path_first_node()
-#   - list __fix_path_last_node()
-#   - list __generate_categories_edges()
-#   - list __build_graph()
-#   + void setup()
-#   + list get_scout_path()
-#   + void update_scout_path()
-#   + void update_floor_path_edges()
-#   + void update_categories_positions()
-#   + void update_books_internal_code()
-#   + void update_library_books()
-#   + list get_category_position()
-#   + Book get_book_from_code()
-#   + list how_a_category_should_be()
-#   + list create_book_list_from_code_list()
-#   + list filter_book_list_by_category()
-#   + list get_books()
-#   + void add_book()
-#   + list get_floor_edges()
-#   + list get_colors()
-#   + bool edge_has_books()
-#   + list get_categories()
-#   + void find_path()
-# }
+import yaml
 
 
 class Library:
@@ -40,6 +9,8 @@ class Library:
         self.__floor_path_edges = None
         self.__categories_positions = None
         self.__scout_path = None
+        self.__path_positions = None
+        self.__config_filename = "libconfig.yaml"
 
     def __fix_path_first_node(self, path, category):
         path.pop(0)
@@ -93,13 +64,23 @@ class Library:
         self.update_categories_positions()
         self.update_floor_path_edges()
         self.update_scout_path()
+        self.update_path_positions()
 
     def get_scout_path(self):
-        return self.__scout_path
+        return list(self.__scout_path)
 
     def update_scout_path(self):
-        scout_path = ["Orange", "Red", "Blue", "Yellow", "Purple", "Brown"]
-        self.__scout_path = scout_path
+        with open(self.__config_filename) as f:
+            config = yaml.safe_load(f)
+            self.__scout_path = config["Scout Path"]
+
+    def update_path_positions(self):
+        with open(self.__config_filename) as f:
+            config = yaml.safe_load(f)
+            self.__path_positions = config["Path Position"]
+
+    def get_path_positions(self):
+        return self.__path_positions
 
     def update_floor_path_edges(self):
         """
@@ -110,17 +91,9 @@ class Library:
         |                   |                   |
         BROWN------------PURPLE------------YELLOW
         """
-
-        path_edges = [
-            ["Orange", "Red"],
-            ["Orange", "Brown"],
-            ["Red", "Blue"],
-            ["Red", "Purple"],
-            ["Brown", "Purple"],
-            ["Purple", "Yellow"],
-            ["Blue", "Yellow"],
-        ]
-        self.__floor_path_edges = path_edges
+        with open(self.__config_filename) as f:
+            config = yaml.safe_load(f)
+            self.__floor_path_edges = config["Path Edges"]
 
     def update_categories_positions(self):
         """
@@ -138,32 +111,19 @@ class Library:
         |                   |                   |
         ------Suspense------------Biography------
         """
-
-        categories = {
-            "1st floor": {
-                "Adventure": ["Orange", "Red"],
-                "Comic Books": ["Red", "Blue"],
-                "Detective": ["Brown", "Purple"],
-                "Horror": ["Purple", "Yellow"],
-            },
-            "2nd floor": {
-                "Romance": ["Orange", "Red"],
-                "Science Fiction": ["Red", "Blue"],
-                "Suspense": ["Brown", "Purple"],
-                "Biography": ["Purple", "Yellow"],
-            },
-        }
-        self.__categories_positions = categories
+        with open(self.__config_filename) as f:
+            config = yaml.safe_load(f)
+            self.__categories_positions = config["Categories Positions"]
 
     def update_books_internal_code(self):
         lib_config = {
-            # "Biography": [
-            #     "2321.23",  # Alan Turing
-            #     "102.1x",  # Ed Sheeran
-            #     "43442.aa2",  # Steve Jobs
-            #     "5453.g",  # Paul McCartney
-            #     "6233.o",  # Jim Carrey
-            # ],
+            "Biography": [
+                "2321.23",  # Alan Turing
+                "102.1x",  # Ed Sheeran
+                "43442.aa2",  # Steve Jobs
+                "5453.g",  # Paul McCartney
+                "6233.o",  # Jim Carrey
+            ],
             "Detective": [
                 "7543.69",  # Scooby Doo
                 "7543.bb",  # Sherlock Holmes
@@ -180,11 +140,11 @@ class Library:
 
     def update_library_books(self):
         books = [
-            # {"name": "Ed Sheeran", "ucode": "102.1x", "category": "Biography"},
-            # {"name": "Alan Turing", "ucode": "2321.23", "category": "Biography"},
-            # {"name": "Steve Jobs", "ucode": "43442.aa2", "category": "Biography"},
-            # {"name": "Paul McCartney", "ucode": "5453.g", "category": "Biography"},
-            # {"name": "Jim Carrey", "ucode": "6233.o", "category": "Biography"},
+            {"name": "Ed Sheeran", "ucode": "102.1x", "category": "Biography"},
+            {"name": "Alan Turing", "ucode": "2321.23", "category": "Biography"},
+            {"name": "Steve Jobs", "ucode": "43442.aa2", "category": "Biography"},
+            {"name": "Paul McCartney", "ucode": "5453.g", "category": "Biography"},
+            {"name": "Jim Carrey", "ucode": "6233.o", "category": "Biography"},
             {"name": "Sherlock Holmes", "ucode": "7543.bb", "category": "Detective"},
             {"name": "Lupin", "ucode": "7542.69", "category": "Detective"},
             {"name": "Scooby Doo", "ucode": "7543.69", "category": "Detective"},

@@ -1,12 +1,7 @@
 from library import Library
 from arduino_interface import ArduinoInterface
-from book import Book
-import threading
 import time
 import random
-import os
-
-USER_INPUT_SLEEP = 10
 
 
 class Robot:
@@ -21,18 +16,23 @@ class Robot:
 
         """
         print(self.__ascii_art)
-        self.__came_from_color = "Purple"
-        self.__current_color = "Brown"
-        # self.__current_category = None
-        self.__going_to_color = None
-        self.__scanning = None
-        self.__books_to_search = []
-        self.__scout_path = ["Orange", "Red", "Blue", "Yellow", "Purple", "Brown"]
+        # Library
         self.__library = Library()
         self.__library.setup()
-        self.__arduino = ArduinoInterface()
+        # Position knowledge
+        self.__came_from_color = "Purple"
+        self.__current_color = "Brown"
+        self.__going_to_color = None
         self.__orientation = "Forward"
         self.__next_direction = None
+        # Bool scan
+        self.__scanning = None
+        # Books to search
+        self.__books_to_search = []
+        # Scout path (can change internally)
+        self.__scout_path = self.__library.get_scout_path()
+        # Arduino interface
+        self.__arduino = ArduinoInterface()
 
     def __LIS(self, book_list):
         # https://stackoverflow.com/questions/27324717/obtaining-the-longest-increasing-subsequence-in-python
@@ -90,16 +90,13 @@ class Robot:
 
     def __get_next_direction(self, came_from_color, current_color, going_to_color):
         if going_to_color == None:
-            return "aa"
+            return
 
-        dir = [
-            ["Orange", "Red", "Blue"],
-            ["Brown", "Purple", "Yellow"],
-        ]
+        positions = self.__library.get_path_positions()
 
-        came_from_index = self.__get_index(dir, came_from_color)
-        current_index = self.__get_index(dir, current_color)
-        going_to_index = self.__get_index(dir, going_to_color)
+        came_from_index = self.__get_index(positions, came_from_color)
+        current_index = self.__get_index(positions, current_color)
+        going_to_index = self.__get_index(positions, going_to_color)
 
         last_movement_direction = self.__get_relative_direction(
             came_from_index, current_index
@@ -167,13 +164,32 @@ class Robot:
             elif going_to_position == "Down":
                 output_direction = self.__orientation
 
-        # if self.__orientation == "Backwards":
-        #     if output_direction == "Left":
-        #         output_direction = "Right"
-        #     elif output_direction == "Right":
-        #         output_direction = "Left"
-
         return output_direction
+
+    def __check_if_camera_in_right_direction(
+        self, current_color, going_to_color, orientation
+    ):
+        original_scout_path = self.__library.get_scout_path()
+        reversed_scout_path = self.__library.get_scout_path()
+
+        reversed_scout_path.reverse()
+        # print("original path", original_scout_path)
+        # print("reversed path", reversed_scout_path)
+        next_color_forward = self.__get_next_color_path(
+            original_scout_path, current_color
+        )
+        next_color_backwards = self.__get_next_color_path(
+            reversed_scout_path, current_color
+        )
+        # print(f"checando {current_color}, {going_to_color}, {orientation}")
+        # print(f"next color forward {next_color_forward}, next color backwards {next_color_backwards}")
+        if next_color_forward == going_to_color and orientation == "Forward":
+            return True
+        elif next_color_backwards == going_to_color and orientation == "Backwards":
+            return True
+        else:
+            # print("orientation false")
+            return False
 
     def user_want_book(self):
         books = self.__library.get_books()
@@ -215,12 +231,10 @@ class Robot:
             print("Scouting.")
 
         if self.__going_to_color:
-            print(
-                f"Direction: {self.__orientation}. Next Movement: {self.__next_direction}"
-            )
+            print(f"Direction: {self.__orientation}")
             print(f"Scanning = {self.__scanning}")
         else:
-            print("\n")
+            print("\n\n")
 
     def read_shelve(self):
         list_of_codes_read = [
@@ -260,14 +274,23 @@ class Robot:
                 self.__scout_path, self.__current_color
             )
 
+        self.__next_direction = self.__get_next_direction(
+            self.__came_from_color, self.__current_color, self.__going_to_color
+        )
+
         if self.__library.edge_has_books([self.__current_color, self.__going_to_color]):
             self.__scanning = True
         else:
             self.__scanning = False
 
-        self.__next_direction = self.__get_next_direction(
-            self.__came_from_color, self.__current_color, self.__going_to_color
+        camera_is_right = self.__check_if_camera_in_right_direction(
+            self.__current_color, self.__going_to_color, self.__orientation
         )
+        if camera_is_right == False:
+            if self.__orientation == "Forward":
+                self.__orientation = "Backwards"
+            else:
+                self.__orientation = "Forward"
 
         self.print_position()
         self.__arduino.goto(
@@ -275,7 +298,9 @@ class Robot:
             self.__next_direction,
             self.__going_to_color,
             scan=self.__scanning,
+            fix_camera=(self.__scanning and not camera_is_right),
         )
+
         self.__came_from_color = self.__current_color
         self.__current_color = self.__going_to_color
         self.__going_to_color = None
@@ -313,12 +338,21 @@ class Robot:
 
             else:
                 self.__scanning = True
+                camera_is_right = self.__check_if_camera_in_right_direction(
+                    self.__current_color, self.__going_to_color, self.__orientation
+                )
+                if camera_is_right == False:
+                    if self.__orientation == "Forward":
+                        self.__orientation = "Backwards"
+                    else:
+                        self.__orientation = "Forward"
                 self.print_position()
                 self.__arduino.goto(
                     self.__orientation,
                     self.__next_direction,
                     self.__going_to_color,
                     scan=self.__scanning,
+                    fix_camera=(self.__scanning and not camera_is_right),
                 )
                 self.__came_from_color = self.__current_color
                 self.__current_color = self.__going_to_color

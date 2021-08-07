@@ -1,7 +1,9 @@
 from flask import Flask
 from robot import Robot
 import threading
-import pprint
+
+# UML was made using this software
+# https://www.planttext.com
 
 app = Flask(__name__)
 

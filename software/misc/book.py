@@ -1,17 +1,3 @@
-# class Book {
-#   - string __name
-#   - string __universal_code
-#   - string __category
-#   - int __internal_code
-
-#   + string get_name()
-#   + void set_internal_code()
-#   + string get_universal_code()
-#   + int get_internal_code()
-#   + string get_category()
-# }
-
-
 class Book:
     def __init__(self, name=None, universal_code=None, category=None):
         self.__name = name
