@@ -1,5 +1,6 @@
 from collections import defaultdict
 from book import Book
+import yaml
 
 
 class Library:
@@ -7,6 +8,9 @@ class Library:
         self.__books = []
         self.__floor_path_edges = None
         self.__categories_positions = None
+        self.__scout_path = None
+        self.__path_positions = None
+        self.__config_filename = "libconfig.yaml"
 
     def __fix_path_first_node(self, path, category):
         path.pop(0)
@@ -59,27 +63,37 @@ class Library:
         self.update_books_internal_code()
         self.update_categories_positions()
         self.update_floor_path_edges()
+        self.update_scout_path()
+        self.update_path_positions()
+
+    def get_scout_path(self):
+        return list(self.__scout_path)
+
+    def update_scout_path(self):
+        with open(self.__config_filename) as f:
+            config = yaml.safe_load(f)
+            self.__scout_path = config["Scout Path"]
+
+    def update_path_positions(self):
+        with open(self.__config_filename) as f:
+            config = yaml.safe_load(f)
+            self.__path_positions = config["Path Position"]
+
+    def get_path_positions(self):
+        return self.__path_positions
 
     def update_floor_path_edges(self):
         """
-        floor:
+        floor colored tags:
         ORANGE-------------RED---------------BLUE
         |                   |                   |
         |                   |                   |
         |                   |                   |
         BROWN------------PURPLE------------YELLOW
         """
-
-        path_edges = [
-            ["Orange", "Red"],
-            ["Orange", "Brown"],
-            ["Red", "Blue"],
-            ["Red", "Purple"],
-            ["Brown", "Purple"],
-            ["Purple", "Yellow"],
-            ["Blue", "Yellow"],
-        ]
-        self.__floor_path_edges = path_edges
+        with open(self.__config_filename) as f:
+            config = yaml.safe_load(f)
+            self.__floor_path_edges = config["Path Edges"]
 
     def update_categories_positions(self):
         """
@@ -97,22 +111,9 @@ class Library:
         |                   |                   |
         ------Suspense------------Biography------
         """
-
-        categories = {
-            "1st floor": {
-                "Adventure": ["Orange", "Red"],
-                "Comic Books": ["Red", "Blue"],
-                "Detective": ["Brown", "Purple"],
-                "Horror": ["Purple", "Yellow"],
-            },
-            "2nd floor": {
-                "Romance": ["Orange", "Red"],
-                "Science Fiction": ["Red", "Blue"],
-                "Suspense": ["Brown", "Purple"],
-                "Biography": ["Purple", "Yellow"],
-            },
-        }
-        self.__categories_positions = categories
+        with open(self.__config_filename) as f:
+            config = yaml.safe_load(f)
+            self.__categories_positions = config["Categories Positions"]
 
     def update_books_internal_code(self):
         lib_config = {
@@ -276,6 +277,8 @@ class Library:
                                 new_path, start_category_or_color
                             )
 
+                        # Remove first node (start node)
+                        new_path.pop(0)
                         return new_path
 
                 explored.append(node)
@@ -284,3 +287,8 @@ class Library:
         # are not connected
         print("So sorry, but a connecting path doesn't exist :(")
         return list()
+
+
+# lib = Library()
+# lib.setup()
+# print(lib.find_path("Orange", "Blue"))

@@ -1,0 +1,28 @@
+Path Position:
+  - [Orange, Red, Blue]
+  - [Brown, Purple, Yellow]
+  
+Path Edges:
+  - [Orange, Red]
+  - [Orange, Brown]
+  - [Red, Blue]
+  - [Red, Purple]
+  - [Brown, Purple]
+  - [Purple, Yellow]
+  - [Blue, Yellow]
+
+Categories Positions:
+  1st floor: 
+    Adventure: [Orange, Red]
+    Comic Books: [Red, Blue]
+    Detective: [Brown, Purple]
+    Horror: [Purple, Yellow]
+  
+  2nd floor: 
+    Romance: [Orange, Red]
+    Science Fiction: [Red, Blue]
+    Suspense: [Brown, Purple]
+    Biography: [Purple, Yellow]
+
+Scout Path: [Orange, Red, Blue, Yellow, Purple, Brown]
+
