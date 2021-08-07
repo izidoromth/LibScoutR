@@ -2,11 +2,44 @@ from collections import defaultdict
 from book import Book
 
 
+# class Library {
+#   - list __books
+#   - list __floor_path_edges
+#   - json __categories_positions
+#   - list __scout_path
+
+#   - list __fix_path_first_node()
+#   - list __fix_path_last_node()
+#   - list __generate_categories_edges()
+#   - list __build_graph()
+#   + void setup()
+#   + list get_scout_path()
+#   + void update_scout_path()
+#   + void update_floor_path_edges()
+#   + void update_categories_positions()
+#   + void update_books_internal_code()
+#   + void update_library_books()
+#   + list get_category_position()
+#   + Book get_book_from_code()
+#   + list how_a_category_should_be()
+#   + list create_book_list_from_code_list()
+#   + list filter_book_list_by_category()
+#   + list get_books()
+#   + void add_book()
+#   + list get_floor_edges()
+#   + list get_colors()
+#   + bool edge_has_books()
+#   + list get_categories()
+#   + void find_path()
+# }
+
+
 class Library:
     def __init__(self):
         self.__books = []
         self.__floor_path_edges = None
         self.__categories_positions = None
+        self.__scout_path = None
 
     def __fix_path_first_node(self, path, category):
         path.pop(0)
@@ -59,10 +92,18 @@ class Library:
         self.update_books_internal_code()
         self.update_categories_positions()
         self.update_floor_path_edges()
+        self.update_scout_path()
+
+    def get_scout_path(self):
+        return self.__scout_path
+
+    def update_scout_path(self):
+        scout_path = ["Orange", "Red", "Blue", "Yellow", "Purple", "Brown"]
+        self.__scout_path = scout_path
 
     def update_floor_path_edges(self):
         """
-        floor:
+        floor colored tags:
         ORANGE-------------RED---------------BLUE
         |                   |                   |
         |                   |                   |

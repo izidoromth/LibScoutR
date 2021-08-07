@@ -31,7 +31,6 @@ class Robot:
         self.__library = Library()
         self.__library.setup()
         self.__arduino = ArduinoInterface()
-        threading.Thread(target=self.__wait_for_user).start()
 
     def __LIS(self, book_list):
         # https://stackoverflow.com/questions/27324717/obtaining-the-longest-increasing-subsequence-in-python
@@ -60,20 +59,92 @@ class Robot:
     def __get_next_color_path(self, path, color):
         return path[(path.index(color) + 1) % len(path)]
 
-    def __wait_for_user(self):
-        while True:
-            global USER_INPUT_SLEEP
-            random_time = random.randrange(USER_INPUT_SLEEP, 2 * USER_INPUT_SLEEP)
-            USER_INPUT_SLEEP = USER_INPUT_SLEEP + 10
-            time.sleep(random_time)
-            books = self.__library.get_books()
-            book_to_search = books[random.randrange(len(books))]
-            # print(
-            #     "\n\n---------------\nRequest to search for {0} in category {1}\n---------------\n".format(
-            #         book_to_search.get_name(), book_to_search.get_category()
-            #     )
-            # )
-            self.__books_to_search.append(book_to_search)
+    def __get_index(self, matrix, value):
+        return next(
+            (row.index(value), index) for index, row in enumerate(matrix) if value in row
+        )
+
+    def __get_relative_direction(self, start_color, end_color):
+        movement = None
+
+        start_x, start_y = start_color
+        end_x, end_y = end_color
+
+        if (start_x - end_x) == 1:
+            movement = "Left"
+        # Going Right
+        elif (start_x - end_x) == -1:
+            movement = "Right"
+        # Going Up
+        if (start_y - end_y) == 1:
+            movement = "Up"
+        # Going Down
+        elif (start_y - end_y) == -1:
+            movement = "Down"
+
+        return movement
+
+    def __next_direction(self, came_from_color, current_color, going_to_color):
+        dir = [
+            ["Orange", "Red", "Blue"],
+            ["Brown", "Purple", "Yellow"],
+        ]
+
+        came_from_index = self.__get_index(dir, came_from_color)
+        current_index = self.__get_index(dir, current_color)
+        going_to_index = self.__get_index(dir, going_to_color)
+
+        last_movement_direction = self.__get_relative_direction(came_from_index, current_index)
+        going_to_position = self.__get_relative_direction(current_index, going_to_index)
+        output_direction = None
+
+        if last_movement_direction == "Left":
+            if going_to_position == "Right":
+                output_direction = "Backwards"
+            elif going_to_position == "Left":
+                output_direction = "Foward"
+            elif going_to_position == "Up":
+                output_direction = "Right"
+            elif going_to_position == "Down":
+                output_direction = "Left"
+
+        elif last_movement_direction == "Right":
+            if going_to_position == "Right":
+                output_direction = "Foward"
+            elif going_to_position == "Left":
+                output_direction = "Backwards"
+            elif going_to_position == "Up":
+                output_direction = "Left"
+            elif going_to_position == "Down":
+                output_direction = "Right"
+
+        elif last_movement_direction == "Up":
+            if going_to_position == "Right":
+                output_direction = "Right"
+            elif going_to_position == "Left":
+                output_direction = "Left"
+            elif going_to_position == "Up":
+                output_direction = "Foward"
+            elif going_to_position == "Down":
+                output_direction = "Backwards"
+
+        elif last_movement_direction == "Down":
+            if going_to_position == "Right":
+                output_direction = "Left"
+            elif going_to_position == "Left":
+                output_direction = "Right"
+            elif going_to_position == "Up":
+                output_direction = "Backwards"
+            elif going_to_position == "Down":
+                output_direction = "Foward"
+
+        return output_direction
+
+    def user_wat_book(self):
+        books = self.__library.get_books()
+        book_to_search = books[random.randrange(len(books))]
+        self.__books_to_search.append(book_to_search)
+        return book_to_search.get_name()
 
     def print_position(self):
         # os.system("cls||clear")
@@ -106,10 +177,11 @@ class Robot:
                     book_to_search.get_name(), book_to_search.get_category()
                 )
             )
-            print(f"Scanning = {self.__scanning}")
         else:
             print("Scouting.")
-            print(f"Scanning = {self.__scanning}")
+        
+        print(self.__next_direction(self.__came_from_color, self.__current_color, self.__going_to_color))
+        print(f"Scanning = {self.__scanning}")
 
     def read_shelve(self):
         list_of_codes_read = [
@@ -172,12 +244,6 @@ class Robot:
             self.__current_color, desired_book.get_category()
         )
         path_size = len(path)
-        # print(
-        #     "Path to {1} from {0} is".format(
-        #         self.__current_color, desired_book.get_category()
-        #     ),
-        #     *path,
-        # )
         self.__going_to_color = path[0]
 
         for i in range(path_size):
@@ -217,9 +283,3 @@ class Robot:
                 self.guide_user(self.__books_to_search[0])
             else:
                 self.scout()
-
-
-robot = Robot()
-# alan_turing = Book("Alan Turing", "2321.23", "Biography")
-# robot.guide_user(alan_turing)
-robot.main()
