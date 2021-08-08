@@ -3,12 +3,16 @@
 #include "dc_motors.h"
 #include "ir_sensor.h"
 
-#define RightInitialSpeed 100
-#define LeftInitialSpeed 100
+#define RightInitialSpeed 115
+#define LeftInitialSpeed 115
 
-float Kp = 10;
-float Ki = 0.05;
-float Kd = 25;
+#define Kp_fw 4
+#define Ki_fw 0
+#define Kd_fw 25
+
+#define Kp_bw 1
+#define Ki_bw 0
+#define Kd_bw 10
 
 float P = 0;
 float I = 0;
@@ -80,12 +84,10 @@ void loop()
       }
       delay(1000);
     }
-    CalculateError();
-    Calculate_PID();
-    MotorControl();
+    FollowLine(false);
 }
                                                                                                                                                                  
-void CalculateError()
+void CalculateError(boolean dir)
 {
     boolean left = !IRSensor::ReadLeft();
     boolean m_left = !IRSensor::ReadMiddleLeft();
@@ -116,46 +118,45 @@ void CalculateError()
     else if((left == 0) && (m_left == 0) && (middle == 0) && (m_right == 0) && (right == 0))
     {
         if (Previous_Error = -4) 
-            Error = -5;
+          Error = -5;
         else if (Previous_Error = 4)
-            Error = 5;
+          Error = 5;
         else
-          Error = 9999;
+          Error = 9999;  
     }
     else if((left == 1) && (m_left == 1) && (middle == 1) && (m_right == 1) && (right == 1))
         Error = 9999;
+      
     Serial.println("Error: " + String(Error));
 }
 
-void Calculate_PID() 
-{ 
-    if(Error == 9999)
-      return;
-      
+void Calculate_PID(boolean dir) 
+{       
     P = Error;
     I += Error;
     //I = I + Previous_I;
     D = Error - Previous_Error;
 
-    PID_value = (Kp * P) + (Ki * I) + (Kd * D);
+    if(dir)
+      PID_value = (Kp_fw * P) + (Ki_fw * I) + (Kd_fw * D);
+    else
+      PID_value = (Kp_bw * P) + (Ki_bw * I) + (Kd_bw * D);
 
     //I += Error;
     Previous_I = I;
     Previous_Error = Error;
 }
 
-void MotorControl() 
+void MotorControl(boolean dir) 
 {
-    if(Error == 9999)
-    {
-      PID_value = 0;
-      DcMotors::ActivateLeftMotor(0, true);
-      DcMotors::ActivateRightMotor(0, true);
-      return;
-    }
-    else if (Error == 0){
+    if (Error == 0){
         Left_Speed  = LeftInitialSpeed;
         Right_Speed = RightInitialSpeed;
+    }
+    else if(dir)
+    {
+        Left_Speed  = LeftInitialSpeed - PID_value;
+        Right_Speed = RightInitialSpeed + PID_value;
     }
     else
     {
@@ -167,6 +168,25 @@ void MotorControl()
     Serial.println("PID_Value: " + String(PID_value));
     Serial.println("Left_Speed: " + String(Left_Speed) + " | Right_Speed: " + String(Right_Speed));
     
-    DcMotors::ActivateLeftMotor(Left_Speed, true);
-    DcMotors::ActivateRightMotor(Right_Speed, true);
+    DcMotors::ActivateLeftMotor(Left_Speed, dir);
+    DcMotors::ActivateRightMotor(Right_Speed, dir);
+}
+
+void FollowLine(boolean dir)
+{
+    CalculateError(dir);
+    if(Error == 9999)
+    {
+      PID_value = 0;
+      P = 0;
+      I = 0;
+      D = 0;
+      Previous_I = 0;
+      Previous_Error = 0;
+      DcMotors::ActivateLeftMotor(0, true);
+      DcMotors::ActivateRightMotor(0, true);
+      return;
+    }
+    Calculate_PID(dir);
+    MotorControl(dir);
 }
