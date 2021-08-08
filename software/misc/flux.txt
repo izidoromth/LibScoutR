@@ -1,0 +1,26 @@
+@startuml
+
+title Robot - Activity Diagram 
+
+
+start
+
+:Launch robot-side server; 
+note right: Robot needs to listen for user requests
+
+:Create Robot object; 
+repeat
+if (User searching for book?) then (no)
+  :Scout mode;
+  note left : Robot will move through one more edge only
+  
+else (yes)
+:Helper mode;
+
+  endif
+repeat while (While True)
+
+
+stop
+
+@enduml

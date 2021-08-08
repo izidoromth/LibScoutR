@@ -1,0 +1,82 @@
+@startuml
+
+title Relationships - Class Diagram
+
+class Book {
+  - string __name
+  - string __universal_code
+  - string __category
+  - int __internal_code
+  
+  + string get_name()
+  + void set_internal_code()
+  + string get_universal_code()
+  + int get_internal_code()
+  + string get_category()
+}
+
+class ArduinoInterface {
+  - bool __done
+  
+  + void done()
+  + void goto()
+}
+
+
+class Robot {
+  - string __came_from_color
+  - string __current_color
+  - bool __scanning
+  - list __books_to_search
+  - Library __library
+  - list __scout_path
+  - ArduinoInterface __arduino
+  
+  - list __LIS()
+  - string __get_next_color_path()
+  + string user_want_book()
+  + void print_position()
+  + list read_shelve()
+  + json organize_shelve()
+  + void scout()
+  + void guide_user()
+  + void main()
+}
+
+
+class Library {
+  - list __books
+  - list __floor_path_edges
+  - json __categories_positions
+  - list __scout_path
+  
+  - list __fix_path_first_node()
+  - list __fix_path_last_node()
+  - list __generate_categories_edges()
+  - list __build_graph()
+  + void setup()
+  + list get_scout_path()
+  + void update_scout_path()
+  + void update_floor_path_edges()
+  + void update_categories_positions()
+  + void update_books_internal_code()
+  + void update_library_books()
+  + list get_category_position()
+  + Book get_book_from_code()
+  + list how_a_category_should_be()
+  + list create_book_list_from_code_list()
+  + list filter_book_list_by_category()
+  + list get_books()
+  + void add_book()
+  + list get_floor_edges()
+  + list get_colors()
+  + bool edge_has_books()
+  + list get_categories()
+  + void find_path()
+}
+
+Robot "1" *-- "1" ArduinoInterface: has
+Robot "1" *-- "1" Library: has
+Library "1" *-- "many" Book: has 
+
+@enduml
