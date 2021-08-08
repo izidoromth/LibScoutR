@@ -23,6 +23,8 @@ int Previous_Error, Previous_I;
 int PID_value;
 int Left_Speed, Right_Speed;
 
+boolean mov_direction;
+
 SparkFun_APDS9960 apds = SparkFun_APDS9960();
 uint16_t ambient_light = 0;
 uint16_t red_light = 0;
@@ -65,26 +67,28 @@ void setup()
 
 void loop() 
 {
-    while(false)
-    {
-      if(!apds.readAmbientLight(ambient_light) || !apds.readRedLight(red_light) || !apds.readGreenLight(green_light) || !apds.readBlueLight(blue_light))
-      {
-        Serial.println("Error reading light values");
-      } 
-      else 
-      {
-        Serial.print("Ambient: ");
-        Serial.print(ambient_light);
-        Serial.print(" Red: ");
-        Serial.print(red_light);
-        Serial.print(" Green: ");
-        Serial.print(green_light);
-        Serial.print(" Blue: ");
-        Serial.println(blue_light);
-      }
-      delay(1000);
-    }
-    FollowLine(false);
+  char a;
+  while(Serial.available() <= 0);
+
+  a = Serial.read();
+  if(a == 'w')
+  {
+    mov_direction = true;
+    while(FollowLine(mov_direction));
+  }
+  else if(a == 'b')
+  {
+    mov_direction = false;
+    while(FollowLine(mov_direction));
+  }
+  else if(a == 'h')
+  {
+    Rotate(2, true, mov_direction);
+  }
+  else if(a == 'a')
+  {
+    Rotate(2, false, mov_direction);
+  }    
 }
                                                                                                                                                                  
 void CalculateError(boolean dir)
@@ -132,61 +136,142 @@ void CalculateError(boolean dir)
 
 void Calculate_PID(boolean dir) 
 {       
-    P = Error;
-    I += Error;
-    //I = I + Previous_I;
-    D = Error - Previous_Error;
+  P = Error;
+  I += Error;
+  D = Error - Previous_Error;
 
-    if(dir)
-      PID_value = (Kp_fw * P) + (Ki_fw * I) + (Kd_fw * D);
-    else
-      PID_value = (Kp_bw * P) + (Ki_bw * I) + (Kd_bw * D);
+  if(dir)
+    PID_value = (Kp_fw * P) + (Ki_fw * I) + (Kd_fw * D);
+  else
+    PID_value = (Kp_bw * P) + (Ki_bw * I) + (Kd_bw * D);
 
-    //I += Error;
-    Previous_I = I;
-    Previous_Error = Error;
+  Previous_I = I;
+  Previous_Error = Error;
 }
 
 void MotorControl(boolean dir) 
 {
-    if (Error == 0){
-        Left_Speed  = LeftInitialSpeed;
-        Right_Speed = RightInitialSpeed;
-    }
-    else if(dir)
-    {
-        Left_Speed  = LeftInitialSpeed - PID_value;
-        Right_Speed = RightInitialSpeed + PID_value;
-    }
-    else
-    {
-        Left_Speed  = LeftInitialSpeed - PID_value;
-        Right_Speed = RightInitialSpeed + PID_value;
-    }
-    
+  if (Error == 0){
+      Left_Speed  = LeftInitialSpeed;
+      Right_Speed = RightInitialSpeed;
+  }
+  else if(dir)
+  {
+      Left_Speed  = LeftInitialSpeed - PID_value;
+      Right_Speed = RightInitialSpeed + PID_value;
+  }
+  else
+  {
+      Left_Speed  = LeftInitialSpeed - PID_value;
+      Right_Speed = RightInitialSpeed + PID_value;
+  }
 
-    Serial.println("PID_Value: " + String(PID_value));
-    Serial.println("Left_Speed: " + String(Left_Speed) + " | Right_Speed: " + String(Right_Speed));
-    
-    DcMotors::ActivateLeftMotor(Left_Speed, dir);
-    DcMotors::ActivateRightMotor(Right_Speed, dir);
+  Serial.println("PID_Value: " + String(PID_value));
+  Serial.println("Left_Speed: " + String(Left_Speed) + " | Right_Speed: " + String(Right_Speed));
+  
+  DcMotors::ActivateLeftMotor(Left_Speed, dir);
+  DcMotors::ActivateRightMotor(Right_Speed, dir);
 }
 
-void FollowLine(boolean dir)
+boolean FollowLine(boolean dir)
 {
-    CalculateError(dir);
-    if(Error == 9999)
+  CalculateError(dir);
+  if(Error == 9999)
+  {
+    PID_value = 0;
+    P = 0;
+    I = 0;
+    D = 0;
+    Previous_I = 0;
+    Previous_Error = 0;
+    DcMotors::ActivateLeftMotor(0, true);
+    DcMotors::ActivateRightMotor(0, true);
+    return false;
+  }
+  Calculate_PID(dir);
+  MotorControl(dir);
+  return true;
+}
+
+void ReadRGB()
+{
+  if(!apds.readAmbientLight(ambient_light) || !apds.readRedLight(red_light) || !apds.readGreenLight(green_light) || !apds.readBlueLight(blue_light))
+  {
+    Serial.println("Error reading light values");
+  } 
+  else 
+  {
+    Serial.print("Ambient: ");
+    Serial.print(ambient_light);
+    Serial.print(" Red: ");
+    Serial.print(red_light);
+    Serial.print(" Green: ");
+    Serial.print(green_light);
+    Serial.print(" Blue: ");
+    Serial.println(blue_light);
+  }
+}
+
+void Rotate(int ninety_steps, boolean angular_dir, boolean previous_dir)
+{
+  int steps = 0;
+  int ticks = 0;
+  
+  if(!previous_dir)
+  {
+    Serial.println("Matheus trouxa");
+    DcMotors::ActivateLeftMotor(LeftInitialSpeed, true);
+    DcMotors::ActivateRightMotor(RightInitialSpeed, true);
+
+    delay(750);
+
+    DcMotors::ActivateLeftMotor(0, false);
+    DcMotors::ActivateRightMotor(0, false);
+  }
+
+  DcMotors::ActivateLeftMotor(LeftInitialSpeed*1.1, !angular_dir);
+  DcMotors::ActivateRightMotor(RightInitialSpeed, angular_dir);
+  
+  while(steps < ninety_steps)
+  {
+    
+    boolean left;
+    boolean m_left;
+    boolean middle;
+    boolean m_right;
+    boolean right;
+    
+    do
     {
-      PID_value = 0;
-      P = 0;
-      I = 0;
-      D = 0;
-      Previous_I = 0;
-      Previous_Error = 0;
-      DcMotors::ActivateLeftMotor(0, true);
-      DcMotors::ActivateRightMotor(0, true);
-      return;
+      left = !IRSensor::ReadLeft();
+      m_left = !IRSensor::ReadMiddleLeft();
+      middle = !IRSensor::ReadMiddle();
+      m_right = !IRSensor::ReadMiddleRight();
+      right = !IRSensor::ReadRight();
+      Serial.println("While 1");
+      ticks++;
     }
-    Calculate_PID(dir);
-    MotorControl(dir);
+    while(middle == 1 && ticks < 100);
+
+    do
+    {
+      left = !IRSensor::ReadLeft();
+      m_left = !IRSensor::ReadMiddleLeft();
+      middle = !IRSensor::ReadMiddle();
+      m_right = !IRSensor::ReadMiddleRight();
+      right = !IRSensor::ReadRight();
+      Serial.println("While 2:");
+      ticks++;
+    }
+    while(!((left == 0 && m_left == 0 && middle == 1 && m_right == 0 && right == 0) ||
+            (left == 0 && m_left == 1 && middle == 1 && m_right == 0 && right == 0) ||
+            (left == 0 && m_left == 0 && middle == 1 && m_right == 1 && right == 0)) && ticks < 100);
+    
+    steps++;
+
+    delay(600);
+  }
+
+  DcMotors::ActivateLeftMotor(0, false);
+  DcMotors::ActivateRightMotor(0, false);
 }
