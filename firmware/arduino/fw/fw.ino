@@ -3,8 +3,8 @@
 #include "dc_motors.h"
 #include "ir_sensor.h"
 
-#define RightInitialSpeed 115
-#define LeftInitialSpeed 115
+#define RightInitialSpeed 110
+#define LeftInitialSpeed 110
 
 #define Kp_fw 4
 #define Ki_fw 0
@@ -12,7 +12,7 @@
 
 #define Kp_bw 1
 #define Ki_bw 0
-#define Kd_bw 10
+#define Kd_bw 15
 
 float P = 0;
 float I = 0;
@@ -74,18 +74,32 @@ void loop()
   if(a == 'w')
   {
     mov_direction = true;
+    DcMotors::ActivateLeftMotor(LeftInitialSpeed*1.4, mov_direction);
+    DcMotors::ActivateRightMotor(RightInitialSpeed*1.4, mov_direction);
+    delay(400);
     while(FollowLine(mov_direction));
   }
-  else if(a == 'b')
+  else if(a == 's')
   {
     mov_direction = false;
+    DcMotors::ActivateLeftMotor(LeftInitialSpeed*1.4, mov_direction);
+    DcMotors::ActivateRightMotor(RightInitialSpeed*1.4, mov_direction);
+    delay(400);
     while(FollowLine(mov_direction));
   }
-  else if(a == 'h')
+  else if(a == 'd')
+  {
+    Rotate(1, true, mov_direction);
+  }
+  else if(a == 'a')
+  {
+    Rotate(1, false, mov_direction);
+  }    
+  else if(a == 'f')
   {
     Rotate(2, true, mov_direction);
   }
-  else if(a == 'a')
+  else if(a == 'q')
   {
     Rotate(2, false, mov_direction);
   }    
@@ -229,11 +243,12 @@ void Rotate(int ninety_steps, boolean angular_dir, boolean previous_dir)
     DcMotors::ActivateRightMotor(0, false);
   }
 
-  DcMotors::ActivateLeftMotor(LeftInitialSpeed*1.1, !angular_dir);
-  DcMotors::ActivateRightMotor(RightInitialSpeed, angular_dir);
+  DcMotors::ActivateLeftMotor(LeftInitialSpeed*1.2, !angular_dir);
+  DcMotors::ActivateRightMotor(RightInitialSpeed*1.2, angular_dir);
   
   while(steps < ninety_steps)
   {
+    ticks = 0;
     
     boolean left;
     boolean m_left;
@@ -263,9 +278,7 @@ void Rotate(int ninety_steps, boolean angular_dir, boolean previous_dir)
       Serial.println("While 2:");
       ticks++;
     }
-    while(!((left == 0 && m_left == 0 && middle == 1 && m_right == 0 && right == 0) ||
-            (left == 0 && m_left == 1 && middle == 1 && m_right == 0 && right == 0) ||
-            (left == 0 && m_left == 0 && middle == 1 && m_right == 1 && right == 0)) && ticks < 100);
+    while(!((angular_dir && middle != 1 && m_left != 1) || (!angular_dir && middle != 1 && m_right != 1)) && ticks < 100);
     
     steps++;
 
