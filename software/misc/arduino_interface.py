@@ -3,7 +3,7 @@ import serial
 
 class ArduinoInterface:
     def __init__(self):
-        self.arduino_serial = serial.Serial(port='COM4', baudrate=9600, timeout=.1)
+        self.arduino_serial = serial.Serial(port='/dev/ttyACM0', baudrate=9600, timeout=.1)
 
     def convert_command_to_degrees_turn(self, next_movement):
         if next_movement == "Right":
@@ -16,62 +16,62 @@ class ArduinoInterface:
     def map_to_bytes(self, orientation, next_movement, going_to_color, 
     degrees_to_turn, scan, fix_camera):
 
-        byte_list = bytearray()
+        commands = []
         # region orientation
         if(orientation == "Forward"):
-            byte_list += bytes([0x1])
+            commands.append('f')
         elif(orientation == "Backwards"):
-            byte_list += bytes([0x2])
+            commands.append('b')
         # endregion
         # region next_movement
         if(next_movement == "Right"):
-            byte_list += bytes([0x1])
+            commands.append('')
         elif(next_movement == "Left"):
-            byte_list += bytes([0x2])
+            commands.append('')
         elif (next_movement == "Forward"):
-            byte_list += bytes([0x3])
+            commands.append('')
         elif (next_movement == "Backwards"):
-            byte_list += bytes([0x4])
+            commands.append('')
         # endregion
         # region going_to_color
         if (going_to_color == "Orange"):
-            byte_list += bytes([0x1])
+            commands.append('')
         elif (going_to_color == "Red"):
-            byte_list += bytes([0x2])
+            commands.append('')
         elif (going_to_color == "Blue"):
-            byte_list += bytes([0x3])
+            commands.append('')
         elif (going_to_color == "Brown"):
-            byte_list += bytes([0x4])
+            commands.append('')
         elif (going_to_color == "Purple"):
-            byte_list += bytes([0x5])
+            commands.append('')
         elif (going_to_color == "Yellow"):
-            byte_list += bytes([0x6])
+            commands.append('')
         # endregion
         # region degrees_to_turn
         if (degrees_to_turn == 0):
-            byte_list += bytes([0x1])
+            commands.append('s')
         elif (degrees_to_turn == 90):
-            byte_list += bytes([0x2])
+            commands.append('p')
         elif (degrees_to_turn == -90):
-            byte_list += bytes([0x3])
+            commands.append('n')
         elif (degrees_to_turn == 180):
-            byte_list += bytes([0x4])
+            commands.append('c')
         # endregion
         # region scan
         if (scan == False):
-            byte_list += bytes([0x1])
+            commands.append('')
         elif (scan == True):
-            byte_list += bytes([0x2])
+            commands.append('')
         # region fix_camera
         if (fix_camera == False):
-            byte_list += bytes([0x1])
+            commands.append('')
         elif (fix_camera == True):
-            byte_list += bytes([0x2])
+            commands.append('')
         # endregion
-        if(len(byte_list) != 6):
+        if(len(commands) != 6):
             print("Erro ao fazer mapeamento")
 
-        return byte_list
+        return commands
 
     def goto(
         self, orientation, next_movement, going_to_color, scan=False, fix_camera=False
@@ -83,12 +83,26 @@ class ArduinoInterface:
             if degrees_to_turn > 180:
                 degrees_to_turn = degrees_to_turn - 360
         print(f"A {degrees_to_turn} degrees turn is needed")
-        byte_list = self.map_to_bytes(orientation, next_movement, going_to_color, degrees_to_turn, scan, fix_camera)
-        print(byte_list)
-        self.arduino_serial.write(byte_list)
-        data = None
-        while self.arduino_serial.in_waiting:
-            data = self.arduino_serial.readline()
-        print(data)
+        
+        commands = self.map_to_bytes(orientation, next_movement, going_to_color, degrees_to_turn, scan, fix_camera)
+        
+        for i in range(len(commands)):
+            self.arduino_serial.write(commands[i].encode('utf-8'))
+            time.sleep(0.1)
+        
+        print(commands)
+
+        answer = None
+        a = 0
+        while self.arduino_serial.in_waiting < 1 and a < 100:
+            print("oi")
+            a = a + 1
+
+        answer = self.arduino_serial.readline()
+        self.arduino_serial.flush()
+        time.sleep(0.1)
+
+        print(answer)
+
         time.sleep(0.5)
         return color_read
