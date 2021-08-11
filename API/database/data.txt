@@ -1,0 +1,20 @@
+Física|530 S439fis|000|Sears, Francis Weston, 1898-|Física / Francis Weston Sears e Mark W. Zemansky; tradução de Carlos Campos de Oliveira
+Física|530 P327fi|001|Pauli, Ronald Ulysses, 1930-|Física / Ronald Ulysses Pauli, Farid Carvalho Mauad, Hans Peter Heilmann
+Física|530 F537f|002|Williams, John E. (John Esco),1913-[et al.]|Física moderna : curso programado / John E. Williams...[et al.]
+Física|530 B632f|003|Blackwood, Oswald H. (Oswald Hance), 1888-1953|Física na escola secundária / Oswald H. Blackwood, Wilmer B. Herron e William C. Kelly; tradução José Leite Lopes e Jayme Tiomno
+Física|530 E35e 4.ed.|004|Einstein, Albert, 1879-1955|A evolução da física / Albert Einstein, Leopold Infeld; tradução de Giasone Rebuá
+Física|530 P327|005|Mauad, Farid Carvalho|Física básica / Ronald Ulysses Pauli , Farid Carvalho Mauad, Cláudio simão
+Física|530 G618f|006|Goldemberg, José, 1928-|Física geral e experimental / José Goldemberg
+Física|530 H199q 2.ed.|007|Hamburger, Ernst W. (Ernst Wolfgang), 1933-|O que é física / Ernst W. Hamburger
+Física|530 C977c|008|Knight, Walter D.,1919-|Curso de física de Berkeley / Charles Kittel, Walter D. Knight e Malvin A. Ruderman; tradução de José Goldemberg e Wiktor Wajntal
+Física|530 T595f 3.ed.|009|Tipler, Paul Allen, 1933-|Física : para cientistas e engenheiros / Paul Allen Tipler; tradução Horácio Macedo
+Eletrônica|621.381 G781p|010|Gray, Paul E.|Princípios de eletrônica / Paul E. Gray, Campbell L. Searle; tradução Roberto Ângelo de Barros Padilha
+Eletrônica|621.381 N945e|011|Novo, Darcy Domingues|Eletrônica aplicada / Darcy Domingues Novo
+Eletrônica|621.381 M262e|012|Malvino, Albert Paul|Eletrônica / Albert Paul Malvino; tradutor , Aracy Mendes da Costa; 1ª revisão técnica: Rodrigo Araês Caldas Farias, 2ª rev. Antonio Pertence Junior, Laércio Caldeira
+Eletrônica|621.381 O76e|013|Orsini, Luiz de Queiroz, 1922-|Eletrônica / Luiz de Queiroz Orsini
+Eletrônica|621.381028 Z39i|014|Zbar, Paul B., 1911-|Instrumentos e medidas em eletrônica : (práticas de laboratório) / Paul B. Zbar
+Eletrônica|621.381 Z39p|015|Zbar, Paul B., 1911-|Práticas de eletrônica / Paul B. Zbar; traduzido e adaptado pelo departamento de eletrônica da Escola Técnica Federal do Paraná
+Eletrônica|621.3815 C989t|016|Cutler, Phillip|Teoria dos dispositivos de estado sólido : com problemas ilustrativos / Phillip Cutler, tradução de Raul Wuo
+Eletrônica|621.381 T948m|017|Turner, L. W. (Leslie William)|Manual básico de eletrônica : generalidades, histórico, ciência dos materiais, componentes e dispositivos básicos / L. W. Turner
+Eletrônica|621.381 K21e|018|Kaufman, Milton|Eletrônica básica / Milton Kaufman, J. A. Wilson; tradução Fausto Luiz Martins Pires Junior
+Eletrônica|621.3815 M655ele 2.ed.|019|Millman, Jacob, 1911-|Electronics / Jacob Millman, Samuel Seely

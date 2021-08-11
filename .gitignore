@@ -1,46 +1,46 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
-/dist
-/tmp
-/out-tsc
+/libscoutr/dist
+/libscoutr/tmp
+/libscoutr/out-tsc
 # Only exists if Bazel was run
-/bazel-out
+/libscoutr/bazel-out
 
 # dependencies
-/node_modules
+/libscoutr/node_modules
 
 # profiling files
 chrome-profiler-events*.json
 speed-measure-plugin*.json
 
 # IDEs and editors
-/.idea
-.project
-.classpath
-.c9/
-*.launch
-.settings/
-*.sublime-workspace
+/libscoutr/.idea
+/libscoutr/.project
+/libscoutr/.classpath
+/libscoutr/.c9/
+/libscoutr/*.launch
+/libscoutr/.settings/
+/libscoutr/*.sublime-workspace
 
 # IDE - VSCode
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-.history/*
+/libscoutr/.vscode/*
+/libscoutr/!.vscode/settings.json
+/libscoutr/!.vscode/tasks.json
+/libscoutr/!.vscode/launch.json
+/libscoutr/!.vscode/extensions.json
+/libscoutr/.history/*
 
 # misc
-/.sass-cache
-/connect.lock
-/coverage
-/libpeerconnection.log
-npm-debug.log
-yarn-error.log
-testem.log
-/typings
+/libscoutr/.sass-cache
+/libscoutr/connect.lock
+/libscoutr/coverage
+/libscoutr/libpeerconnection.log
+/libscoutr/npm-debug.log
+/libscoutr/yarn-error.log
+/libscoutr/testem.log
+/libscoutr/typings
 
 # System Files
-.DS_Store
-Thumbs.db
+/libscoutr/.DS_Store
+/libscoutr/Thumbs.db
