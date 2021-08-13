@@ -91,18 +91,25 @@ class ArduinoInterface:
             time.sleep(0.1)
         
         print(commands)
+        while True:
+            response = None
+            while self.arduino_serial.in_waiting:
+                pass
 
-        answer = None
-        a = 0
-        while self.arduino_serial.in_waiting < 1 and a < 100:
-            print("oi")
-            a = a + 1
+            response = self.arduino_serial.readline()
+            self.arduino_serial.flush()
+            time.sleep(0.1)
 
-        answer = self.arduino_serial.readline()
-        self.arduino_serial.flush()
-        time.sleep(0.1)
+            print(response)
+            if response == 'ok':
+                print("qr detecting")
+                self.arduino_serial.write("next".encode('utf-8'))
+                time.sleep(0.1)
+            elif response == 'final':
+                break
+            else:
+                print("deu ruim")
 
-        print(answer)
+            time.sleep(0.5)
 
-        time.sleep(0.5)
         return color_read

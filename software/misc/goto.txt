@@ -4,8 +4,6 @@ title Robot side (goto)
 
 
 start
-
-
   :generate command;
   :send command to arduino;
 repeat
@@ -15,7 +13,10 @@ repeat
     :concat qr detection for both strings;
     :send next to arduino;
     else (no)
-    :break loop;
+        :break loop;
+        note left : command is final
+
+    
     endif
 repeat while ()
 
