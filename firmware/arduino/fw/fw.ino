@@ -12,7 +12,9 @@
 
 #define Kp_bw 1
 #define Ki_bw 0
-#define Kd_bw 15
+#define Kd_bw 10
+
+#define momentum 1.4
 
 float P = 0;
 float I = 0;
@@ -74,16 +76,16 @@ void loop()
   if(a == 'w')
   {
     mov_direction = true;
-    DcMotors::ActivateLeftMotor(LeftInitialSpeed*1.4, mov_direction);
-    DcMotors::ActivateRightMotor(RightInitialSpeed*1.4, mov_direction);
+    DcMotors::ActivateLeftMotor(LeftInitialSpeed*momentum, mov_direction);
+    DcMotors::ActivateRightMotor(RightInitialSpeed*momentum, mov_direction);
     delay(400);
     while(FollowLine(mov_direction));
   }
   else if(a == 's')
   {
     mov_direction = false;
-    DcMotors::ActivateLeftMotor(LeftInitialSpeed*1.4, mov_direction);
-    DcMotors::ActivateRightMotor(RightInitialSpeed*1.4, mov_direction);
+    DcMotors::ActivateLeftMotor(LeftInitialSpeed*momentum, mov_direction);
+    DcMotors::ActivateRightMotor(RightInitialSpeed*momentum, mov_direction);
     delay(400);
     while(FollowLine(mov_direction));
   }
@@ -189,8 +191,9 @@ void MotorControl(boolean dir)
 
 boolean FollowLine(boolean dir)
 {
-  CalculateError(dir);
-  if(Error == 9999)
+  CalculateError(dir);  
+  //ReadRGB();
+  if(Error == 9999/* || (red_light> 100 || green_light > 100 || blue _light > 100)*/)
   {
     PID_value = 0;
     P = 0;
@@ -211,18 +214,18 @@ void ReadRGB()
 {
   if(!apds.readAmbientLight(ambient_light) || !apds.readRedLight(red_light) || !apds.readGreenLight(green_light) || !apds.readBlueLight(blue_light))
   {
-    Serial.println("Error reading light values");
+    //Serial.println("Error reading light values");
   } 
   else 
   {
-    Serial.print("Ambient: ");
+    /*Serial.print("Ambient: ");
     Serial.print(ambient_light);
     Serial.print(" Red: ");
     Serial.print(red_light);
     Serial.print(" Green: ");
     Serial.print(green_light);
     Serial.print(" Blue: ");
-    Serial.println(blue_light);
+    Serial.println(blue_light);*/
   }
 }
 
@@ -233,18 +236,27 @@ void Rotate(int ninety_steps, boolean angular_dir, boolean previous_dir)
   
   if(!previous_dir)
   {
-    Serial.println("Matheus trouxa");
-    DcMotors::ActivateLeftMotor(LeftInitialSpeed, true);
-    DcMotors::ActivateRightMotor(RightInitialSpeed, true);
+    DcMotors::ActivateLeftMotor(LeftInitialSpeed*momentum, true);
+    DcMotors::ActivateRightMotor(RightInitialSpeed*momentum, true);
 
-    delay(750);
+    delay(300);
+
+    DcMotors::ActivateLeftMotor(0, false);
+    DcMotors::ActivateRightMotor(0, false);
+  }
+  else
+  {
+    DcMotors::ActivateLeftMotor(LeftInitialSpeed*momentum, true);
+    DcMotors::ActivateRightMotor(RightInitialSpeed*momentum, true);
+
+    delay(300);
 
     DcMotors::ActivateLeftMotor(0, false);
     DcMotors::ActivateRightMotor(0, false);
   }
 
-  DcMotors::ActivateLeftMotor(LeftInitialSpeed*1.2, !angular_dir);
-  DcMotors::ActivateRightMotor(RightInitialSpeed*1.2, angular_dir);
+  DcMotors::ActivateLeftMotor(LeftInitialSpeed*momentum, !angular_dir);
+  DcMotors::ActivateRightMotor(RightInitialSpeed*momentum, angular_dir);
   
   while(steps < ninety_steps)
   {
