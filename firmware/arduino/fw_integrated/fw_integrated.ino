@@ -31,12 +31,14 @@ uint16_t red_light = 0;
 uint16_t green_light = 0;
 uint16_t blue_light = 0;
 
-char commandBuffer[6];
+byte commandBuffer[6];
 int timeout_loops = 0;
 
 void setup()
 {
     Serial.begin(9600);
+    Serial.setTimeout(30000);
+    serialFlush();
 
     pinMode(LED_BUILTIN, OUTPUT);
     
@@ -73,50 +75,10 @@ void setup()
 
 void loop() 
 {
-//  timeout_loops++;
-//
-//  if(timeout_loops == 10)
-//  {
-//    timeout_loops = 0;
-//    Serial.print("something wrong");
-//    delay(10);
-//    Serial.flush();
-//    return;
-//  }
-  
-  if(Serial.available() < 6)
-    return;
-  
-  digitalWrite(LED_BUILTIN, HIGH);
+  serialFlush();
+  Serial.readBytesUntil('\n',commandBuffer, 6);
 
-  int i = 0;
-  while(Serial.available() > 0)
-  {
-    commandBuffer[i] = Serial.read();
-    delay(10);
-    i++;
-  }
-  Serial.flush();
-
-  if(commandBuffer[0] == 'f')
-  {
-    mov_direction = true;
-    DcMotors::ActivateLeftMotor(LeftInitialSpeed*1.4, mov_direction);
-    DcMotors::ActivateRightMotor(RightInitialSpeed*1.4, mov_direction);
-    delay(400);
-    while(FollowLine(mov_direction));
-  }
-  else if(commandBuffer[0] == 'b')
-  {
-    mov_direction = false;
-    DcMotors::ActivateLeftMotor(LeftInitialSpeed*1.4, mov_direction);
-    DcMotors::ActivateRightMotor(RightInitialSpeed*1.4, mov_direction);
-    delay(400);
-    while(FollowLine(mov_direction));
-  }
-
-  delay(500);
-
+  //Calls rotate subroutine
   if(commandBuffer[3] != 's')
   {
     if(commandBuffer[3] == 'p')
@@ -133,11 +95,36 @@ void loop()
     }
   }
 
-  delay(500);
+  //Checks if scan is needed
+  if(commandBuffer[4] == 'y')
+  {
+    boolean cornerFound = false;
+    while(!cornerFound)
+    {      
+      cornerFound = MoveByTime(1000);
+      
+      Serial.write("okay");
+      Serial.flush();
 
-  Serial.write("D");  
+      do
+      {
+        clearCommandBuffer();
+        serialFlush();
+        Serial.readBytesUntil('\n',commandBuffer, 6);
+      }
+      while(commandBuffer[0] != 'n' && commandBuffer[0] != 'e' && commandBuffer[0] != 'x' && commandBuffer[0] != 't');
+    }
+    Serial.write("final");
+    Serial.flush();
+  }
+  else
+  {
+    MoveUntilNextCorner();
+    Serial.write("final");
+    Serial.flush();
+  }
 
-  digitalWrite(LED_BUILTIN, LOW);
+  clearCommandBuffer();
 }
                                                                                                                                                                  
 void CalculateError(boolean dir)
@@ -235,11 +222,11 @@ boolean FollowLine(boolean dir)
     Previous_Error = 0;
     DcMotors::ActivateLeftMotor(0, true);
     DcMotors::ActivateRightMotor(0, true);
-    return false;
+    return true;
   }
   Calculate_PID(dir);
   MotorControl(dir);
-  return true;
+  return false;
 }
 
 void ReadRGB()
@@ -261,6 +248,45 @@ void ReadRGB()
     Serial.println(blue_light);
     */
   }
+}
+
+boolean MoveByTime(int milliseconds)
+{
+  unsigned long initialTime = millis();
+  if(commandBuffer[0] == 'f')
+  {
+    mov_direction = true;
+  }
+  else if(commandBuffer[0] == 'b')
+  {
+    mov_direction = false;
+  }
+  DcMotors::ActivateLeftMotor(LeftInitialSpeed*1.4, mov_direction);
+  DcMotors::ActivateRightMotor(RightInitialSpeed*1.4, mov_direction);
+  delay(400);
+  while(millis() - initialTime < milliseconds)
+  {
+    if(FollowLine(mov_direction))
+      return true;
+  }
+  DcMotors::ActivateLeftMotor(0, false);
+  DcMotors::ActivateRightMotor(0, false);
+}
+
+void MoveUntilNextCorner()
+{
+  if(commandBuffer[0] == 'f')
+  {
+    mov_direction = true;
+  }
+  else if(commandBuffer[0] == 'b')
+  {
+    mov_direction = false;
+  }
+  DcMotors::ActivateLeftMotor(LeftInitialSpeed*1.4, mov_direction);
+  DcMotors::ActivateRightMotor(RightInitialSpeed*1.4, mov_direction);
+  delay(400);
+  while(!FollowLine(mov_direction));
 }
 
 void Rotate(int ninety_steps, boolean angular_dir, boolean previous_dir)
@@ -321,4 +347,16 @@ void Rotate(int ninety_steps, boolean angular_dir, boolean previous_dir)
 
   DcMotors::ActivateLeftMotor(0, false);
   DcMotors::ActivateRightMotor(0, false);
+}
+
+void clearCommandBuffer()
+{
+  for(int i = 0; i < 6; i++)
+    commandBuffer[i] = 0;
+}
+
+void serialFlush(){
+  while(Serial.available() > 0) {
+    char t = Serial.read();
+  }
 }
