@@ -12,7 +12,9 @@
 
 #define Kp_bw 1
 #define Ki_bw 0
-#define Kd_bw 15
+#define Kd_bw 10
+
+#define momentum 1.4
 
 float P = 0;
 float I = 0;
@@ -261,8 +263,8 @@ boolean MoveByTime(int milliseconds)
   {
     mov_direction = false;
   }
-  DcMotors::ActivateLeftMotor(LeftInitialSpeed*1.4, mov_direction);
-  DcMotors::ActivateRightMotor(RightInitialSpeed*1.4, mov_direction);
+  DcMotors::ActivateLeftMotor(LeftInitialSpeed*momentum, mov_direction);
+  DcMotors::ActivateRightMotor(RightInitialSpeed*momentum, mov_direction);
   delay(400);
   while(millis() - initialTime < milliseconds)
   {
@@ -283,8 +285,8 @@ void MoveUntilNextCorner()
   {
     mov_direction = false;
   }
-  DcMotors::ActivateLeftMotor(LeftInitialSpeed*1.4, mov_direction);
-  DcMotors::ActivateRightMotor(RightInitialSpeed*1.4, mov_direction);
+  DcMotors::ActivateLeftMotor(LeftInitialSpeed*momentum, mov_direction);
+  DcMotors::ActivateRightMotor(RightInitialSpeed*momentum, mov_direction);
   delay(400);
   while(!FollowLine(mov_direction));
 }
@@ -296,10 +298,20 @@ void Rotate(int ninety_steps, boolean angular_dir, boolean previous_dir)
   
   if(!previous_dir)
   {
-    DcMotors::ActivateLeftMotor(LeftInitialSpeed, true);
-    DcMotors::ActivateRightMotor(RightInitialSpeed, true);
+    DcMotors::ActivateLeftMotor(LeftInitialSpeed*momentum, true);
+    DcMotors::ActivateRightMotor(RightInitialSpeed*momentum, true);
 
-    delay(750);
+    delay(300);
+
+    DcMotors::ActivateLeftMotor(0, false);
+    DcMotors::ActivateRightMotor(0, false);
+  }
+  else
+  {
+    DcMotors::ActivateLeftMotor(LeftInitialSpeed*momentum, true);
+    DcMotors::ActivateRightMotor(RightInitialSpeed*momentum, true);
+
+    delay(300);
 
     DcMotors::ActivateLeftMotor(0, false);
     DcMotors::ActivateRightMotor(0, false);
