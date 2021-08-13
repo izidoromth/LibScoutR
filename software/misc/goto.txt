@@ -1,0 +1,24 @@
+@startuml
+
+title Robot side (goto)
+
+
+start
+
+
+  :generate command;
+  :send command to arduino;
+repeat
+    :receive response;
+    if (arduino response is ok) then (yes)
+    :qr detection for both cams;
+    :concat qr detection for both strings;
+    :send next to arduino;
+    else (no)
+    :break loop;
+    endif
+repeat while ()
+
+stop
+
+@enduml

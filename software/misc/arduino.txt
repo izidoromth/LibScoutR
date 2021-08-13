@@ -1,0 +1,35 @@
+@startuml
+
+title Arduino side
+
+
+start
+repeat
+    :listen to command;
+    :rotate;
+    if (command.scan) then (yes)
+        repeat
+            :move 1 second;
+            if (on end) then (yes)
+                :send final to rasp;
+                :break;
+            else (no)
+                :send ok to rasp;
+            repeat
+                :read message;
+                if (message is next) then (yes)
+                    :break;
+                else (no)
+            
+                endif
+            repeat while ()
+            endif  
+        repeat while ()
+    else (no)
+        :move until end;
+        :send final to rasp;
+    endif
+  repeat while ()
+stop
+
+@enduml
