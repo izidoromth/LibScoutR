@@ -292,7 +292,7 @@ class Robot:
                 self.__orientation = "Forward"
 
         self.print_position()
-        books_scanned = self.__arduino.goto(
+        codes_scanned = self.__arduino.goto(
             self.__orientation,
             self.__next_direction,
             self.__going_to_color,
@@ -307,7 +307,8 @@ class Robot:
 
         if self.__scanning:
             # send to server the variable books 
-            for book in books_scanned:
+            # ['123 x23 iqw', '456 y12 8kk', '801 sin cos']
+            for book_code in codes_scanned:
                 pass
 
         time.sleep(2)
