@@ -191,9 +191,8 @@ class Robot:
             # print("orientation false")
             return False
 
-    def user_want_book(self):
-        books = self.__library.get_books()
-        book_to_search = books[random.randrange(len(books))]
+    def user_want_book(self, book_json):
+        book_to_search = self.__library.generate_book_from_json(book_json)
         self.__books_to_search.append(book_to_search)
         return book_to_search.get_name()
 

@@ -87,32 +87,6 @@ class ArduinoInterface:
         
         self.arduino_serial.reset_input_buffer()
         commands = self.map_to_bytes(orientation, next_movement, going_to_color, degrees_to_turn, scan, fix_camera)
-        
-#         for i in range(len(commands)):
-#             self.arduino_serial.write(commands[i].encode('utf-8'))
-#             time.sleep(0.1)
-        
-#         print(commands)
-#         while True:
-#             response = None
-#             while self.arduino_serial.in_waiting:
-#                 pass
-
-#             response = self.arduino_serial.readline()
-#             self.arduino_serial.flush()
-#             time.sleep(0.1)
-
-#             print(response)
-#             if response == 'ok':
-#                 print("qr detecting")
-#                 self.arduino_serial.write("next".encode('utf-8'))
-#                 time.sleep(0.1)
-#             elif response == 'final':
-#                 break
-#             else:
-#                 print("deu ruim")
-
-#             time.sleep(0.5)
 
         # always flush after writing
         self.arduino_serial.write(commands.encode('utf-8'))
@@ -138,5 +112,5 @@ class ArduinoInterface:
                 print('deu ruim')
 
 
-            time.sleep(1)
+        time.sleep(1)
         return color_read
