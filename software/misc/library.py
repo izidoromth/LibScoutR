@@ -58,6 +58,10 @@ class Library:
             graph[b].append(a)
         return graph
 
+    def generate_book_from_json(self, book_json):
+        book = Book(book_json['name'], book_json['universal_code'], book_json['current_category'])
+        return book
+
     def setup(self):
         self.update_library_books()
         self.update_books_internal_code()
