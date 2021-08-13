@@ -118,11 +118,25 @@ class ArduinoInterface:
         self.arduino_serial.write(commands.encode('utf-8'))
         self.arduino_serial.flush()
         
-        # for awaiting for arduino response use the folowing
-        response = self.arduino_serial.read_until(b'/')
-        self.arduino_serial.reset_input_buffer()
+        while True:
+            # for awaiting for arduino response use the folowing
+            response = self.arduino_serial.read_until(b'\n')
+            self.arduino_serial.reset_input_buffer()
 
-        # the response as a string needs to be decoded
-        print(response.decode('utf-8'))
-        time.sleep(1)
+            # the response as a string needs to be decoded
+            decoded_response = response.decode('utf-8')
+            print(decoded_response)
+            if decoded_response == 'ok':
+                print("qr detecting")
+                # always flush after writing
+                self.arduino_serial.write('next'.encode('utf-8'))
+                self.arduino_serial.flush()
+                time.sleep(0.1)
+            elif decoded_response == 'final':
+                break
+            else:
+                print('deu ruim')
+
+
+            time.sleep(1)
         return color_read
