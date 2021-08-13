@@ -292,7 +292,7 @@ class Robot:
                 self.__orientation = "Forward"
 
         self.print_position()
-        self.__arduino.goto(
+        books_scanned = self.__arduino.goto(
             self.__orientation,
             self.__next_direction,
             self.__going_to_color,
@@ -304,6 +304,12 @@ class Robot:
         self.__current_color = self.__going_to_color
         self.__going_to_color = None
         self.print_position()
+
+        if self.__scanning:
+            # send to server the variable books 
+            for book in books_scanned:
+                pass
+
         time.sleep(2)
 
     def guide_user(self, desired_book):
