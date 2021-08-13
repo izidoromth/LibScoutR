@@ -33,13 +33,13 @@ uint16_t red_light = 0;
 uint16_t green_light = 0;
 uint16_t blue_light = 0;
 
-byte commandBuffer[6];
+char commandBuffer[6];
 int timeout_loops = 0;
 
 void setup()
 {
-    Serial.begin(9600);
-    Serial.setTimeout(30000);
+    Serial.begin(19200);
+    Serial.setTimeout(5000);
     serialFlush();
 
     pinMode(LED_BUILTIN, OUTPUT);
@@ -67,6 +67,9 @@ void setup()
       Serial.println(F("Something went wrong during light sensor init!"));
     }
   */
+
+    clearCommandBuffer();
+    serialFlush();
     // Wait for initialization and calibration to finish
     delay(500);
 

@@ -3,8 +3,9 @@ import serial
 
 class ArduinoInterface:
     def __init__(self):
-        self.arduino_serial = serial.Serial(port='/dev/ttyACM0', baudrate=9600, timeout=.1)
+        self.arduino_serial = serial.Serial(port='/dev/ttyACM0', baudrate=19200, timeout=.1)
         self.arduino_serial.timeout = 30
+        self.arduino_serial.reset_output_buffer()
 
     def convert_command_to_degrees_turn(self, next_movement):
         if next_movement == "Right":
@@ -84,6 +85,7 @@ class ArduinoInterface:
                 degrees_to_turn = degrees_to_turn - 360
         print(f"A {degrees_to_turn} degrees turn is needed")
         
+        self.arduino_serial.reset_input_buffer()
         commands = self.map_to_bytes(orientation, next_movement, going_to_color, degrees_to_turn, scan, fix_camera)
         
 #         for i in range(len(commands)):
@@ -117,7 +119,7 @@ class ArduinoInterface:
         self.arduino_serial.flush()
         
         # for awaiting for arduino response use the folowing
-        response = self.arduino_serial.read_until(b'final')
+        response = self.arduino_serial.read_until(b'/')
         self.arduino_serial.reset_input_buffer()
 
         # the response as a string needs to be decoded
