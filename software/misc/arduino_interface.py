@@ -6,6 +6,7 @@ class ArduinoInterface:
         self.arduino_serial = serial.Serial(port='/dev/ttyACM0', baudrate=19200, timeout=.1)
         self.arduino_serial.timeout = 30
         self.arduino_serial.reset_output_buffer()
+        pass
 
     def convert_command_to_degrees_turn(self, next_movement):
         if next_movement == "Right":
@@ -77,14 +78,16 @@ class ArduinoInterface:
         self, orientation, next_movement, going_to_color, scan=False, fix_camera=False
     ):
         self.arduino_serial.reset_input_buffer()
-        color_read = None
         degrees_to_turn = self.convert_command_to_degrees_turn(next_movement)
         if fix_camera:
             degrees_to_turn = degrees_to_turn + 180
             if degrees_to_turn > 180:
                 degrees_to_turn = degrees_to_turn - 360
         print(f"A {degrees_to_turn} degrees turn is needed")
-        
+
+        books_scanned = ['123 x23 iqw', '456 y12 8kk', '801 sin cos']
+
+
         self.arduino_serial.reset_input_buffer()
         commands = self.map_to_bytes(orientation, next_movement, going_to_color, degrees_to_turn, scan, fix_camera)
 
@@ -113,4 +116,4 @@ class ArduinoInterface:
 
 
         time.sleep(1)
-        return color_read
+        return books_scanned
