@@ -292,23 +292,29 @@ class Robot:
                 self.__orientation = "Forward"
 
         self.print_position()
-        books_scanned = self.__arduino.goto(
+        codes_scanned = self.__arduino.goto(
             self.__orientation,
             self.__next_direction,
             self.__going_to_color,
             scan=self.__scanning,
             fix_camera=(self.__scanning and not camera_is_right),
         )
+        
+        
+        if self.__scanning:
+            # {'1st floor': 'Adventure', '2nd floor': 'Romance'}
+            scanning_these_categories = self.__library.get_categories_from_color_position(self.__current_color, self.__going_to_color,)
+            # {
+            #   '1st floor': ['123 x23 iqw', '456 y12 8kk', '801 sin cos'],
+            #   '2nd floor': ['123 x23 iqw', '456 y12 8kk', '801 sin cos']
+            # }
+            for book_code in codes_scanned:
+                pass
 
         self.__came_from_color = self.__current_color
         self.__current_color = self.__going_to_color
         self.__going_to_color = None
         self.print_position()
-
-        if self.__scanning:
-            # send to server the variable books 
-            for book in books_scanned:
-                pass
 
         time.sleep(2)
 
