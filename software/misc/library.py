@@ -115,6 +115,20 @@ class Library:
         |                   |                   |
         ------Suspense------------Biography------
         """
+        # {
+        #   '1st floor': {
+        #       'Adventure': ['Orange', 'Red'], 
+        #       'Comic Books': ['Red', 'Blue'], 
+        #       'Detective': ['Brown', 'Purple'], 
+        #       'Horror': ['Purple', 'Yellow']
+        #   }, 
+        #   '2nd floor': {
+        #       'Romance': ['Orange', 'Red'], 
+        #       'Science Fiction': ['Red', 'Blue'], 
+        #       'Suspense': ['Brown', 'Purple'], 
+        #       'Biography': ['Purple', 'Yellow']
+        #   }
+        # }
         with open(self.__config_filename) as f:
             config = yaml.safe_load(f)
             self.__categories_positions = config["Categories Positions"]
@@ -163,6 +177,28 @@ class Library:
                 if key == category:
                     return [value[0], value[1]]
 
+    def get_categories_from_color_position(self, start_color, end_color):
+        at_categories = {}
+        for floor, categories in self.__categories_positions.items():
+            for category, position in categories.items():
+                if position == [start_color, end_color] or position == [end_color, start_color]:
+                    at_categories[floor] = category
+        return at_categories
+        # {
+        #   '1st floor': {
+        #       'Adventure': ['Orange', 'Red'], 
+        #       'Comic Books': ['Red', 'Blue'], 
+        #       'Detective': ['Brown', 'Purple'], 
+        #       'Horror': ['Purple', 'Yellow']
+        #   }, 
+        #   '2nd floor': {
+        #       'Romance': ['Orange', 'Red'], 
+        #       'Science Fiction': ['Red', 'Blue'], 
+        #       'Suspense': ['Brown', 'Purple'], 
+        #       'Biography': ['Purple', 'Yellow']
+        #   }
+        # }
+    
     def get_book_from_code(self, code):
         for book in self.__books:
             if book.get_universal_code() == code:
