@@ -21,6 +21,12 @@ def hello_world():
 
 
 robot = Robot()
-threading.Thread(target=robot.main).start()
+# threading.Thread(target=robot.main).start()
 
-# robot.organize_shelve("Biography")
+print(robot.organize_shelve("Biography", [
+            "102.1x",  # Ed Sheeran
+            "2321.23",  # Alan Turing
+            "43442.aa2",  # Steve Jobs
+            "7542.69",  # Lupin
+            "7543.69",  # Scooby Doo
+        ]))
