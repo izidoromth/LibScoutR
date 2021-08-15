@@ -3,12 +3,12 @@
 #include "dc_motors.h"
 #include "ir_sensor.h"
 
-#define RightInitialSpeed 115
-#define LeftInitialSpeed 115
+#define RightInitialSpeed 100
+#define LeftInitialSpeed 100
 
 #define Kp_fw 3
 #define Ki_fw 0
-#define Kd_fw 41
+#define Kd_fw 40
 
 #define Kp_bw 1
 #define Ki_bw 0
@@ -111,23 +111,19 @@ void loop()
     {      
       cornerFound = MoveByTime(1000);
 
-      if(cornerFound)
+      if(!cornerFound)
       {
-        Serial.write("final_eol");
+        Serial.write("okay_eol");
         Serial.flush();
-        break;
+  
+        do
+        {
+          clearCommandBuffer();
+          serialFlush();
+          Serial.readBytesUntil('\n',commandBuffer, 6);
+        }
+        while(commandBuffer[0] != 'n' && commandBuffer[0] != 'e' && commandBuffer[0] != 'x' && commandBuffer[0] != 't');
       }
-      
-      Serial.write("okay_eol");
-      Serial.flush();
-
-      do
-      {
-        clearCommandBuffer();
-        serialFlush();
-        Serial.readBytesUntil('\n',commandBuffer, 6);
-      }
-      while(commandBuffer[0] != 'n' && commandBuffer[0] != 'e' && commandBuffer[0] != 'x' && commandBuffer[0] != 't');
     }
     Serial.write("final_eol");
     Serial.flush();
@@ -343,6 +339,21 @@ void Rotate(int ninety_steps, boolean angular_dir, boolean previous_dir)
     boolean middle;
     boolean m_right;
     boolean right;
+
+    if(!IRSensor::ReadMiddle() == 0)
+    {
+      do
+      {
+        left = !IRSensor::ReadLeft();
+        m_left = !IRSensor::ReadMiddleLeft();
+        middle = !IRSensor::ReadMiddle();
+        m_right = !IRSensor::ReadMiddleRight();
+        right = !IRSensor::ReadRight();
+        ticks++;
+        delay(25);
+      }
+      while(middle != 1);
+    }
     
     do
     {

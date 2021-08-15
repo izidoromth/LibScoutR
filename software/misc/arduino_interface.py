@@ -126,4 +126,4 @@ class ArduinoInterface:
 
 
             time.sleep(1)
-        return True
+        return []
