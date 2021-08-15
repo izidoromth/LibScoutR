@@ -21,7 +21,7 @@ def hello_world():
 
 
 robot = Robot()
-# threading.Thread(target=robot.main).start()
+threading.Thread(target=robot.main).start()
 
 print(robot.organize_shelve("Biography", [
             "102.1x",  # Ed Sheeran
