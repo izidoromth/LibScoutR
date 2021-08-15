@@ -126,4 +126,7 @@ class ArduinoInterface:
 
 
             time.sleep(1)
-        return []
+        return {
+              '1st floor': books_scanned_bottom,
+              '2nd floor': books_scanned_top
+            }
