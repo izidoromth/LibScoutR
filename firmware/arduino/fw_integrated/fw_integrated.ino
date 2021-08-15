@@ -3,18 +3,19 @@
 #include "dc_motors.h"
 #include "ir_sensor.h"
 
-#define RightInitialSpeed 110
-#define LeftInitialSpeed 110
+#define RightInitialSpeed 115
+#define LeftInitialSpeed 115
 
-#define Kp_fw 4
+#define Kp_fw 3
 #define Ki_fw 0
-#define Kd_fw 25
+#define Kd_fw 41
 
 #define Kp_bw 1
 #define Ki_bw 0
 #define Kd_bw 10
 
 #define momentum 1.4
+#define ang_momentum 1.25
 
 float P = 0;
 float I = 0;
@@ -25,7 +26,7 @@ int Previous_Error, Previous_I;
 int PID_value;
 int Left_Speed, Right_Speed;
 
-boolean mov_direction;
+boolean mov_direction = true;
 
 SparkFun_APDS9960 apds = SparkFun_APDS9960();
 uint16_t ambient_light = 0;
@@ -38,7 +39,7 @@ int timeout_loops = 0;
 
 void setup()
 {
-    Serial.begin(19200);
+    Serial.begin(9600);
     Serial.setTimeout(5000);
     serialFlush();
 
@@ -80,8 +81,8 @@ void setup()
 
 void loop() 
 {
+  Serial.readBytesUntil('\n',commandBuffer, 6);  
   serialFlush();
-  Serial.readBytesUntil('\n',commandBuffer, 6);
 
   //Calls rotate subroutine
   if(commandBuffer[3] != 's')
@@ -100,6 +101,8 @@ void loop()
     }
   }
 
+  delay(500);
+
   //Checks if scan is needed
   if(commandBuffer[4] == 'y')
   {
@@ -107,8 +110,15 @@ void loop()
     while(!cornerFound)
     {      
       cornerFound = MoveByTime(1000);
+
+      if(cornerFound)
+      {
+        Serial.write("final_eol");
+        Serial.flush();
+        break;
+      }
       
-      Serial.write("okay");
+      Serial.write("okay_eol");
       Serial.flush();
 
       do
@@ -119,13 +129,13 @@ void loop()
       }
       while(commandBuffer[0] != 'n' && commandBuffer[0] != 'e' && commandBuffer[0] != 'x' && commandBuffer[0] != 't');
     }
-    Serial.write("final");
+    Serial.write("final_eol");
     Serial.flush();
   }
-  else
+  else if(commandBuffer[4] == 'n')
   {
     MoveUntilNextCorner();
-    Serial.write("final");
+    Serial.write("final_eol");
     Serial.flush();
   }
 
@@ -276,6 +286,7 @@ boolean MoveByTime(int milliseconds)
   }
   DcMotors::ActivateLeftMotor(0, false);
   DcMotors::ActivateRightMotor(0, false);
+  return false;
 }
 
 void MoveUntilNextCorner()
@@ -304,7 +315,7 @@ void Rotate(int ninety_steps, boolean angular_dir, boolean previous_dir)
     DcMotors::ActivateLeftMotor(LeftInitialSpeed*momentum, true);
     DcMotors::ActivateRightMotor(RightInitialSpeed*momentum, true);
 
-    delay(300);
+    delay(350);
 
     DcMotors::ActivateLeftMotor(0, false);
     DcMotors::ActivateRightMotor(0, false);
@@ -314,14 +325,14 @@ void Rotate(int ninety_steps, boolean angular_dir, boolean previous_dir)
     DcMotors::ActivateLeftMotor(LeftInitialSpeed*momentum, true);
     DcMotors::ActivateRightMotor(RightInitialSpeed*momentum, true);
 
-    delay(300);
+    delay(350);
 
     DcMotors::ActivateLeftMotor(0, false);
     DcMotors::ActivateRightMotor(0, false);
   }
 
-  DcMotors::ActivateLeftMotor(LeftInitialSpeed*1.2, !angular_dir);
-  DcMotors::ActivateRightMotor(RightInitialSpeed*1.2, angular_dir);
+  DcMotors::ActivateLeftMotor(LeftInitialSpeed*ang_momentum, !angular_dir);
+  DcMotors::ActivateRightMotor(RightInitialSpeed*ang_momentum, angular_dir);
   
   while(steps < ninety_steps)
   {
@@ -340,9 +351,10 @@ void Rotate(int ninety_steps, boolean angular_dir, boolean previous_dir)
       middle = !IRSensor::ReadMiddle();
       m_right = !IRSensor::ReadMiddleRight();
       right = !IRSensor::ReadRight();
-      ticks++;
+      ticks++;      
+      delay(25);
     }
-    while(middle == 1 && ticks < 100);
+    while(middle == 1);
 
     do
     {
@@ -352,12 +364,12 @@ void Rotate(int ninety_steps, boolean angular_dir, boolean previous_dir)
       m_right = !IRSensor::ReadMiddleRight();
       right = !IRSensor::ReadRight();
       ticks++;
+      delay(25);
     }
-    while(!((angular_dir && middle != 1 && m_left != 1) || (!angular_dir && middle != 1 && m_right != 1)) && ticks < 100);
+    while(middle != 1);
+    //while(!((angular_dir && middle != 1 && m_left != 1) || (!angular_dir && middle != 1 && m_right != 1)));
     
     steps++;
-
-    delay(600);
   }
 
   DcMotors::ActivateLeftMotor(0, false);

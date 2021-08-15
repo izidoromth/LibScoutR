@@ -191,9 +191,8 @@ class Robot:
             # print("orientation false")
             return False
 
-    def user_want_book(self):
-        books = self.__library.get_books()
-        book_to_search = books[random.randrange(len(books))]
+    def user_want_book(self, book_json):
+        book_to_search = self.__library.generate_book_from_json(book_json)
         self.__books_to_search.append(book_to_search)
         return book_to_search.get_name()
 
@@ -236,30 +235,20 @@ class Robot:
         else:
             print("\n\n")
 
-    def read_shelve(self):
-        list_of_codes_read = [
-            "102.1x",  # Ed Sheeran
-            "2321.23",  # Alan Turing
-            "43442.aa2",  # Steve Jobs
-            "7542.69",  # Lupin
-            "7543.69",  # Scooby Doo
-        ]
-        return list_of_codes_read
-
-    def organize_shelve(self, category):
-        codes_read = self.read_shelve()
+    def organize_shelve(self, category, list_of_book_read):
+        codes_read = list_of_book_read
         books_read = self.__library.create_book_list_from_code_list(codes_read)
         same_category_books = self.__library.filter_book_list_by_category(
             books_read, category
         )
         wrong_shelf_books = [
-            book for book in books_read if book not in same_category_books
+            book.get_universal_code() for book in books_read if book not in same_category_books
         ]
         correct_books = self.__LIS(same_category_books)
         incorrect_books = []
         for book in same_category_books:
             if book not in correct_books[0]:
-                incorrect_books.append(book)
+                incorrect_books.append(book.get_universal_code())
 
         print("Oraganization plan:")
         return {"Wrong Shelve": wrong_shelf_books, "Out of Order": incorrect_books}
@@ -293,18 +282,35 @@ class Robot:
                 self.__orientation = "Forward"
 
         self.print_position()
-        self.__arduino.goto(
+        codes_scanned = self.__arduino.goto(
             self.__orientation,
             self.__next_direction,
             self.__going_to_color,
             scan=self.__scanning,
             fix_camera=(self.__scanning and not camera_is_right),
         )
+        
+        
+        if self.__scanning:
+            # {'1st floor': 'Adventure', '2nd floor': 'Romance'}
+            scanning_these_categories = self.__library.get_categories_from_color_position(self.__current_color, self.__going_to_color,)
+            
+            # {'Wrong Shelve': ['7542.69', '7543.69'], 'Out of Order': ['2321.23']}
+            # self.organize_shelve(scanning_these_categories['1st floor'], codes_scanned['1st floor'])
+            
+            # codes_scanned look like this:
+            # {
+            #   '1st floor': ['123 x23 iqw', '456 y12 8kk', '801 sin cos'],
+            #   '2nd floor': ['123 x23 iqw', '456 y12 8kk', '801 sin cos']
+            # }
+            for book_code in codes_scanned:
+                pass
 
         self.__came_from_color = self.__current_color
         self.__current_color = self.__going_to_color
         self.__going_to_color = None
         self.print_position()
+
         time.sleep(2)
 
     def guide_user(self, desired_book):

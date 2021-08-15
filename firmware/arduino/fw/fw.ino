@@ -3,12 +3,12 @@
 #include "dc_motors.h"
 #include "ir_sensor.h"
 
-#define RightInitialSpeed 110
-#define LeftInitialSpeed 110
+#define RightInitialSpeed 100
+#define LeftInitialSpeed 100
 
-#define Kp_fw 4
+#define Kp_fw 2
 #define Ki_fw 0
-#define Kd_fw 25
+#define Kd_fw 36
 
 #define Kp_bw 1
 #define Ki_bw 0
@@ -146,6 +146,10 @@ void CalculateError(boolean dir)
     }
     else if((left == 1) && (m_left == 1) && (middle == 1) && (m_right == 1) && (right == 1))
         Error = 9999;
+    else if((left == 1) && (m_left == 1) && (middle == 1) && (m_right == 0) && (right == 0))
+        Error = 9999;
+    else if((left == 0) && (m_left == 0) && (middle == 1) && (m_right == 1) && (right == 1))
+        Error = 9999;
       
     Serial.println("Error: " + String(Error));
 }
@@ -239,7 +243,7 @@ void Rotate(int ninety_steps, boolean angular_dir, boolean previous_dir)
     DcMotors::ActivateLeftMotor(LeftInitialSpeed*momentum, true);
     DcMotors::ActivateRightMotor(RightInitialSpeed*momentum, true);
 
-    delay(300);
+    delay(350);
 
     DcMotors::ActivateLeftMotor(0, false);
     DcMotors::ActivateRightMotor(0, false);
@@ -249,7 +253,7 @@ void Rotate(int ninety_steps, boolean angular_dir, boolean previous_dir)
     DcMotors::ActivateLeftMotor(LeftInitialSpeed*momentum, true);
     DcMotors::ActivateRightMotor(RightInitialSpeed*momentum, true);
 
-    delay(300);
+    delay(350);
 
     DcMotors::ActivateLeftMotor(0, false);
     DcMotors::ActivateRightMotor(0, false);
@@ -290,11 +294,12 @@ void Rotate(int ninety_steps, boolean angular_dir, boolean previous_dir)
       Serial.println("While 2:");
       ticks++;
     }
-    while(!((angular_dir && middle != 1 && m_left != 1) || (!angular_dir && middle != 1 && m_right != 1)) && ticks < 100);
+    while(middle != 1 && ticks < 100);
+    //while(!((angular_dir && middle != 1 && m_left != 1) || (!angular_dir && middle != 1 && m_right != 1)) && ticks < 100);
     
     steps++;
 
-    delay(600);
+    //delay(150);
   }
 
   DcMotors::ActivateLeftMotor(0, false);

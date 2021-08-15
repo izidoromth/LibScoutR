@@ -3,8 +3,7 @@ import serial
 
 class ArduinoInterface:
     def __init__(self):
-        self.arduino_serial = serial.Serial(port='/dev/ttyACM0', baudrate=9600, timeout=.1)
-        self.arduino_serial.timeout = 30
+        self.arduino_serial = serial.Serial(port='/dev/ttyACM0', baudrate=9600, timeout=30)
         self.arduino_serial.reset_output_buffer()
         self.arduino_serial.write('init'.encode('utf-8'))
 
@@ -77,42 +76,18 @@ class ArduinoInterface:
         self, orientation, next_movement, going_to_color, scan=False, fix_camera=False
     ):
         self.arduino_serial.reset_input_buffer()
-        color_read = None
         degrees_to_turn = self.convert_command_to_degrees_turn(next_movement)
         if fix_camera:
             degrees_to_turn = degrees_to_turn + 180
             if degrees_to_turn > 180:
                 degrees_to_turn = degrees_to_turn - 360
         print(f"A {degrees_to_turn} degrees turn is needed")
-        
+
+        books_scanned_bottom = ['123 x23 iqw', '456 y12 8kk', '801 sin cos']
+        books_scanned_top = ['123 x23 iqw', '456 y12 8kk', '801 sin cos']
+
         self.arduino_serial.reset_input_buffer()
         commands = self.map_to_bytes(orientation, next_movement, going_to_color, degrees_to_turn, scan, fix_camera)
-        
-#         for i in range(len(commands)):
-#             self.arduino_serial.write(commands[i].encode('utf-8'))
-#             time.sleep(0.1)
-        
-#         print(commands)
-#         while True:
-#             response = None
-#             while self.arduino_serial.in_waiting:
-#                 pass
-
-#             response = self.arduino_serial.readline()
-#             self.arduino_serial.flush()
-#             time.sleep(0.1)
-
-#             print(response)
-#             if response == 'ok':
-#                 print("qr detecting")
-#                 self.arduino_serial.write("next".encode('utf-8'))
-#                 time.sleep(0.1)
-#             elif response == 'final':
-#                 break
-#             else:
-#                 print("deu ruim")
-
-#             time.sleep(0.5)
 
         # while True:
         #     command = input('command')         
@@ -151,4 +126,4 @@ class ArduinoInterface:
 
 
             time.sleep(1)
-        return color_read
+        return True
