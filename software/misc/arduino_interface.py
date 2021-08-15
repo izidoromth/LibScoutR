@@ -3,9 +3,10 @@ import serial
 
 class ArduinoInterface:
     def __init__(self):
-        self.arduino_serial = serial.Serial(port='/dev/ttyACM0', baudrate=19200, timeout=.1)
+        self.arduino_serial = serial.Serial(port='/dev/ttyACM0', baudrate=9600, timeout=.1)
         self.arduino_serial.timeout = 30
         self.arduino_serial.reset_output_buffer()
+        self.arduino_serial.write('init'.encode('utf-8'))
 
     def convert_command_to_degrees_turn(self, next_movement):
         if next_movement == "Right":
@@ -61,16 +62,15 @@ class ArduinoInterface:
         # endregion
         # region scan
         if (scan == False):
-            commands = commands + 'y'
-        elif (scan == True):
             commands = commands + 'n'
+        elif (scan == True):
+            commands = commands + 'y'
         # region fix_camera
         if (fix_camera == False):
             commands = commands + '0'
         elif (fix_camera == True):
             commands = commands + '0'
         # endregion
-        commands = commands + '\n'
         return commands
 
     def goto(
@@ -114,25 +114,37 @@ class ArduinoInterface:
 
 #             time.sleep(0.5)
 
+        # while True:
+        #     command = input('command')         
+        #     self.arduino_serial.write(command.encode('utf-8'))
+        #     self.arduino_serial.flush()
+
+        #     response = self.arduino_serial.read_until(b'_eol')
+        #     self.arduino_serial.reset_input_buffer()
+
+        #     print(response.decode('utf-8'))
+        
+        time.sleep(1)
+
         # always flush after writing
         self.arduino_serial.write(commands.encode('utf-8'))
         self.arduino_serial.flush()
         
         while True:
             # for awaiting for arduino response use the folowing
-            response = self.arduino_serial.read_until(b'\n')
+            response = self.arduino_serial.read_until(b'_eol')
             self.arduino_serial.reset_input_buffer()
 
             # the response as a string needs to be decoded
             decoded_response = response.decode('utf-8')
             print(decoded_response)
-            if decoded_response == 'ok':
+            if decoded_response == 'okay_eol':
                 print("qr detecting")
                 # always flush after writing
-                self.arduino_serial.write('next'.encode('utf-8'))
+                self.arduino_serial.write('next__'.encode('utf-8'))
                 self.arduino_serial.flush()
-                time.sleep(0.1)
-            elif decoded_response == 'final':
+                time.sleep(3)
+            elif decoded_response == 'final_eol':
                 break
             else:
                 print('deu ruim')
