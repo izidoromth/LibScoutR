@@ -1,2 +1,6 @@
 .vscode
 software/misc/__pycache__
+
+software/web/libscout_app/node_modules
+software/web/libscout_api/.vscode
+software/web/libscout_api/__pycache__
