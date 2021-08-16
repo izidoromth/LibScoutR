@@ -5,12 +5,11 @@ from qr_detection_standalone import qr_detect
 
 class ArduinoInterface:
     def __init__(self):
-        # self.arduino_serial = serial.Serial(
-        #     port="/dev/ttyACM0", baudrate=9600, timeout=30
-        # )
-        # self.arduino_serial.reset_output_buffer()
-        # self.arduino_serial.write("init".encode("utf-8"))
-        pass
+        self.arduino_serial = serial.Serial(
+            port="/dev/ttyACM0", baudrate=9600, timeout=30
+        )
+        self.arduino_serial.reset_output_buffer()
+        self.arduino_serial.write("init".encode("utf-8"))
 
     def generate_list_from_parts(self, list_with_lists, orientation):
         my_set = set()
@@ -119,27 +118,20 @@ class ArduinoInterface:
         books_scanned_bottom = []
         books_scanned_top = []
 
-        # self.arduino_serial.reset_input_buffer()
-        # time.sleep(1)
+        self.arduino_serial.reset_input_buffer()
+        time.sleep(1)
 
-        # # always flush after writing
-        # self.arduino_serial.write(commands.encode("utf-8"))
-        # self.arduino_serial.flush()
+        # always flush after writing
+        self.arduino_serial.write(commands.encode("utf-8"))
+        self.arduino_serial.flush()
 
-        for i in range(4):
+        while True:
             # for awaiting for arduino response use the folowing
-            # response = self.arduino_serial.read_until(b"_eol")
-            # self.arduino_serial.reset_input_buffer()
-            if scan:
-                if i < 3:
-                    decoded_response = 'okay_eol'
-                else:
-                    decoded_response = 'final_eol'
-            else:
-                decoded_response = 'final_eol'
+            response = self.arduino_serial.read_until(b"_eol")
+            self.arduino_serial.reset_input_buffer()
 
             # the response as a string needs to be decoded
-            # decoded_response = response.decode("utf-8")
+            decoded_response = response.decode("utf-8")
             print(decoded_response)
             if decoded_response == "okay_eol":
                 print("QR detecting")
@@ -162,9 +154,10 @@ class ArduinoInterface:
                 # )
                 # print(top_detection)
                 # books_scanned_top.append(top_detection)
+                # # ------------------
                 # always flush after writing
-                # self.arduino_serial.write("next__".encode("utf-8"))
-                # self.arduino_serial.flush()
+                self.arduino_serial.write("next__".encode("utf-8"))
+                self.arduino_serial.flush()
                 time.sleep(3)
             elif decoded_response == "final_eol":
                 break
