@@ -60,7 +60,11 @@ class Library:
         return graph
 
     def generate_book_from_json(self, book_json):
-        book = Book(book_json['name'], book_json['universal_code'], book_json['current_category'])
+        book = Book(
+            book_json["name"],
+            book_json["universal_code"],
+            book_json["current_category"],
+        )
         return book
 
     def setup(self):
@@ -118,15 +122,15 @@ class Library:
         """
         # {
         #   '1st floor': {
-        #       'Adventure': ['Orange', 'Red'], 
-        #       'Comic Books': ['Red', 'Blue'], 
-        #       'Detective': ['Brown', 'Purple'], 
+        #       'Adventure': ['Orange', 'Red'],
+        #       'Comic Books': ['Red', 'Blue'],
+        #       'Detective': ['Brown', 'Purple'],
         #       'Horror': ['Purple', 'Yellow']
-        #   }, 
+        #   },
         #   '2nd floor': {
-        #       'Romance': ['Orange', 'Red'], 
-        #       'Science Fiction': ['Red', 'Blue'], 
-        #       'Suspense': ['Brown', 'Purple'], 
+        #       'Romance': ['Orange', 'Red'],
+        #       'Science Fiction': ['Red', 'Blue'],
+        #       'Suspense': ['Brown', 'Purple'],
         #       'Biography': ['Purple', 'Yellow']
         #   }
         # }
@@ -135,8 +139,8 @@ class Library:
             self.__categories_positions = config["Categories Positions"]
 
     def update_books_internal_code(self):
-        lib_config = requests.get('http://localhost:5001/ordered_books').json()
-        
+        lib_config = requests.get("http://localhost:5001/ordered_books").json()
+
         for book in self.__books:
             for category, ordered_books in lib_config.items():
                 if category == book.get_category():
@@ -146,13 +150,15 @@ class Library:
 
     def update_library_books(self):
         books = []
-        data = requests.get('http://localhost:5001/books').json()
+        data = requests.get("http://localhost:5001/books").json()
         for book in data:
-            books.append({
-                            "name": book["title"],
-                            "ucode": book["id"],
-                            "category": book["current_category"]
-                        })
+            books.append(
+                {
+                    "name": book["title"],
+                    "ucode": book["id"],
+                    "category": book["current_category"],
+                }
+            )
 
         for book in books:
             self.add_book(Book(book["name"], book["ucode"], book["category"]))
@@ -167,24 +173,27 @@ class Library:
         at_categories = {}
         for floor, categories in self.__categories_positions.items():
             for category, position in categories.items():
-                if position == [start_color, end_color] or position == [end_color, start_color]:
+                if position == [start_color, end_color] or position == [
+                    end_color,
+                    start_color,
+                ]:
                     at_categories[floor] = category
         return at_categories
         # {
         #   '1st floor': {
-        #       'Adventure': ['Orange', 'Red'], 
-        #       'Comic Books': ['Red', 'Blue'], 
-        #       'Detective': ['Brown', 'Purple'], 
+        #       'Adventure': ['Orange', 'Red'],
+        #       'Comic Books': ['Red', 'Blue'],
+        #       'Detective': ['Brown', 'Purple'],
         #       'Horror': ['Purple', 'Yellow']
-        #   }, 
+        #   },
         #   '2nd floor': {
-        #       'Romance': ['Orange', 'Red'], 
-        #       'Science Fiction': ['Red', 'Blue'], 
-        #       'Suspense': ['Brown', 'Purple'], 
+        #       'Romance': ['Orange', 'Red'],
+        #       'Science Fiction': ['Red', 'Blue'],
+        #       'Suspense': ['Brown', 'Purple'],
         #       'Biography': ['Purple', 'Yellow']
         #   }
         # }
-    
+
     def get_book_from_code(self, code):
         for book in self.__books:
             if book.get_universal_code() == code:

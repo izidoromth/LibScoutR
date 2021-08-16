@@ -4,18 +4,19 @@ import json
 import dbFunctions as dbf
 
 
-app = Flask(__name__, static_url_path='')
+app = Flask(__name__, static_url_path="")
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 
-@app.route('/books')
+@app.route("/books")
 def books():
     result = []
     for row in dbf.get_books():
         result.append(dict(row))
     return json.dumps(result)
 
-@app.route('/ordered_books')
+
+@app.route("/ordered_books")
 def ordered_books():
     result = {}
     for row in dbf.get_ordered_books():
@@ -23,8 +24,9 @@ def ordered_books():
             result[row["current_category"]].append(row["id"])
         else:
             result[row["current_category"]] = [row["id"]]
-        
+
     return json.dumps(result)
+
 
 # @app.route('/update_books', methods = ['POST'])
 # def update_books():
@@ -32,6 +34,5 @@ def ordered_books():
 #     return data['books'][0]
 
 
-
 if __name__ == "__main__":
-    app.run(host='localhost', port=5001)
+    app.run(host="localhost", port=5001)

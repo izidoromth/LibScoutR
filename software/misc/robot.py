@@ -242,7 +242,9 @@ class Robot:
             books_read, category
         )
         wrong_shelf_books = [
-            book.get_universal_code() for book in books_read if book not in same_category_books
+            book.get_universal_code()
+            for book in books_read
+            if book not in same_category_books
         ]
         correct_books = self.__LIS(same_category_books)
         incorrect_books = []
@@ -289,15 +291,16 @@ class Robot:
             scan=self.__scanning,
             fix_camera=(self.__scanning and not camera_is_right),
         )
-        
-        
+
         if self.__scanning:
             # {'1st floor': 'Adventure', '2nd floor': 'Romance'}
-            scanning_these_categories = self.__library.get_categories_from_color_position(self.__current_color, self.__going_to_color,)
-            
+            scanning_these_categories = self.__library.get_categories_from_color_position(
+                self.__current_color, self.__going_to_color,
+            )
+
             # {'Wrong Shelve': ['7542.69', '7543.69'], 'Out of Order': ['2321.23']}
             # self.organize_shelve(scanning_these_categories['1st floor'], codes_scanned['1st floor'])
-            
+
             # codes_scanned look like this:
             # {
             #   '1st floor': ['123 x23 iqw', '456 y12 8kk', '801 sin cos'],

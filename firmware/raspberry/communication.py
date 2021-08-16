@@ -31,6 +31,6 @@ while True:
     if cv2.waitKey(1) & 0xFF == ord("q"):
         break
 
-raspicam.release() 
-#webcam.release()
+raspicam.release()
+# webcam.release()
 cv2.destroyAllWindows()
