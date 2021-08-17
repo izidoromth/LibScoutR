@@ -1,236 +1,265 @@
 {
   "books": [
     {
-      "category": "Física",
-      "current_category": "Física",
+      "category": "F\\u00edsica",
+      "current_category": "F\\u00edsica",
       "id": "530 S439fis",
       "lib_id": "0",
       "author": "Sears, Francis Weston, 1898-",
-      "title": "Física / Francis Weston Sears e Mark W. Zemansky; tradução de Carlos Campos de Oliveira"
+      "title": "F\\u00edsica / Francis Weston Sears e Mark W. Zemansky; tradu\\u00e7\\u00e3o de Carlos Campos de Oliveira",
+      "status": "0"
     },
     {
-      "category": "Física",
-      "current_category": "Física",
+      "category": "F\\u00edsica",
+      "current_category": "F\\u00edsica",
       "id": "530 P327fi",
       "lib_id": "1",
       "author": "Pauli, Ronald Ulysses, 1930-",
-      "title": "Física / Ronald Ulysses Pauli, Farid Carvalho Mauad, Hans Peter Heilmann"
+      "title": "F\\u00edsica / Ronald Ulysses Pauli, Farid Carvalho Mauad, Hans Peter Heilmann",
+      "status": "0"
     },
     {
-      "category": "Física",
-      "current_category": "Física",
+      "category": "F\\u00edsica",
+      "current_category": "F\\u00edsica",
       "id": "530 F537f",
       "lib_id": "2",
       "author": "Williams, John E. (John Esco),1913-[et al.]",
-      "title": "Física moderna : curso programado / John E. Williams...[et al.]"
+      "title": "F\\u00edsica moderna : curso programado / John E. Williams...[et al.]",
+      "status": "0"
     },
     {
-      "category": "Física",
-      "current_category": "Física",
+      "category": "F\\u00edsica",
+      "current_category": "F\\u00edsica",
       "id": "530 B632f",
       "lib_id": "3",
       "author": "Blackwood, Oswald H. (Oswald Hance), 1888-1953",
-      "title": "Física na escola secundária / Oswald H. Blackwood, Wilmer B. Herron e William C. Kelly; tradução José Leite Lopes e Jayme Tiomno"
+      "title": "F\\u00edsica na escola secund\\u00e1ria / Oswald H. Blackwood, Wilmer B. Herron e William C. Kelly; tradu\\u00e7\\u00e3o Jos\\u00e9 Leite Lopes e Jayme Tiomno",
+      "status": "0"
     },
     {
-      "category": "Física",
-      "current_category": "Física",
+      "category": "F\\u00edsica",
+      "current_category": "F\\u00edsica",
       "id": "530 E35e 4.ed.",
       "lib_id": "4",
       "author": "Einstein, Albert, 1879-1955",
-      "title": "A evolução da física / Albert Einstein, Leopold Infeld; tradução de Giasone Rebuá"
+      "title": "A evolu\\u00e7\\u00e3o da f\\u00edsica / Albert Einstein, Leopold Infeld; tradu\\u00e7\\u00e3o de Giasone Rebu\\u00e1",
+      "status": "0"
     },
     {
-      "category": "Física",
-      "current_category": "Física",
+      "category": "F\\u00edsica",
+      "current_category": "F\\u00edsica",
       "id": "530 P327",
       "lib_id": "5",
       "author": "Mauad, Farid Carvalho",
-      "title": "Física básica / Ronald Ulysses Pauli , Farid Carvalho Mauad, Cláudio simão"
+      "title": "F\\u00edsica b\\u00e1sica / Ronald Ulysses Pauli , Farid Carvalho Mauad, Cl\\u00e1udio sim\\u00e3o",
+      "status": "0"
     },
     {
-      "category": "Física",
-      "current_category": "Física",
+      "category": "F\\u00edsica",
+      "current_category": "F\\u00edsica",
       "id": "530 G618f",
       "lib_id": "6",
-      "author": "Goldemberg, José, 1928-",
-      "title": "Física geral e experimental / José Goldemberg"
+      "author": "Goldemberg, Jos\\u00e9, 1928-",
+      "title": "F\\u00edsica geral e experimental / Jos\\u00e9 Goldemberg",
+      "status": "0"
     },
     {
-      "category": "Física",
-      "current_category": "Física",
+      "category": "F\\u00edsica",
+      "current_category": "F\\u00edsica",
       "id": "530 H199q 2.ed.",
       "lib_id": "7",
       "author": "Hamburger, Ernst W. (Ernst Wolfgang), 1933-",
-      "title": "O que é física / Ernst W. Hamburger"
+      "title": "O que \\u00e9 f\\u00edsica / Ernst W. Hamburger",
+      "status": "0"
     },
     {
-      "category": "Física",
-      "current_category": "Física",
+      "category": "F\\u00edsica",
+      "current_category": "F\\u00edsica",
       "id": "530 C977c",
       "lib_id": "8",
       "author": "Knight, Walter D.,1919-",
-      "title": "Curso de física de Berkeley / Charles Kittel, Walter D. Knight e Malvin A. Ruderman; tradução de José Goldemberg e Wiktor Wajntal"
+      "title": "Curso de f\\u00edsica de Berkeley / Charles Kittel, Walter D. Knight e Malvin A. Ruderman; tradu\\u00e7\\u00e3o de Jos\\u00e9 Goldemberg e Wiktor Wajntal",
+      "status": "0"
     },
     {
-      "category": "Física",
-      "current_category": "Física",
+      "category": "F\\u00edsica",
+      "current_category": "F\\u00edsica",
       "id": "530 T595f 3.ed.",
       "lib_id": "9",
       "author": "Tipler, Paul Allen, 1933-",
-      "title": "Física : para cientistas e engenheiros / Paul Allen Tipler; tradução Horácio Macedo"
+      "title": "F\\u00edsica : para cientistas e engenheiros / Paul Allen Tipler; tradu\\u00e7\\u00e3o Hor\\u00e1cio Macedo",
+      "status": "0"
     },
     {
-      "category": "Eletrônica",
-      "current_category": "Eletrônica",
+      "category": "Eletr\\u00f4nica",
+      "current_category": "Eletr\\u00f4nica",
       "id": "621.381 G781p",
       "lib_id": "10",
       "author": "Gray, Paul E.",
-      "title": "Princípios de eletrônica / Paul E. Gray, Campbell L. Searle; tradução Roberto Ângelo de Barros Padilha"
+      "title": "Princ\\u00edpios de eletr\\u00f4nica / Paul E. Gray, Campbell L. Searle; tradu\\u00e7\\u00e3o Roberto \\u00c2ngelo de Barros Padilha",
+      "status": "0"
     },
     {
-      "category": "Eletrônica",
-      "current_category": "Eletrônica",
+      "category": "Eletr\\u00f4nica",
+      "current_category": "Eletr\\u00f4nica",
       "id": "621.381 N945e",
       "lib_id": "11",
       "author": "Novo, Darcy Domingues",
-      "title": "Eletrônica aplicada / Darcy Domingues Novo"
+      "title": "Eletr\\u00f4nica aplicada / Darcy Domingues Novo",
+      "status": "0"
     },
     {
-      "category": "Eletrônica",
-      "current_category": "Eletrônica",
+      "category": "Eletr\\u00f4nica",
+      "current_category": "Eletr\\u00f4nica",
       "id": "621.381 M262e",
       "lib_id": "12",
       "author": "Malvino, Albert Paul",
-      "title": "Eletrônica / Albert Paul Malvino; tradutor , Aracy Mendes da Costa; 1ª revisão técnica: Rodrigo Araês Caldas Farias, 2ª rev. Antonio Pertence Junior, Laércio Caldeira"
+      "title": "Eletr\\u00f4nica / Albert Paul Malvino; tradutor , Aracy Mendes da Costa; 1\\u00aa revis\\u00e3o t\\u00e9cnica: Rodrigo Ara\\u00eas Caldas Farias, 2\\u00aa rev. Antonio Pertence Junior, La\\u00e9rcio Caldeira",
+      "status": "0"
     },
     {
-      "category": "Eletrônica",
-      "current_category": "Eletrônica",
+      "category": "Eletr\\u00f4nica",
+      "current_category": "Eletr\\u00f4nica",
       "id": "621.381 O76e",
       "lib_id": "13",
       "author": "Orsini, Luiz de Queiroz, 1922-",
-      "title": "Eletrônica / Luiz de Queiroz Orsini"
+      "title": "Eletr\\u00f4nica / Luiz de Queiroz Orsini",
+      "status": "0"
     },
     {
-      "category": "Eletrônica",
-      "current_category": "Eletrônica",
+      "category": "Eletr\\u00f4nica",
+      "current_category": "Eletr\\u00f4nica",
       "id": "621.381028 Z39i",
       "lib_id": "14",
       "author": "Zbar, Paul B., 1911-",
-      "title": "Instrumentos e medidas em eletrônica : (práticas de laboratório) / Paul B. Zbar"
+      "title": "Instrumentos e medidas em eletr\\u00f4nica : (pr\\u00e1ticas de laborat\\u00f3rio) / Paul B. Zbar",
+      "status": "0"
     },
     {
-      "category": "Eletrônica",
-      "current_category": "Eletrônica",
+      "category": "Eletr\\u00f4nica",
+      "current_category": "Eletr\\u00f4nica",
       "id": "621.381 Z39p",
       "lib_id": "15",
       "author": "Zbar, Paul B., 1911-",
-      "title": "Práticas de eletrônica / Paul B. Zbar; traduzido e adaptado pelo departamento de eletrônica da Escola Técnica Federal do Paraná"
+      "title": "Pr\\u00e1ticas de eletr\\u00f4nica / Paul B. Zbar; traduzido e adaptado pelo departamento de eletr\\u00f4nica da Escola T\\u00e9cnica Federal do Paran\\u00e1",
+      "status": "0"
     },
     {
-      "category": "Eletrônica",
-      "current_category": "Eletrônica",
+      "category": "Eletr\\u00f4nica",
+      "current_category": "Eletr\\u00f4nica",
       "id": "621.3815 C989t",
       "lib_id": "16",
       "author": "Cutler, Phillip",
-      "title": "Teoria dos dispositivos de estado sólido : com problemas ilustrativos / Phillip Cutler, tradução de Raul Wuo"
+      "title": "Teoria dos dispositivos de estado s\\u00f3lido : com problemas ilustrativos / Phillip Cutler, tradu\\u00e7\\u00e3o de Raul Wuo",
+      "status": "0"
     },
     {
-      "category": "Eletrônica",
-      "current_category": "Eletrônica",
+      "category": "Eletr\\u00f4nica",
+      "current_category": "Eletr\\u00f4nica",
       "id": "621.381 T948m",
       "lib_id": "17",
       "author": "Turner, L. W. (Leslie William)",
-      "title": "Manual básico de eletrônica : generalidades, histórico, ciência dos materiais, componentes e dispositivos básicos / L. W. Turner"
+      "title": "Manual b\\u00e1sico de eletr\\u00f4nica : generalidades, hist\\u00f3rico, ci\\u00eancia dos materiais, componentes e dispositivos b\\u00e1sicos / L. W. Turner",
+      "status": "0"
     },
     {
-      "category": "Eletrônica",
-      "current_category": "Eletrônica",
+      "category": "Eletr\\u00f4nica",
+      "current_category": "Eletr\\u00f4nica",
       "id": "621.381 K21e",
       "lib_id": "18",
       "author": "Kaufman, Milton",
-      "title": "Eletrônica básica / Milton Kaufman, J. A. Wilson; tradução Fausto Luiz Martins Pires Junior"
+      "title": "Eletr\\u00f4nica b\\u00e1sica / Milton Kaufman, J. A. Wilson; tradu\\u00e7\\u00e3o Fausto Luiz Martins Pires Junior",
+      "status": "0"
     },
     {
-      "category": "Eletrônica",
-      "current_category": "Eletrônica",
+      "category": "Eletr\\u00f4nica",
+      "current_category": "Eletr\\u00f4nica",
       "id": "621.3815 M655ele 2.ed.",
       "lib_id": "19",
       "author": "Millman, Jacob, 1911-",
-      "title": "Electronics / Jacob Millman, Samuel Seely"
+      "title": "Electronics / Jacob Millman, Samuel Seely",
+      "status": "0"
     },
     {
       "category": "Biologia",
       "current_category": "Biologia",
       "id": "571.6 D437b 9.ed.",
       "lib_id": "20",
-      "author": "De Robertis, Eduardo D. P.,  1913-",
-      "title": "Biologia celular / E. D. P. De Robertis, Francisco A. Saez, E. M. F. De Robertis ; tradução E. M. Arruda de Muñoz "
+      "author": "De Robertis, Eduardo D. P., 1913-",
+      "title": "Biologia celular / E. D. P. De Robertis, Francisco A. Saez, E. M. F. De Robertis ; tradu\\u00e7\\u00e3o E. M. Arruda de Mu\\u00f1oz",
+      "status": "0"
     },
     {
       "category": "Biologia",
       "current_category": "Biologia",
       "id": "571.6 F866f",
       "lib_id": "21",
-      "author": "Freitas, Orlando T. de ",
-      "title": "Fundamentos de citologia / Orlando T. de Freitas, Aurélio Bolsanello "
+      "author": "Freitas, Orlando T. de",
+      "title": "Fundamentos de citologia / Orlando T. de Freitas, Aur\\u00e9lio Bolsanello",
+      "status": "0"
     },
     {
       "category": "Biologia",
       "current_category": "Biologia",
       "id": "571.6 J95n 15.ed.",
       "lib_id": "22",
-      "author": "Junqueira, Luiz Carlos Uchôa,  1920- ",
-      "title": "Noções básicas de citologia, histologia e embriologia / Luís Carlos Uchoa Junqueira e José Carneiro da Silva Filho. "
+      "author": "Junqueira, Luiz Carlos Uch\\u00f4a, 1920-",
+      "title": "No\\u00e7\\u00f5es b\\u00e1sicas de citologia, histologia e embriologia / Lu\\u00eds Carlos Uchoa Junqueira e Jos\\u00e9 Carneiro da Silva Filho.",
+      "status": "0"
     },
     {
       "category": "Biologia",
       "current_category": "Biologia",
       "id": "571.6 J95b 7.ed.",
       "lib_id": "23",
-      "author": "Junqueira, Luiz Carlos Uchôa,  1920- ",
-      "title": "Biologia celular e molecular / Luiz Carlos Uchôa Junqueira, José Carneiro "
+      "author": "Junqueira, Luiz Carlos Uch\\u00f4a, 1920-",
+      "title": "Biologia celular e molecular / Luiz Carlos Uch\\u00f4a Junqueira, Jos\\u00e9 Carneiro",
+      "status": "0"
     },
     {
       "category": "Biologia",
       "current_category": "Biologia",
       "id": "571.6 B615bio",
       "lib_id": "24",
-      "author": "Biologie et physiologie cellulaire. Português ",
-      "title": "Biologia e fisiologia celular / André Berkaloff... [et. al.] ; tradutora: Nícia Dulce Wendell Magalhães "
+      "author": "Biologie et physiologie cellulaire. Portugu\\u00eas",
+      "title": "Biologia e fisiologia celular / Andr\\u00e9 Berkaloff... [et. al.] ; tradutora: N\\u00edcia Dulce Wendell Magalh\\u00e3es",
+      "status": "0"
     },
     {
       "category": "Biologia",
       "current_category": "Biologia",
       "id": "571.6 S972c",
       "lib_id": "25",
-      "author": "Swanson, Carl Pontius,  1988- ",
-      "title": "A célula / Carl Pontius Swanson ; tradução de Helena Lopes de Souza Santos "
+      "author": "Swanson, Carl Pontius, 1988-",
+      "title": "A c\\u00e9lula / Carl Pontius Swanson ; tradu\\u00e7\\u00e3o de Helena Lopes de Souza Santos",
+      "status": "0"
     },
     {
       "category": "Biologia",
       "current_category": "Biologia",
       "id": "571.6 B311c 19.ed.",
       "lib_id": "26",
-      "author": "Basile, Renato ",
-      "title": "Citologia e genética / Renato Basile, Luiz Edmundo de Magalhães "
+      "author": "Basile, Renato",
+      "title": "Citologia e gen\\u00e9tica / Renato Basile, Luiz Edmundo de Magalh\\u00e3es",
+      "status": "0"
     },
     {
       "category": "Biologia",
       "current_category": "Biologia",
       "id": "571.6 M541c 10.ed.",
       "lib_id": "27",
-      "author": "Menegotto, Milton ",
-      "title": "Citologia / Milton Menegotto "
+      "author": "Menegotto, Milton",
+      "title": "Citologia / Milton Menegotto",
+      "status": "0"
     },
     {
       "category": "Biologia",
       "current_category": "Biologia",
       "id": "571.6 V648b",
       "lib_id": "28",
-      "author": "Vidal, Benedicto de Campos ",
-      "title": "Biologia celular / Benedicto de Campos Vidal e Maria Luiza Silveira Mello; colaboração de Edson Rosa Pimentel ...[et al.]. "
+      "author": "Vidal, Benedicto de Campos",
+      "title": "Biologia celular / Benedicto de Campos Vidal e Maria Luiza Silveira Mello; colabora\\u00e7\\u00e3o de Edson Rosa Pimentel ...[et al.].",
+      "status": "0"
     },
     {
       "category": "Biologia",
@@ -238,87 +267,98 @@
       "id": "571.6 F981f 4.ed.",
       "lib_id": "29",
       "author": "Alberts, Bruce",
-      "title": "Fundamentos da biologia celular / Bruce Alberts ...[et al.] ; tradução Ardala Elisa Breda Andrade ...[et al.] "
+      "title": "Fundamentos da biologia celular / Bruce Alberts ...[et al.] ; tradu\\u00e7\\u00e3o Ardala Elisa Breda Andrade ...[et al.]",
+      "status": "0"
     },
     {
-      "category": "Química",
-      "current_category": "Química",
+      "category": "Qu\\u00edmica",
+      "current_category": "Qu\\u00edmica",
       "id": "547 S983g",
       "lib_id": "30",
       "author": "Sykes, Peter",
-      "title": "Guia de mecanismos da química orgânica / Peter Sykes; tradução de M. J. O. Batista, A. M. Lobo e M. M. Mantas "
+      "title": "Guia de mecanismos da qu\\u00edmica org\\u00e2nica / Peter Sykes; tradu\\u00e7\\u00e3o de M. J. O. Batista, A. M. Lobo e M. M. Mantas",
+      "status": "0"
     },
     {
-      "category": "Química",
-      "current_category": "Química",
+      "category": "Qu\\u00edmica",
+      "current_category": "Qu\\u00edmica",
       "id": "547 F981f",
       "lib_id": "31",
       "author": "Campos, Marcello de Moura coord.",
-      "title": "Fundamentos de química ôrganica / Marcello de Moura Campos (Coord.) "
+      "title": "Fundamentos de qu\\u00edmica \\u00f4rganica / Marcello de Moura Campos (Coord.)",
+      "status": "0"
     },
     {
-      "category": "Química",
-      "current_category": "Química",
+      "category": "Qu\\u00edmica",
+      "current_category": "Qu\\u00edmica",
       "id": "547 Q6q",
       "lib_id": "32",
-      "author": "Campos, Marcello de Moura, coord. ",
-      "title": "Química orgânica / Coordenação Marcello de Moura Campos "
+      "author": "Campos, Marcello de Moura, coord.",
+      "title": "Qu\\u00edmica org\\u00e2nica / Coordena\\u00e7\\u00e3o Marcello de Moura Campos",
+      "status": "0"
     },
     {
-      "category": "Química",
-      "current_category": "Química",
+      "category": "Qu\\u00edmica",
+      "current_category": "Qu\\u00edmica",
       "id": "547 M285p 3.ed.",
       "lib_id": "33",
-      "author": "Mano, Eloisa Biasotto,  1924-",
-      "title": "Práticas de química orgânica / Eloisa Biasototo Mano e Affonso do Prado Seabra"
+      "author": "Mano, Eloisa Biasotto, 1924-",
+      "title": "Pr\\u00e1ticas de qu\\u00edmica org\\u00e2nica / Eloisa Biasototo Mano e Affonso do Prado Seabra",
+      "status": "0"
     },
     {
-      "category": "Química",
-      "current_category": "Química",
+      "category": "Qu\\u00edmica",
+      "current_category": "Qu\\u00edmica",
       "id": "547 S689q",
       "lib_id": "34",
-      "author": "Solomons, T. W. Graham,  1934-  ",
-      "title": "Química orgânica / T. W. Graham Solomons ; tradução Marilia da Silva Pereira, Alaíde Braga de Oliveira; revisão Cristina Maria Pereira dos Santos e Roberto de Barros Faria "
+      "author": "Solomons, T. W. Graham, 1934-",
+      "title": "Qu\\u00edmica org\\u00e2nica / T. W. Graham Solomons ; tradu\\u00e7\\u00e3o Marilia da Silva Pereira, Ala\\u00edde Braga de Oliveira; revis\\u00e3o Cristina Maria Pereira dos Santos e Roberto de Barros Faria",
+      "status": "0"
     },
     {
-      "category": "Química",
-      "current_category": "Química",
+      "category": "Qu\\u00edmica",
+      "current_category": "Qu\\u00edmica",
       "id": "547 M881o 6.ed.",
       "lib_id": "35",
-      "author": "Morrison, Robert Thornton,  1918-",
-      "title": "Organic chemistry"
+      "author": "Morrison, Robert Thornton, 1918-",
+      "title": "Organic chemistry",
+      "status": "0"
     },
     {
-      "category": "Química",
-      "current_category": "Química",
+      "category": "Qu\\u00edmica",
+      "current_category": "Qu\\u00edmica",
       "id": "547 G635q",
       "lib_id": "36",
-      "author": "Gonçalves, Daniel ",
-      "title": "Química orgânica experimental / Daniel Gonçalves, Eduardo Wal e Roberto Riva de Almeida "
+      "author": "Gon\\u00e7alves, Daniel",
+      "title": "Qu\\u00edmica org\\u00e2nica experimental / Daniel Gon\\u00e7alves, Eduardo Wal e Roberto Riva de Almeida",
+      "status": "0"
     },
     {
-      "category": "Química",
-      "current_category": "Química",
+      "category": "Qu\\u00edmica",
+      "current_category": "Qu\\u00edmica",
       "id": "547 M881q 9.ed.",
       "lib_id": "37",
-      "author": "Morrison, Robert Thornton,  1918-",
-      "title": "Química orgânica / R. Morrison, R. Boyd ; tradução de M. Alves da Silva  "
+      "author": "Morrison, Robert Thornton, 1918-",
+      "title": "Qu\\u00edmica org\\u00e2nica / R. Morrison, R. Boyd ; tradu\\u00e7\\u00e3o de M. Alves da Silva",
+      "status": "0"
     },
     {
-      "category": "Química",
-      "current_category": "Química",
+      "category": "Qu\\u00edmica",
+      "current_category": "Qu\\u00edmica",
       "id": "547 V915q 4.ed.",
       "lib_id": "38",
-      "author": "Vollhardt, K. Peter C. ",
-      "title": "Química orgânica : estrutura e função / K. Peter C. Vollhardt, Neil E. Schore ; tradução Ricardo Bicca de Alencastro ... [et al.] "
+      "author": "Vollhardt, K. Peter C.",
+      "title": "Qu\\u00edmica org\\u00e2nica : estrutura e fun\\u00e7\\u00e3o / K. Peter C. Vollhardt, Neil E. Schore ; tradu\\u00e7\\u00e3o Ricardo Bicca de Alencastro ... [et al.]",
+      "status": "0"
     },
     {
-      "category": "Química",
-      "current_category": "Química",
+      "category": "Qu\\u00edmica",
+      "current_category": "Qu\\u00edmica",
       "id": "547 Q6 2.ed.",
       "lib_id": "39",
-      "author": "Allinger, Norman L. [ et al. ] ",
-      "title": "Química orgânica / Norman L. Allinger ...[et al.] ; traduzido por Ricardo Bicca de Alencastro, Jossyl de Souza Peixoto, Luiz Renan Neves de Pinho "
+      "author": "Allinger, Norman L. [ et al. ]",
+      "title": "Qu\\u00edmica org\\u00e2nica / Norman L. Allinger ...[et al.] ; traduzido por Ricardo Bicca de Alencastro, Jossyl de Souza Peixoto, Luiz Renan Neves de Pinho",
+      "status": "0"
     },
     {
       "category": "Literatura",
@@ -326,79 +366,368 @@
       "id": "B869.3 J82a",
       "lib_id": "40",
       "author": "Jorge, Miguel",
-      "title": "Asas de moleque / Miguel Jorge"
+      "title": "Asas de moleque / Miguel Jorge",
+      "status": "0"
     },
     {
       "category": "Literatura",
       "current_category": "Literatura",
       "id": "B869.3 C311p",
       "lib_id": "41",
-      "author": "Carr, Stella,   1932-",
-      "title": "Paranóia : a síndrome do medo / Stella Carr"
+      "author": "Carr, Stella, 1932-",
+      "title": "Paran\\u00f3ia : a s\\u00edndrome do medo / Stella Carr",
+      "status": "0"
     },
     {
       "category": "Literatura",
       "current_category": "Literatura",
       "id": "B869.3 A635m",
       "lib_id": "42",
-      "author": "Antônio, João,   1937-1996",
-      "title": "Malagueta, perus e bacanaço / João Antônio"
+      "author": "Ant\\u00f4nio, Jo\\u00e3o, 1937-1996",
+      "title": "Malagueta, perus e bacana\\u00e7o / Jo\\u00e3o Ant\\u00f4nio",
+      "status": "0"
     },
     {
       "category": "Literatura",
       "current_category": "Literatura",
       "id": "B869.3 A553p",
       "lib_id": "43",
-      "author": "Andrade, Mário de,   1893-1945",
-      "title": "O poço & outras histórias / Mário de Andrade"
+      "author": "Andrade, M\\u00e1rio de, 1893-1945",
+      "title": "O po\\u00e7o & outras hist\\u00f3rias / M\\u00e1rio de Andrade",
+      "status": "0"
     },
     {
       "category": "Literatura",
       "current_category": "Literatura",
       "id": "B869.3 L895g 13.ed.",
       "lib_id": "44",
-      "author": "Louzeiro, José,   1932-",
-      "title": "A gang do beijo / José Louzeiro"
+      "author": "Louzeiro, Jos\\u00e9, 1932-",
+      "title": "A gang do beijo / Jos\\u00e9 Louzeiro",
+      "status": "0"
     },
     {
       "category": "Literatura",
       "current_category": "Literatura",
       "id": "B869.3 L554g 6.ed.",
       "lib_id": "45",
-      "author": "Leminski, Paulo,   1944-1989",
-      "title": "Guerra dentro da gente / Paulo Leminski"
+      "author": "Leminski, Paulo, 1944-1989",
+      "title": "Guerra dentro da gente / Paulo Leminski",
+      "status": "0"
     },
     {
       "category": "Literatura",
       "current_category": "Literatura",
       "id": "B869.3 V658e",
       "lib_id": "46",
-      "author": "Vieira, Isabel ,  1948-",
-      "title": "Em busca de mim / Isabel Vieira"
+      "author": "Vieira, Isabel , 1948-",
+      "title": "Em busca de mim / Isabel Vieira",
+      "status": "0"
     },
     {
       "category": "Literatura",
       "current_category": "Literatura",
       "id": "B869.3 A447c 13.ed.",
       "lib_id": "47",
-      "author": "Almeida, Lúcia Machado de",
-      "title": "O caso da borboleta Atíria / Lúcia Machado de Almeida"
+      "author": "Almeida, L\\u00facia Machado de",
+      "title": "O caso da borboleta At\\u00edria / L\\u00facia Machado de Almeida",
+      "status": "0"
     },
     {
       "category": "Literatura",
       "current_category": "Literatura",
       "id": "B869.3 N935m 7.ed.",
       "lib_id": "48",
-      "author": "Novaes, Carlos Eduardo,   1940-",
-      "title": "O menino sem imaginação / Carlos Eduardo Novaes"
+      "author": "Novaes, Carlos Eduardo, 1940-",
+      "title": "O menino sem imagina\\u00e7\\u00e3o / Carlos Eduardo Novaes",
+      "status": "0"
     },
     {
       "category": "Literatura",
       "current_category": "Literatura",
       "id": "B869.3 P984a 2.ed.",
       "lib_id": "49",
-      "author": "Puntel, Luiz,   1949-",
-      "title": "Açucar amargo / Luiz Puntel"
+      "author": "Puntel, Luiz, 1949-",
+      "title": "A\\u00e7ucar amargo / Luiz Puntel",
+      "status": "0"
+    },
+    {
+      "category": "C\\u00e1lculo",
+      "current_category": "C\\u00e1lculo",
+      "id": "515.63 S755a",
+      "lib_id": "50",
+      "author": "Spiegel, Murray R.",
+      "title": "An\\u00e1lise vetorial : com introdu\\u00e7\\u00e3o a an\\u00e1lise tensorial / Murray R. Spiegel ; traduzido por Waldo Russo",
+      "status": "0"
+    },
+    {
+      "category": "C\\u00e1lculo",
+      "current_category": "C\\u00e1lculo",
+      "id": "515.33 M232a 3.ed.",
+      "lib_id": "51",
+      "author": "Mataix Aracil, Carlos",
+      "title": "Analisis algebrico e infinitesimal / por Carlos Mataix Aracil",
+      "status": "0"
+    },
+    {
+      "category": "C\\u00e1lculo",
+      "current_category": "C\\u00e1lculo",
+      "id": "515 A645a 2.ed.",
+      "lib_id": "52",
+      "author": "Apostol, Tom M.",
+      "title": "An\\u00e1lisis matem\\u00e1tico / Tom M. Apostol ; versi\\u00f3n espa\\u00f1ola por el: Dr. Jos\\u00e9 Pl\\u00e1 Carrera ; revisada por el: Dr. Enrique Lin\\u00e9s Escard\\u00f3",
+      "status": "0"
+    },
+    {
+      "category": "C\\u00e1lculo",
+      "current_category": "C\\u00e1lculo",
+      "id": "515.33 C858c",
+      "lib_id": "53",
+      "author": "Courant, Richard, 1888-",
+      "title": "C\\u00e1lculo diferencial e integral / R. Courant ; tradu\\u00e7\\u00e3o de Alberto Nunes Serr\\u00e3o e Ruy Hon\\u00f3rio Bacelar",
+      "status": "0"
+    },
+    {
+      "category": "C\\u00e1lculo",
+      "current_category": "C\\u00e1lculo",
+      "id": "515.33 T456c",
+      "lib_id": "54",
+      "author": "Thomas, George Brinton, 1914-2006-",
+      "title": "C\\u00e1lculo diferencial e integral / George B. Thomas, Jr., Ross L. Finney ; tradu\\u00e7\\u00e3o de Alberto Flavio Alves de Aguiar, Jose Euny Moreira Rodrigues",
+      "status": "0"
+    },
+    {
+      "category": "C\\u00e1lculo",
+      "current_category": "C\\u00e1lculo",
+      "id": "515.33 P677c 6.ed.",
+      "lib_id": "55",
+      "author": "Piskounov, N. S. (Nicolai Seminovich)",
+      "title": "C\\u00e1lculo diferencial e integral / N. Piskounov",
+      "status": "0"
+    },
+    {
+      "category": "C\\u00e1lculo",
+      "current_category": "C\\u00e1lculo",
+      "id": "515.33 P659c",
+      "lib_id": "56",
+      "author": "Pinto, Diomara",
+      "title": "C\\u00e1lculo diferencial e integral de fun\\u00e7\\u00f5es de v\\u00e1rias vari\\u00e1veis / Diomara Pinto, Maria Candida Ferreira Morgado",
+      "status": "0"
+    },
+    {
+      "category": "C\\u00e1lculo",
+      "current_category": "C\\u00e1lculo",
+      "id": "515.33 A985c 2.ed.",
+      "lib_id": "57",
+      "author": "Ayres J\\u00fanior, Frank, 1901-",
+      "title": "C\\u00e1lculo diferencial e integral : resumo e teoria, problemas resolvidos, problemas propostos / Frank Ayres Jr. : traduzido por Jos\\u00e9 Rodrigues de Carvalho",
+      "status": "0"
+    },
+    {
+      "category": "C\\u00e1lculo",
+      "current_category": "C\\u00e1lculo",
+      "id": "515.33 P677c 5.ed.",
+      "lib_id": "58",
+      "author": "Piskounov, N. S. (Nicolai Seminovich)",
+      "title": "C\\u00e1lculo diferencial e integral / N. Piskounov",
+      "status": "0"
+    },
+    {
+      "category": "C\\u00e1lculo",
+      "current_category": "C\\u00e1lculo",
+      "id": "515 A958ca 3.ed.",
+      "lib_id": "59",
+      "author": "\\u00c1vila, Geraldo, 1933-",
+      "title": "C\\u00e1lculo / Geraldo \\u00c1vila",
+      "status": "0"
+    },
+    {
+      "category": "Circuitos",
+      "current_category": "Circuitos",
+      "id": "621.3192 I72a 10.ed.",
+      "lib_id": "60",
+      "author": "Irwin, J. David, 1939-",
+      "title": "An\\u00e1lise b\\u00e1sica de circuitos para engenharia / J. David Irwin, R. Mark Nelms ; tradu\\u00e7\\u00e3o: Fernando Ribeiro da Silva",
+      "status": "0"
+    },
+    {
+      "category": "Circuitos",
+      "current_category": "Circuitos",
+      "id": "621.3192 I72a 9.ed.",
+      "lib_id": "61",
+      "author": "Irwin, J. David, 1939-",
+      "title": "An\\u00e1lise b\\u00e1sica de circuitos para engenharia / J. David Irwin, R. Mark Nelms ; tradu\\u00e7\\u00e3o: Fernando Ribeiro da Silva",
+      "status": "0"
+    },
+    {
+      "category": "Circuitos",
+      "current_category": "Circuitos",
+      "id": "621.3192 O54a",
+      "lib_id": "62",
+      "author": "O'Malley, John R.",
+      "title": "An\\u00e1lise de circuitos / John O'Malley ; tradu\\u00e7\\u00e3o Danuza Scarton Rabello Alves",
+      "status": "0"
+    },
+    {
+      "category": "Circuitos",
+      "current_category": "Circuitos",
+      "id": "621.3192 O54a 2.ed.",
+      "lib_id": "63",
+      "author": "O'Malley, John R.",
+      "title": "\\nAn\\u00e1lise de circuitos / John O'Malley ; tradu\\u00e7\\u00e3o Moema Sant'Anna Belo; revis\\u00e3o t\\u00e9cnica Ant\\u00f4nio Pertence J\\u00fanior",
+      "status": "0"
+    },
+    {
+      "category": "Circuitos",
+      "current_category": "Circuitos",
+      "id": "621.31913 C989a",
+      "lib_id": "64",
+      "author": "Cutler, Phillip",
+      "title": "An\\u00e1lise de circuitos CA com problemas ilustrativos / Phillip Cutler; tradutor Adalton Pereira de Toledo",
+      "status": "0"
+    },
+    {
+      "category": "Circuitos",
+      "current_category": "Circuitos",
+      "id": "621.31921 C989an",
+      "lib_id": "65",
+      "author": "Cutler, Phillip",
+      "title": "An\\u00e1lise de circuitos CC com problemas ilustrativos / Phillip Cutler; tradutor Adalton Pereira de Toledo; revisor t\\u00e9cnico Raul Wuo",
+      "status": "0"
+    },
+    {
+      "category": "Circuitos",
+      "current_category": "Circuitos",
+      "id": "621.3191 B286a 2.ed.",
+      "lib_id": "66",
+      "author": "Barthold, L. O.",
+      "title": "An\\u00e1lise de circuitos de sistemas de pot\\u00eancia / L. O. Barthold, N. D. Reppen e D. E. Hedman; tradu\\u00e7\\u00e3o : Arlindo R. Mayer",
+      "status": "0"
+    },
+    {
+      "category": "Circuitos",
+      "current_category": "Circuitos",
+      "id": "621.3192 M342a",
+      "lib_id": "67",
+      "author": "Mariotto, Paulo Ant\\u00f4nio",
+      "title": "An\\u00e1lise de circuitos el\\u00e9tricos / Paulo Antonio Mariotto",
+      "status": "0"
+    },
+    {
+      "category": "Circuitos",
+      "current_category": "Circuitos",
+      "id": "621.31913 A345a 2.ed.",
+      "lib_id": "68",
+      "author": "Albuquerque, R\\u00f4mulo Oliveira, 1954-",
+      "title": "An\\u00e1lise de circuitos em corrente alternada / R\\u00f4mulo Oliveira Albuquerque",
+      "status": "0"
+    },
+    {
+      "category": "Circuitos",
+      "current_category": "Circuitos",
+      "id": "621.31921 H426a",
+      "lib_id": "69",
+      "author": "Hayt Junior, William Hart, 1920-",
+      "title": "An\\u00e1lise de circuitos em engenharia / William H. Hayt Jr., Jack E. Kemmerly; [tradu\\u00e7\\u00e3o de Jos\\u00e9 Rubens D\\u00f3ria Porto]",
+      "status": "0"
+    },
+    {
+      "category": "Fic\\u00e7\\u00e3o",
+      "current_category": "Fic\\u00e7\\u00e3o",
+      "id": "823 O79mi",
+      "lib_id": "70",
+      "author": "Orwell, George, 1903-1950",
+      "title": "1984 / George Orwell ; tradu\\u00e7\\u00e3o de Alexandre Hubner, Heloisa Jahn",
+      "status": "0"
+    },
+    {
+      "category": "Fic\\u00e7\\u00e3o",
+      "current_category": "Fic\\u00e7\\u00e3o",
+      "id": "823 D754vt",
+      "lib_id": "71",
+      "author": "Doyle, Arthur Conan, Sir, 1859-1930",
+      "title": "O vale do terror / Conan Doyle; tradu\\u00e7\\u00e3o de \\u00c1lvaro Pinto de Aguiar",
+      "status": "0"
+    },
+    {
+      "category": "Fic\\u00e7\\u00e3o",
+      "current_category": "Fic\\u00e7\\u00e3o",
+      "id": "823 D314r",
+      "lib_id": "72",
+      "author": "Defoe, Daniel, 1661?-1731",
+      "title": "As aventuras de Robinson Cruso\\u00e9 : vers\\u00e3o integral / Daniel Defoe ; tradu\\u00e7\\u00e3o de Albino Poli Jr.",
+      "status": "0"
+    },
+    {
+      "category": "Fic\\u00e7\\u00e3o",
+      "current_category": "Fic\\u00e7\\u00e3o",
+      "id": "823 D754en",
+      "lib_id": "73",
+      "author": "Doyle, Arthur Conan, Sir, 1859-1930",
+      "title": "O enigma do Coronel Hayter e outras aventuras / Arthur Conan Doyle, tradu\\u00e7\\u00e3o de Antonio Carlos Vilela",
+      "status": "0"
+    },
+    {
+      "category": "Fic\\u00e7\\u00e3o",
+      "current_category": "Fic\\u00e7\\u00e3o",
+      "id": "823 O52e",
+      "lib_id": "74",
+      "author": "Olsen, Corey",
+      "title": "Explorando o universo do Hobbit: mensagens secretas, curiosidades e a filosofia na hist\\u00f3ria da terra m\\u00e9dia / Corey Olsen ; tradu\\u00e7\\u00e3o de Carlos Szlak",
+      "status": "0"
+    },
+    {
+      "category": "Fic\\u00e7\\u00e3o",
+      "current_category": "Fic\\u00e7\\u00e3o",
+      "id": "823 P982g",
+      "lib_id": "75",
+      "author": "Pullman, Philip, 1946-",
+      "title": "The golden compass / Philip Pullman.",
+      "status": "0"
+    },
+    {
+      "category": "Fic\\u00e7\\u00e3o",
+      "current_category": "Fic\\u00e7\\u00e3o",
+      "id": "823 R884pa",
+      "lib_id": "76",
+      "author": "Rowling, J. K., 1965-",
+      "title": "Harry Potter e o prisioneiro de Azkaban / J. K. Rowling ; tradu\\u00e7\\u00e3o de Lia Wyler",
+      "status": "0"
+    },
+    {
+      "category": "Fic\\u00e7\\u00e3o",
+      "current_category": "Fic\\u00e7\\u00e3o",
+      "id": "823 T649h 6. ed.",
+      "lib_id": "77",
+      "author": "Tolkien, J. R. R.",
+      "title": "O hobbit / J. R. R. Tolkien ; tradu\\u00e7\\u00e3o Lenita Maria Rimoli Esteves, Almiro Pisetta ; revis\\u00e3o t\\u00e9cnica e consultoria Ronald Eduard Kyrmse ; coord. Lu\\u00eds Carlos Borges",
+      "status": "0"
+    },
+    {
+      "category": "Fic\\u00e7\\u00e3o",
+      "current_category": "Fic\\u00e7\\u00e3o",
+      "id": "822 S527ma",
+      "lib_id": "78",
+      "author": "Shakespeare, William, 1564-1616",
+      "title": "Macbeth / William Shakespeare ; tradu\\u00e7\\u00e3o de Geir Campos",
+      "status": "0"
+    },
+    {
+      "category": "Fic\\u00e7\\u00e3o",
+      "current_category": "Fic\\u00e7\\u00e3o",
+      "id": "823 D754mi",
+      "lib_id": "79",
+      "author": "Doyle, Arthur Conan, Sir, 1859-1930",
+      "title": "O mist\\u00e9rio do Vale Boscombe e outras aventuras / Arthur Conan Doyle, tradu\\u00e7\\u00e3o de Antonio Carlos Vilela",
+      "status": "0"
+    },
+    {
+      "category": "Fic\\u00e7\\u00e3o",
+      "current_category": "Fic\\u00e7\\u00e3o",
+      "id": "372.65 M531m",
+      "lib_id": "80",
+      "author": "Melville, Herman, 1819-1891",
+      "title": "Moby Dick / Herman Melville ; abridged, simplified and illustred by A. S. M. Ronaldson",
+      "status": "0"
     }
   ]
 }
