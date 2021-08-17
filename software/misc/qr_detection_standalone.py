@@ -101,12 +101,12 @@ def qr_detect(
 
 
 # Usage example
-# print(
-#     qr_detect(
-#         camera_address="http://192.168.0.2:8080/video",
-#         exposition_iterations=50,
-#         crop_top=150,
-#         crop_bottom=150,
-#         display_capture=True,
-#     )
-# )
+print(
+    qr_detect(
+        camera_address=0,
+        exposition_iterations=50,
+        crop_top=80,
+        crop_bottom=230,
+        display_capture=True,
+    )
+)
