@@ -139,21 +139,21 @@ class Library:
             self.__categories_positions = config["Categories Positions"]
 
     def update_books_internal_code(self):
-        # lib_config = requests.get("http://localhost:5001/ordered_books").json()
-        lib_config = {
-            "Biography": [
-                "2321.23",  # Alan Turing
-                "102.1x",  # Ed Sheeran
-                "43442.aa2",  # Steve Jobs
-                "5453.g",  # Paul McCartney
-                "6233.o",  # Jim Carrey
-            ],
-            "Detective": [
-                "7543.69",  # Scooby Doo
-                "7543.bb",  # Sherlock Holmes
-                "7542.69",  # Lupin
-            ],
-        }
+        lib_config = requests.get("http://192.168.0.11:5001/ordered_books").json()
+        # lib_config = {
+        #     "Biography": [
+        #         "2321.23",  # Alan Turing
+        #         "102.1x",  # Ed Sheeran
+        #         "43442.aa2",  # Steve Jobs
+        #         "5453.g",  # Paul McCartney
+        #         "6233.o",  # Jim Carrey
+        #     ],
+        #     "Detective": [
+        #         "7543.69",  # Scooby Doo
+        #         "7543.bb",  # Sherlock Holmes
+        #         "7542.69",  # Lupin
+        #     ],
+        # }
 
         for book in self.__books:
             for category, ordered_books in lib_config.items():
@@ -163,26 +163,26 @@ class Library:
                             book.set_internal_code(index)
 
     def update_library_books(self):
-        # books = []
-        # data = requests.get("http://localhost:5001/books").json()
-        # for book in data:
-        #     books.append(
-        #         {
-        #             "name": book["title"],
-        #             "ucode": book["id"],
-        #             "category": book["current_category"],
-        #         }
-        #     )
-        books = [
-            {"name": "Ed Sheeran", "ucode": "102.1x", "category": "Biography"},
-            {"name": "Alan Turing", "ucode": "2321.23", "category": "Biography"},
-            {"name": "Steve Jobs", "ucode": "43442.aa2", "category": "Biography"},
-            {"name": "Paul McCartney", "ucode": "5453.g", "category": "Biography"},
-            {"name": "Jim Carrey", "ucode": "6233.o", "category": "Biography"},
-            {"name": "Sherlock Holmes", "ucode": "7543.bb", "category": "Detective"},
-            {"name": "Lupin", "ucode": "7542.69", "category": "Detective"},
-            {"name": "Scooby Doo", "ucode": "7543.69", "category": "Detective"},
-        ]
+        books = []
+        data = requests.get("http://192.168.0.11:5001/books").json()
+        for book in data:
+            books.append(
+                {
+                    "name": book["title"],
+                    "ucode": book["id"],
+                    "category": book["current_category"],
+                }
+            )
+        # books = [
+        #     {"name": "Ed Sheeran", "ucode": "102.1x", "category": "Biography"},
+        #     {"name": "Alan Turing", "ucode": "2321.23", "category": "Biography"},
+        #     {"name": "Steve Jobs", "ucode": "43442.aa2", "category": "Biography"},
+        #     {"name": "Paul McCartney", "ucode": "5453.g", "category": "Biography"},
+        #     {"name": "Jim Carrey", "ucode": "6233.o", "category": "Biography"},
+        #     {"name": "Sherlock Holmes", "ucode": "7543.bb", "category": "Detective"},
+        #     {"name": "Lupin", "ucode": "7542.69", "category": "Detective"},
+        #     {"name": "Scooby Doo", "ucode": "7543.69", "category": "Detective"},
+        # ]
 
         for book in books:
             self.add_book(Book(book["name"], book["ucode"], book["category"]))
