@@ -137,9 +137,9 @@ class ArduinoInterface:
                 print("QR detecting")
                 bottom_detection = qr_detect(
                     camera_address=0,
-                    exposition_iterations=50,
-                    crop_top=0,
-                    crop_bottom=0,
+                    exposition_iterations=10,
+                    crop_top=700,
+                    crop_bottom=200,
                     horz_res=1920,
                     vert_res=1080,
                     display_capture=False,
@@ -147,22 +147,22 @@ class ArduinoInterface:
                 print(bottom_detection)
                 books_scanned_bottom.append(bottom_detection)
                 # ------------------
-                # top_detection = qr_detect(
-                #     camera_address=1,
-                #     exposition_iterations=50,
-                #     crop_top=0,
-                #     crop_bottom=0,
-                #     horz_res=1920,
-                #     vert_res=1080,
-                #     display_capture=False,
-                # )
-                # print(top_detection)
+                top_detection = qr_detect(
+                    camera_address=1,
+                    exposition_iterations=10,
+                    crop_top=400,
+                    crop_bottom=300,
+                    horz_res=1920,
+                    vert_res=1080,
+                    display_capture=False,
+                )
+                print(top_detection)
                 # books_scanned_top.append(top_detection)
                 # # ------------------
                 # always flush after writing
+                time.sleep(1)
                 self.arduino_serial.write("next__".encode("utf-8"))
                 self.arduino_serial.flush()
-                time.sleep(3)
             elif decoded_response == "final_eol":
                 break
             else:
