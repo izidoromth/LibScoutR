@@ -2,6 +2,7 @@ from library import Library
 from arduino_interface import ArduinoInterface
 import time
 import random
+import requests
 
 
 class Robot:
@@ -306,8 +307,16 @@ class Robot:
         #     #   '1st floor': ['123 x23 iqw', '456 y12 8kk', '801 sin cos'],
         #     #   '2nd floor': ['123 x23 iqw', '456 y12 8kk', '801 sin cos']
         #     # }
-        #     for book_code in codes_scanned:
-        #         pass
+        #     __request = {
+        #       '1st floor': self.organize_shelve(scanning_these_categories['1st floor'], codes_scanned['1st floor']),
+        #       '2nd floor': self.organize_shelve(scanning_these_categories['2nd floor'], codes_scanned['2nd floor'])
+        #     }
+        #     __request['1st floor']['category'] = codes_scanned['1st floor']
+        #     __request['2nd floor']['category'] = codes_scanned['2nd floor']
+
+        #     requests.post('http://localhost:5001/update_books', json = __request)
+
+
 
         self.__came_from_color = self.__current_color
         self.__current_color = self.__going_to_color

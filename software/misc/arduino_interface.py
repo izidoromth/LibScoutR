@@ -1,5 +1,6 @@
 import time
 import serial
+import cv2
 from qr_detection_standalone import qr_detect
 
 
@@ -10,6 +11,8 @@ class ArduinoInterface:
         )
         self.arduino_serial.reset_output_buffer()
         self.arduino_serial.write("init".encode("utf-8"))
+        self.videocap0 = cv2.VideoCapture(0)
+        self.videocap1 = cv2.VideoCapture(1)
 
     def generate_list_from_parts(self, list_with_lists, orientation):
         my_set = set()
@@ -138,11 +141,12 @@ class ArduinoInterface:
                 bottom_detection = qr_detect(
                     camera_address=0,
                     exposition_iterations=10,
-                    crop_top=700,
-                    crop_bottom=200,
+                    crop_top=875,
+                    crop_bottom=0,
                     horz_res=1920,
                     vert_res=1080,
                     display_capture=False,
+                    vc=self.videocap0,
                 )
                 print(bottom_detection)
                 books_scanned_bottom.append(bottom_detection)
@@ -155,6 +159,7 @@ class ArduinoInterface:
                     horz_res=1920,
                     vert_res=1080,
                     display_capture=False,
+                    vc=self.videocap1,
                 )
                 print(top_detection)
                 # books_scanned_top.append(top_detection)

@@ -12,6 +12,11 @@
             <td mat-cell *matCellDef="let book"> {{book.title}} </td>
         </ng-container>
 
+        <!-- Author Column -->
+        <ng-container matColumnDef="author">
+            <th mat-header-cell *matHeaderCellDef> Author </th>
+            <td mat-cell *matCellDef="let book"> {{book.author}} </td>
+        </ng-container>
 
 
         <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
@@ -20,8 +25,7 @@
                 <div class="example-element-detail"
                     [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
                     <div>
-                        <div> <b>Author:</b> {{element.author}} </div>
-                        <div> <b>Category:</b> {{element.category}} </div>
+                        <div> <b>Category:</b> {{element.current_category}} </div>
                         <div> <b>Id:</b> {{element.id}} </div>
                     </div>
                     <span class="example-spacer"></span>

@@ -58,4 +58,18 @@ def get_ordered_books():
     con.close()
     return books
     
-# insert_data_books()
+
+def update_book(current_category, status, id):
+
+    con = create_connection("database\libscout.db")
+    cur = con.cursor()
+    
+    cur.execute(
+            'UPDATE BOOKS SET \
+                            current_category = "{}", \
+                            status = "{}" \
+            WHERE id = "{}";'.format(current_category, status, id)
+        )
+        
+    con.commit()
+    con.close()

@@ -26,6 +26,7 @@ def list_ports():
                     % (dev_port, h, w)
                 )
                 available_ports.append(dev_port)
+        camera.release()
         dev_port += 1
     return available_ports, working_ports
 

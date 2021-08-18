@@ -23,7 +23,7 @@ export class SearchBookComponent implements OnInit {
   }
 
   books: Book[] = [];
-  displayedColumns: string[] = ['title'];
+  displayedColumns: string[] = ['title', 'author'];
   expandedElement!: Book;
   dataSource = new MatTableDataSource(this.books);
   clickedRow: Book | null = null;

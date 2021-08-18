@@ -17,14 +17,14 @@ returns a list with the codes detected, in order from left to right  """
 
 
 def qr_detect(
-    camera_address, exposition_iterations, crop_top, crop_bottom, horz_res, vert_res, display_capture
+    camera_address, exposition_iterations, crop_top, crop_bottom, horz_res, vert_res, display_capture, vc
 ):
 
     if display_capture:
         cv2.namedWindow("preview")
 
     # open camera feed
-    vc = cv2.VideoCapture(camera_address)
+    #vc = cv2.VideoCapture(camera_address)
     vc.set(3, horz_res)  # Set horizontal resolution
     vc.set(4, vert_res)  # Set vertical resolution
 
@@ -106,11 +106,12 @@ def qr_detect(
 # print(
 #     qr_detect(
 #         camera_address=0,
-#         exposition_iterations=10,
-#         crop_top=700,
-#         crop_bottom=200,
+#         exposition_iterations=15,
+#         crop_top=875,
+#         crop_bottom=0,
 #         horz_res=1920,
 #         vert_res=1080,
 #         display_capture=True,
+#         vc=cv2.VideoCapture(0)
 #     )
 # )

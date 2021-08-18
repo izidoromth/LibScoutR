@@ -2,21 +2,15 @@
     <table mat-table [dataSource]="dataSource" multiTemplateDataRows>
 
         <!-- Category Column -->
-        <ng-container matColumnDef="currentCategory">
-            <th style='text-align: center;' mat-header-cell *matHeaderCellDef> Current Category </th>
-            <td style='text-align: center;' mat-cell *matCellDef="let element"> {{element.category}} </td>
+        <ng-container matColumnDef="title">
+            <th  mat-header-cell *matHeaderCellDef> Title </th>
+            <td  mat-cell *matCellDef="let element"> {{element.title}} </td>
         </ng-container>
 
-        <!-- Id Column -->
-        <ng-container matColumnDef="id">
-            <th style='text-align: center;' mat-header-cell *matHeaderCellDef> Id </th>
-            <td style='text-align: center;' mat-cell *matCellDef="let element"> {{element.id}} </td>
-        </ng-container>
-
-        <!-- Category Column -->
-        <ng-container matColumnDef="category">
-            <th style='text-align: center;' mat-header-cell *matHeaderCellDef> Target Category </th>
-            <td style='text-align: center;' mat-cell *matCellDef="let element"> {{element.category}} </td>
+        <!-- Author Column -->
+        <ng-container matColumnDef="author">
+            <th mat-header-cell *matHeaderCellDef> Author </th>
+            <td mat-cell *matCellDef="let element"> {{element.author}} </td>
         </ng-container>
 
 
@@ -26,10 +20,9 @@
                 <div class="example-element-detail"
                     [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
                     <div>
-                        <div> <b>Title:</b> {{element.title}} </div>
-                        <div> <b>Author:</b> {{element.author}} </div>
-                        <div> <b>Category:</b> {{element.category}} </div>
-                        <div> <b>Id:</b> {{element.id}} </div>
+                        <div> <b>Status:</b> {{getStatusMessage(element.status, element.category)}} </div>
+                        <div> <b>Current Category:</b> {{element.current_category}} </div>
+                        <div> <b>Id:</b> {{element.id}} </div>               
                     </div>
                 </div>
             </td>

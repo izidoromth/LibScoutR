@@ -27,12 +27,31 @@ def ordered_books():
 
     return json.dumps(result)
 
-
-# @app.route('/update_books', methods = ['POST'])
-# def update_books():
-#     data = request.get_json()
-#     return data['books'][0]
-
+# request is like {
+#                     '1st floor': {
+#                                     'Wrong Shelve': ['7542.69', '7543.69'],
+#                                     'Out of Order': ['2321.23'],
+#                                     'category': 'Adventure'
+#                                 },
+#                     '2nd floor': {
+#                                     'Wrong Shelve': ['7542.69', '7543.69'],
+#                                     'Out of Order': ['2321.23'],
+#                                     'category': 'Romance'
+#                                 }
+#                 }
+@app.route('/update_books', methods = ['POST'])
+def update_books():
+    data = request.get_json()
+    for floor in data:
+        for status in data[floor]:
+            for id in data[floor][status]:
+                if status == "Wrong Shelve":
+                    print(data[floor]['category'], "1", id)
+                    #dbf.update_book(data[floor]['category'], "1", id)
+                if status == "Out of Order":
+                    print(data[floor]['category'], "2", id)
+                    #dbf.update_book(data[floor]['category'], "2", id)
+    return data, 200
 
 if __name__ == "__main__":
     app.run(host="localhost", port=5001)
