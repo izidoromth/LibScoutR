@@ -7,7 +7,8 @@ import { Book } from '../../models/book';
 })
 export class ApiService {
 
-  private baseUrl:string = 'http://localhost:5001/'
+  private baseUrl:string = 'http://localhost:5001/';
+  private rPiUrl:string = 'http://localhost:5001/';
 
   constructor(private http: HttpClient) { }
 
@@ -22,7 +23,7 @@ export class ApiService {
       "current_category": book.current_category
     });
 
-    return this.http.post(this.baseUrl+'/guide_user', json_book);
+    return this.http.post(this.rPiUrl+'/guide_user', json_book);
   }
 
 }
