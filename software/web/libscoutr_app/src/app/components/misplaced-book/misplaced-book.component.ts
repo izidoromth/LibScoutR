@@ -23,7 +23,7 @@ export class MisplacedBookComponent implements OnInit {
   }
 
   books: Book[] = [];
-  displayedColumns: string[] = ['currentCategory', 'id', 'category'];
+  displayedColumns: string[] = ['title', 'author'];
   expandedElement!: Book | null;
   dataSource = new MatTableDataSource(this.books);
 
@@ -32,11 +32,24 @@ export class MisplacedBookComponent implements OnInit {
   ngOnInit(): void {
     this.apiService.getBooks().subscribe((data: Book[]) => {
       data.forEach(element => {
-        this.books.push(element)
+        if(element.status != "0") {
+          this.books.push(element);
+        }
       });
       this.dataSource = new MatTableDataSource(this.books);
       this.dataSource.paginator = this.paginator;
     });
+  }
+
+  getStatusMessage(status: string, category: string): string {
+    if (status == "1") {
+      return "Wrong category. Correct one is: " + category
+    }
+    if (status == "2") {
+      return "Book in the wrong order"
+    }
+
+    return "The book is placed correctly"
   }
 
 }

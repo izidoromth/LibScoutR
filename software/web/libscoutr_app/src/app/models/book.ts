@@ -2,7 +2,8 @@ export interface Book {
     category: string,
     current_category: string,
     id: string,
-    libId: string,
+    lib_id: string,
     author: string,
     title: string,
+    status: string
 }
