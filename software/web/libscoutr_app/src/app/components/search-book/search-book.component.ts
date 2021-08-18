@@ -24,7 +24,7 @@ export class SearchBookComponent implements OnInit {
 
   books: Book[] = [];
   displayedColumns: string[] = ['title'];
-  expandedElement!: Book | null;
+  expandedElement!: Book;
   dataSource = new MatTableDataSource(this.books);
   clickedRow: Book | null = null;
   searching: Boolean = false;

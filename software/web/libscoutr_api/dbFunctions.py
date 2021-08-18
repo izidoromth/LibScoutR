@@ -23,13 +23,14 @@ def insert_data_books():
     books = json.load(file)["books"]
     for book in books:
         cur.execute(
-            "INSERT INTO BOOKS VALUES ('{}', '{}', '{}', '{}', '{}', '{}');".format(
-                book["category"],
-                book["current_category"],
-                book["id"],
-                book["lib_id"],
-                book["author"],
-                book["title"],
+            'INSERT INTO BOOKS VALUES ("{}", "{}", "{}", "{}", "{}", "{}", "{}");'.format(
+                bytes(book["category"], "utf-8").decode("unicode_escape"),
+                bytes(book["current_category"], "utf-8").decode("unicode_escape"),
+                bytes(book["id"], "utf-8").decode("unicode_escape"),
+                bytes(book["lib_id"], "utf-8").decode("unicode_escape"),
+                bytes(book["author"], "utf-8").decode("unicode_escape"),
+                str(bytes(book["title"], "utf-8").decode("unicode_escape")).split(' / ')[0],
+                book["status"],
             )
         )
     con.commit()
@@ -56,3 +57,5 @@ def get_ordered_books():
     con.commit()
     con.close()
     return books
+    
+# insert_data_books()

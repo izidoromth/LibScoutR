@@ -17,7 +17,7 @@ returns a list with the codes detected, in order from left to right  """
 
 
 def qr_detect(
-    camera_address, exposition_iterations, crop_top, crop_bottom, display_capture
+    camera_address, exposition_iterations, crop_top, crop_bottom, horz_res, vert_res, display_capture
 ):
 
     if display_capture:
@@ -25,6 +25,8 @@ def qr_detect(
 
     # open camera feed
     vc = cv2.VideoCapture(camera_address)
+    vc.set(3, horz_res)  # Set horizontal resolution
+    vc.set(4, vert_res)  # Set vertical resolution
 
     # try to get the first frame
     if vc.isOpened():
@@ -101,12 +103,14 @@ def qr_detect(
 
 
 # Usage example
-print(
-    qr_detect(
-        camera_address=0,
-        exposition_iterations=50,
-        crop_top=80,
-        crop_bottom=230,
-        display_capture=True,
-    )
-)
+# print(
+#     qr_detect(
+#         camera_address=0,
+#         exposition_iterations=10,
+#         crop_top=700,
+#         crop_bottom=200,
+#         horz_res=1920,
+#         vert_res=1080,
+#         display_capture=True,
+#     )
+# )
