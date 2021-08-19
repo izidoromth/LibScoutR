@@ -45,7 +45,6 @@ class Robot:
 
         for i in range(0, len(book_list)):
             for j in range(0, i):
-
                 # a new larger increasing subsequence found
                 if (
                     book_list[j].get_internal_code() < book_list[i].get_internal_code()
@@ -237,7 +236,7 @@ class Robot:
             print("\n\n")
 
     def organize_shelve(self, category, list_of_book_read):
-        codes_read = list_of_book_read
+        codes_read = [code.replace('\n', ' ') for code in list_of_book_read]
         books_read = self.__library.create_book_list_from_code_list(codes_read)
         same_category_books = self.__library.filter_book_list_by_category(
             books_read, category
@@ -247,14 +246,22 @@ class Robot:
             for book in books_read
             if book not in same_category_books
         ]
-        correct_books = self.__LIS(same_category_books)
-        incorrect_books = []
-        for book in same_category_books:
-            if book not in correct_books[0]:
-                incorrect_books.append(book.get_universal_code())
+        # print("codes in organize", codes_read)
+        # print("books in organize", [book.get_universal_code() for book in books_read])
+        # print("internals in organize", [book.get_internal_code() for book in books_read])
+        # print("same category in organize", same_category_books)
 
-        print("Oraganization plan:")
-        return {"Wrong Shelve": wrong_shelf_books, "Out of Order": incorrect_books}
+        incorrect_books = []
+        if len(same_category_books):
+            correct_books = self.__LIS(same_category_books)
+            for book in same_category_books:
+                if book not in correct_books[0]:
+                    incorrect_books.append(book.get_universal_code())
+
+        print("Organization plan:")
+        response = {"Wrong Shelve": wrong_shelf_books, "Out of Order": incorrect_books}
+        print(response)
+        return response
 
     def scout(self):
         self.__going_to_color = self.__get_next_color_path(
@@ -311,6 +318,19 @@ class Robot:
               '1st floor': self.organize_shelve(scanning_these_categories['1st floor'], codes_scanned['1st floor']),
               '2nd floor': self.organize_shelve(scanning_these_categories['2nd floor'], codes_scanned['2nd floor'])
             }
+            # __request = {
+            #     "1st floor": {
+            #         "Wrong Shelve": ["530 S439fis", "530 P327fi"],
+            #         "Out of Order": ["530 C977c"],
+            #         "category": "Eletrônica"
+            #     },
+            #     "2nd floor": {
+            #         "Wrong Shelve": ["621.381 Z39p", "621.381 T948m"],
+            #         "Out of Order": ["621.381 K21e"],
+            #         "category": "Biologia"
+            #     }
+            # }           
+            print(__request)
             __request['1st floor']['category'] = codes_scanned['1st floor']
             __request['2nd floor']['category'] = codes_scanned['2nd floor']
 

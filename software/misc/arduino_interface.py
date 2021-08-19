@@ -14,7 +14,9 @@ class ArduinoInterface:
         self.videocap0 = cv2.VideoCapture(0)
         self.videocap1 = cv2.VideoCapture(1)
 
-    def generate_list_from_parts(self, list_with_lists, orientation):
+    def generate_list_from_parts(self, list_with_lists, orientation): 
+        if len(list_with_lists) == 0:
+            return []
         my_set = set()
         final_list = []
         if orientation == "Backwards":
@@ -162,7 +164,7 @@ class ArduinoInterface:
                     vc=self.videocap1,
                 )
                 print(top_detection)
-                # books_scanned_top.append(top_detection)
+                books_scanned_top.append(top_detection)
                 # # ------------------
                 # always flush after writing
                 time.sleep(1)
@@ -173,7 +175,6 @@ class ArduinoInterface:
             else:
                 print("deu ruim")
             time.sleep(1)
-
         final_list_bottom = self.generate_list_from_parts(
             books_scanned_bottom, orientation
         )
