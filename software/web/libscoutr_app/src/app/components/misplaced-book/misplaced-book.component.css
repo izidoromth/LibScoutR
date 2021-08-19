@@ -1,4 +1,8 @@
 /* Structure */
+.example-spacer {
+  flex: 1 1 auto;
+}
+
 table {
     width: 100%;
     margin: auto;

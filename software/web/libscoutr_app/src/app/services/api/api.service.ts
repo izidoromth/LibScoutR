@@ -7,13 +7,25 @@ import { Book } from '../../models/book';
 })
 export class ApiService {
 
-  private baseUrl:string = 'http://10.0.0.169:5001/';
+  private baseUrl:string = 'http://localhost:5001/';
   private rPiUrl:string = 'http://localhost:5000/';
 
   constructor(private http: HttpClient) { }
 
   getBooks(){
     return this.http.get<Book[]>(this.baseUrl+'books')
+  };
+
+  correctBook(book: Book){
+    let json_book = {
+      "current_category": book.category,
+      "status": "0",
+      "id": book.id
+    };
+
+    console.log(json_book);
+
+    return this.http.post(this.baseUrl+'correct_book', json_book);
   };
 
   searchBook(book: Book){
