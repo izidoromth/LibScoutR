@@ -7,8 +7,8 @@ import { Book } from '../../models/book';
 })
 export class ApiService {
 
-  private baseUrl:string = 'http://localhost:5001/';
-  private rPiUrl:string = 'http://localhost:5001/';
+  private baseUrl:string = 'http://10.0.0.169:5001/';
+  private rPiUrl:string = 'http://localhost:5000/';
 
   constructor(private http: HttpClient) { }
 

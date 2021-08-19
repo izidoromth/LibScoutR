@@ -161,14 +161,6 @@ class Library:
     def update_library_books(self):
         books = []
         data = requests.get("http://192.168.0.11:5001/books").json()
-        for book in data:
-            books.append(
-                {
-                    "name": book["title"],
-                    "ucode": book["id"],
-                    "category": book["current_category"],
-                }
-            )
 
         # books = [
         #     {"name": "Ed Sheeran", "ucode": "823 O79mi 0070", "category": "Romance"},
