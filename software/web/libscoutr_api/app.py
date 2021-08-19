@@ -67,7 +67,7 @@ def update_books():
 def correct_book():
     data = request.get_json()
     dbf.update_book(data["current_category"], data["status"] , data["id"])
-    return 'ok', 200
+    return data, 200
 
 if __name__ == "__main__":
     app.run(host="localhost", port=5001)

@@ -63,6 +63,7 @@ export class MisplacedBookComponent implements OnInit {
         body.style.overflow = 'scroll';
         spinner.style.display = 'none';
       }
+      console.log(res)
       window.location.reload();
     })
     if(spinner && body){
