@@ -24,8 +24,9 @@ export class MisplacedBookComponent implements OnInit {
 
   books: Book[] = [];
   displayedColumns: string[] = ['title', 'author'];
-  expandedElement!: Book | null;
+  expandedElement!: Book;
   dataSource = new MatTableDataSource(this.books);
+  searching: Boolean = false;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -50,6 +51,25 @@ export class MisplacedBookComponent implements OnInit {
     }
 
     return "The book is placed correctly"
+  }
+
+  correctBook(book: Book) {
+    this.searching = true;
+    let body = document.getElementById('body');
+    let spinner = document.getElementById('spinner');
+
+    this.apiService.correctBook(book).subscribe(res => {
+      if(spinner && body){
+        body.style.overflow = 'scroll';
+        spinner.style.display = 'none';
+      }
+      console.log(res)
+      window.location.reload();
+    })
+    if(spinner && body){
+      body.style.overflow = 'hidden';
+      spinner.style.display = 'block';
+    }
   }
 
 }

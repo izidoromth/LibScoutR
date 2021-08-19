@@ -25,7 +25,6 @@ def robot_books():
                 })
     return json.dumps(result)
 
-
 @app.route("/ordered_books")
 def ordered_books():
     result = {}
@@ -56,12 +55,19 @@ def update_books():
         for status in data[floor]:
             for id in data[floor][status]:
                 if status == "Wrong Shelve":
-                    print(data[floor]['category'], "1", id)
-                    dbf.update_book(data[floor]['category'], "1", id)
+                    print(data[floor]['category'], "1", id.split(" 0")[0])
+                    dbf.update_book(data[floor]['category'], "1", id.split(" 0")[0])
                 if status == "Out of Order":
-                    print(data[floor]['category'], "2", id)
-                    dbf.update_book(data[floor]['category'], "2", id)
+                    print(data[floor]['category'], "2", id.split(" 0")[0])
+                    dbf.update_book(data[floor]['category'], "2", id.split(" 0")[0])
+    return data, 200
+
+
+@app.route('/correct_book', methods = ['POST'])
+def correct_book():
+    data = request.get_json()
+    dbf.update_book(data["current_category"], data["status"] , data["id"])
     return data, 200
 
 if __name__ == "__main__":
-    app.run(host="10.0.0.169", port=5001)
+    app.run(host="localhost", port=5001)

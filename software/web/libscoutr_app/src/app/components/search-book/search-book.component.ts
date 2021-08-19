@@ -53,14 +53,14 @@ export class SearchBookComponent implements OnInit {
     let spinner = document.getElementById('spinner');
 
     this.apiService.searchBook(book).subscribe(res => {
-      if(spinner && body){
-        body.style.overflow = 'scroll';
-        spinner.style.display = 'none';
-      }
+      // if(spinner && body){
+      //   body.style.overflow = 'scroll';
+      //   spinner.style.display = 'none';
+      // }
     })
-    if(spinner && body){
-      body.style.overflow = 'hidden';
-      spinner.style.display = 'block';
-    }
+    // if(spinner && body){
+    //   body.style.overflow = 'hidden';
+    //   spinner.style.display = 'block';
+    // }
   }
 }
