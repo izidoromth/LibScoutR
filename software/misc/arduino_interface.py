@@ -143,8 +143,8 @@ class ArduinoInterface:
                 bottom_detection = qr_detect(
                     camera_address=0,
                     exposition_iterations=10,
-                    crop_top=875,
-                    crop_bottom=0,
+                    crop_top=600,
+                    crop_bottom=200,
                     horz_res=1920,
                     vert_res=1080,
                     display_capture=False,

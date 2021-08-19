@@ -3,8 +3,8 @@
 #include "dc_motors.h"
 #include "ir_sensor.h"
 
-#define RightInitialSpeed 103
-#define LeftInitialSpeed 103
+#define RightInitialSpeed 101
+#define LeftInitialSpeed 101
 
 #define Kp_fw 5
 #define Ki_fw 0

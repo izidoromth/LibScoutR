@@ -246,10 +246,10 @@ class Robot:
             for book in books_read
             if book not in same_category_books
         ]
-        # print("codes in organize", codes_read)
-        # print("books in organize", [book.get_universal_code() for book in books_read])
-        # print("internals in organize", [book.get_internal_code() for book in books_read])
-        # print("same category in organize", same_category_books)
+        print("codes in organize", codes_read)
+        print("books in organize", [book.get_universal_code() for book in books_read])
+        print("internals in organize", [book.get_internal_code() for book in books_read])
+        print("same category in organize", same_category_books)
 
         incorrect_books = []
         if len(same_category_books):
