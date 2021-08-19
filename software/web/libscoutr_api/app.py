@@ -7,9 +7,15 @@ import dbFunctions as dbf
 app = Flask(__name__, static_url_path="")
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
-
 @app.route("/books")
 def books():
+    result = []
+    for row in dbf.get_books():
+        result.append(dict(row))
+    return json.dumps(result)
+
+@app.route("/robot_books")
+def robot_books():
     result = []
     for row in dbf.get_books():
         result.append({
