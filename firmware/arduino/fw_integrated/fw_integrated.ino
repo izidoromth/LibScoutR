@@ -3,8 +3,8 @@
 #include "dc_motors.h"
 #include "ir_sensor.h"
 
-#define RightInitialSpeed 101
-#define LeftInitialSpeed 101
+#define RightInitialSpeed 102
+#define LeftInitialSpeed 102
 
 #define Kp_fw 5
 #define Ki_fw 0
@@ -331,9 +331,9 @@ void Rotate(int ninety_steps, boolean angular_dir, boolean previous_dir)
   DcMotors::ActivateRightMotor(RightInitialSpeed*ang_momentum, angular_dir);
 
   if(previous_dir)
-    delay(300);
+    delay(450);
   else
-    delay(400);
+    delay(450);
   
   while(steps < ninety_steps)
   {

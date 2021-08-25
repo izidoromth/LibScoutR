@@ -103,15 +103,15 @@ def qr_detect(
 
 
 # Usage example
-# print(
-#     qr_detect(
-#         camera_address=0,
-#         exposition_iterations=15,
-#         crop_top=600,
-#         crop_bottom=200,
-#         horz_res=1920,
-#         vert_res=1080,
-#         display_capture=True,
-#         vc=cv2.VideoCapture(0)
-#     )
-# )
+print(
+    qr_detect(
+        camera_address=0,
+        exposition_iterations=15,
+        crop_top=600,
+        crop_bottom=200,
+        horz_res=1920,
+        vert_res=1080,
+        display_capture=True,
+        vc=cv2.VideoCapture(0)
+    )
+)
